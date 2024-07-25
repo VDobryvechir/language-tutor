@@ -1,0 +1,84 @@
+<h3>Language</h3>
+<ol>
+ <li>id</li>
+ <li>name</li>
+ <li>code</li>
+ <li>translate:{code:name,code1:name1,...}</li>
+</ol>
+<h3>Resource</h3>
+<ol>
+ <li>id</li>
+ <li>name</li>
+ <li>translate:{code:name,code1:name1,...}</li>
+ <li>options:{showOrderNo:true}</li>
+ <li>langs:['code1',...]</li>
+ <li>activeLangs:['code1',...]</li>
+</ol>
+<h3>Book</h3>
+<ol>
+ <li>id</li>
+ <li>resourceId</li>
+ <li>name</li>
+ <li>translate:{code:name,code1:name1,...}</li>
+</ol>
+<h3>Chapter</h3>
+<ol>
+ <li>id</li>
+ <li>bookId</li>
+ <li>name</li>
+ <li>audio:{code:ref1,code1:ref2}</li>
+ <li>translate:{code:name,code1:name1,...}</li>
+</ol>
+<h3>Verse</h3>
+<ol>
+ <li>id</li>
+ <li>chapterId</li>
+ <li>text:{non:"I[1] opphavet[2] skapte[3] Gud[4] himmelen[5] og[6] jorda[7]",nob:"I[1] begynnelsen[8] skapte[3] Gud[4] himmelen[5] og[6] jorden[7]",en:"In[1] the[9] beginning[8] God[4] created[3] the[9] heavens[5] and[6] the[9] earth[7]",uk:""}</li>
+ <li>audioPosition:{code1:pos1,code2:pos2}</li>
+ <li>orderNo:int</li>
+</ol>
+<h3>Word</h3>
+<ol>
+ <li>id</li>
+ <li>name:string original form</li>
+ <li>forms:[word1,word2;word3;;word4]</li>
+ <li>lang</li>
+ <li>grammarId</li>
+ <li>meanings:[id1,...]</li>
+</ol>
+<h3>Meaning</h3>
+<ol>
+ <li>id</li>
+ <li>words:{non:[id1,id2,id3],nob:[id4]}</li>
+ <li>examples:[{non:"",nob:"",en:"",uk:""},...]</li>
+</ol>
+<h3>Dictionary</h3>
+<ol>
+ <li>id</li>
+ <li>name: single word or phrase</li>
+ <li>lang</li>
+ <li>words:[id1,id2,...]</li>
+</ol>
+<h3>Grammar</h3>
+<ol>
+ <li>id</li>
+ <li>lang</li>
+ <li>name</li>
+ <li>translate</li>
+ <li>colors:[col1,...]</li>
+ <li>level</li>
+ <li>parentId</li>
+ <li>forms:[name1,name2,...]</li>
+</ol>
+<h3>User</h3>
+<ol>
+ <li>id</li>
+ <li>name</li>
+ <li>email</li>
+ <li>pass</li>
+ <li>token</li>
+ <li>langs</li>
+ <li>studyLang</li>
+ <li>lastBook</li>
+ <li>lastChapter</li>
+</ol>

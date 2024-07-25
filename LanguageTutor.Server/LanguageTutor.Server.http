@@ -1,6 +1,3 @@
 @LanguageTutor.Server_HostAddress = http://localhost:5162
 
-GET {{LanguageTutor.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###

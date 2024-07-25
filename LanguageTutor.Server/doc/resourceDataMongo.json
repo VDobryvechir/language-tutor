@@ -1,0 +1,16 @@
+[
+{
+   "name": "Bible",
+   "translate":{"en":"Bible","nob":"Bibel","nob":"Bibel","uk":"Біблія","de":"Bibel","pl":"Biblia","es":"Biblia","fr":"Bible","it":"Bibbia","sv":"Bibeln","da":"Bibel","ru":"Библия","gr":"βίβλος"},
+   "options":{"showOrderNo":true},
+   "langs":["en","nob","non","uk","de","pl","es","fr","it","sv","da","ru","da","gr"],
+   "activeLangs":["en","nob","non","uk"]
+},
+{
+   "name": "God i norsk",
+   "translate":{},
+   "options":{"showOrderNo":false},
+   "langs":["en","nob","uk"],
+   "activeLangs":["en","nob","uk"]
+}
+]

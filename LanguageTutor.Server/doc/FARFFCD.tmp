@@ -1,0 +1,74 @@
+{
+  "name": "English",
+  "code": "en",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Deutsch",
+  "code": "de",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Norsk Bokmål",
+  "code": "nob",
+  "translate": {"de":"NorwegischB","non":"bokmål","nob":"bokmål","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Українська",
+  "code": "uk",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Русский",
+  "code": "ru",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Polski",
+  "code": "pl",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Francais",
+  "code": "fr",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Italiano",
+  "code": "it",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Espanol",
+  "code": "es",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Ellada",
+  "code": "gr",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Svensk",
+  "code": "sv",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Dansk",
+  "code": "da",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

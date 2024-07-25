@@ -1,0 +1,7 @@
+.header {
+   background-color: #3396FF;
+   display: flex;
+   height: 60px;
+   color: #FFFFFF;
+   justify-content: flex-end;
+}

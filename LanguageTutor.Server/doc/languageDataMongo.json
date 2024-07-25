@@ -1,0 +1,80 @@
+{
+  "name": "English",
+  "code": "en",
+  "translate": {"de":"Englisch","non":"engelsk","nob":"engelsk","uk":"англійська","ru":"английский","pl":"angielski","fr":"anglaise","it":"inglese","es":"inglés","gr":"Αγγλικά","sv":"engelsk","da":"engelsk"}
+},
+{
+  "name": "Deutsch",
+  "code": "de",
+  "translate": {"en":"German","non":"tysk","nob":"tysk","uk":"німецька","ru":"немецкий","pl":"niemiecki","fr":"allemanda","it":"tedesca","es":"alemana","gr":"Γερμανός","sv":"tysk","da":"tysk"}
+},
+{
+  "name": "Norsk Bokmål",
+  "code": "nob",
+  "translate": {"de":"Norwegisch Bokmål","non":"norsk bokmål","en":"Norwegian bokmål","uk":"норвезька букмоль","ru":"норвежский букмоль","pl":"norweski bokmål","fr":"norvégienne bokmål","it":"norvegese bokmål","es":"noruega bokmål","gr":"Νορβηγός bokmål","sv":"norska bokmål","da":"norsk bokmål"}
+},
+{
+  "name": "Norsk Nynorsk",
+  "code": "non",
+  "translate": {"de":"Norwegisch Nynorsk","en":"Norwegian nynorsk","nob":"norsk nynorsk","uk":"норвезька нинорск","ru":"норвежский нинорск","pl":"norweski nynorsk","fr":"norvégienne nynorsk","it":"norvegese nynorsk","es":"noruega nynorsk","gr":"Νορβηγός nynorsk","sv":"norska nynorsk","da":"norsk nynorsk"}
+},
+{
+  "name": "Українська",
+  "code": "uk",
+  "translate": {"de":"Ukrainisch","non":"ukrainsk","nob":"ukrainsk","en":"Ukrainian","ru":"украинский","pl":"ukraiński","fr":"ukrainienne","it":"ucraina","es":"ucrania","gr":"Ουκρανός","sv":"ukrainska","da":"ukrainsk"}
+},
+[
+{
+  "name": "Русский",
+  "code": "ru",
+  "translate": {"de":"Russisch","non":"russisk","nob":"russisk","uk":"російська","en":"Russian","pl":"rosyjski","fr":"russe","it":"russa","es":"rusa","gr":"Ρωσική","sv":"ryska","da":"russisk"}
+},
+{
+  "name": "Polski",
+  "code": "pl",
+  "translate": {"de":"Polnisch","non":"polsk","nob":"polsk","uk":"польська","ru":"польский","en":"Polish","fr":"polonais","it":"polacca","es":"polaca","gr":"Πολωνική","sv":"polska","da":"polsk"}
+},
+{
+  "name": "Français",
+  "code": "fr",
+  "translate": {"de":"Französisch","non":"fransk","nob":"fransk","uk":"французька","ru":"французский","pl":"francuski","en":"French","it":"francese","es":"francés","gr":"γαλλική","sv":"franska","da":"franska"}
+},
+{
+  "name": "Italiana",
+  "code": "it",
+  "translate": {"de":"Italienisch","non":"italiensk","nob":"italiensk","uk":"італійська","ru":"итальянский","pl":"włoski","fr":"italienne","en":"Italian","es":"italiano","gr":"ιταλική","sv":"italienska","da":"italiensk"}
+},
+{
+  "name": "Española",
+  "code": "es",
+  "translate": {"de":"Spanisch","non":"spansk","nob":"spansk","uk":"іспанська","ru":"испанский","pl":"hiszpański","fr":"l'Espagnol","it":"spagnola","en":"Spanish","gr":"Ισπανική","sv":"spanska","da":"spansk"}
+},
+{
+  "name": "Ελληνικά",
+  "code": "gr",
+  "translate": {"de":"Griechisch","non":"gresk","nob":"gresk","uk":"грецька","ru":"греческий","pl":"grecki","fr":"grecque","it":"greca","es":"griega","en":"Greek","sv":"grekiska","da":"græsk"}
+},
+{
+  "name": "Svenska",
+  "code": "sv",
+  "translate": {"de":"Schwedisch","non":"svensk","nob":"svensk","uk":"шведська","ru":"шведский","pl":"szwedzki","fr":"suédoise","it":"svedese","es":"sueco","gr":"σουηδική","en":"Swedish","da":"svensk"}
+},
+{
+  "name": "Dansk",
+  "code": "da",
+  "translate": {"de":"Dänisch","non":"dansk","nob":"dansk","uk":"датська","ru":"датский","pl":"duński","fr":"danoise","it":"danese","es":"danés","gr":"δανέζικη","sv":"danska","en":"Danish"}
+}
+]
+
+
+
+
+
+
+
+
+
+
+
+
+

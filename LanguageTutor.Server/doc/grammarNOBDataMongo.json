@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "lang": "nob",
+    "name": "substantiv",
+    "translate": {"en":"noun","uk":"іменник","non":"substantiv"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": ["entall ubestemt","entall bestemt","flertall ubestemt","flertall bestemt"]     
+  },
+  {
+    "id": 2,
+    "lang": "nob",
+    "name": "hunkjønn",
+    "translate": {"en":"feminine","uk":"жіночий рід","non":"hokjønn"},
+    "colors": ["#ff0000"],
+    "level": 1,
+    "parentId": 1,
+    "forms": []     
+  },
+  {
+    "id": 3,
+    "lang": "nob",
+    "name": "hankjønn",
+    "translate": {"en":"masculine","uk":"чоловічий рід","non":"hankjønn"},
+    "colors": ["#0000ff"],
+    "level": 1,
+    "parentId": 1,
+    "forms": []     
+  },
+  {
+    "id": 4,
+    "lang": "nob",
+    "name": "intetkjønn",
+    "translate": {"en":"neutral","uk":"середній рід","non":"inkjekjønn"},
+    "colors": ["#00ff00"],
+    "level": 1,
+    "parentId": 1,
+    "forms": []     
+  },
+  {
+    "id": 5,
+    "lang": "nob",
+    "name": "verb",
+    "translate": {"en":"verb","uk":"дієслово","non":"verb"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": ["infinitiv","presens","preteritum","presens perfektum","imperativ","perfektum partisipp hankjønn hunkjønn","perfektum partisipp intetkjønn","perfektum partisipp bestemt form","perfektum partisipp flertall","presens partisipp"]     
+  },
+  {
+    "id": 6,
+    "lang": "nob",
+    "name": "adverb",
+    "translate": {"en":"adverb","uk":"дієслово","non":"adverb"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": []     
+  }, 
+  {
+    "id": 7,
+    "lang": "nob",
+    "name": "konjunksjon",
+    "translate": {"en":"conjunction","uk":"сполучник","non":"konjunksjon"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": []     
+  },
+  {
+    "id": 8,
+    "lang": "nob",
+    "name": "determinativ kvantor",
+    "translate": {"en":"determinative quantifier","uk":"числівник","non":"determinativ kvantor"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": []     
+  },
+  {
+    "id": 9,
+    "lang": "nob",
+    "name": "slutt et(a),et(a)",
+    "translate": {"en":"ending et(a),et(a)","uk":"закінчення et(a),et(a)","non":"slutt et(a),et(a)"},
+    "colors": [],
+    "level": 1,
+    "parentId": 5,
+    "forms": []     
+  },
+  {
+    "id": 10,
+    "lang": "nob",
+    "name": "slutt te,t",
+    "translate": {"en":"ending te,t","uk":"закінчення te,t","non":"slutt te,t"},
+    "colors": [],
+    "level": 1,
+    "parentId": 5,
+    "forms": []     
+  },
+  {
+    "id": 11,
+    "lang": "nob",
+    "name": "pronomen",
+    "translate": {"en":"pronomen","uk":"займенник","non":"pronoun"},
+    "colors": [],
+    "level": 0,
+    "parentId": 0,
+    "forms": []     
+  }
+
+
+]
