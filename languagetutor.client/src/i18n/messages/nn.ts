@@ -3,6 +3,10 @@
 export default {
  [LOCALES.NYNORSK]: {
         'Book': 'Bok',
+        'Books': 'Bøker',
+        'Translate': 'Omsetje',
+        'Dictionary': 'Ordbok',
+        'Settings': 'Innstillingar',
         'en': 'Engelsk',
         'de': 'Tysk',
         'nn': 'Nynorsk',

@@ -3,6 +3,10 @@ import { LOCALES } from '../locales';
 export default {
  [LOCALES.BOKMAL]: {
         'Book': 'Bok',
+        'Books': 'Bøker',
+        'Translate': 'Oversette',
+        'Dictionary': 'Ordbok',
+        'Settings': 'Innstillinger',
         'en': 'Engelsk',
         'de': 'Tysk',
         'nn': 'Nynorsk',

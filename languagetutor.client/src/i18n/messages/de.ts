@@ -3,6 +3,10 @@
 export default {
  [LOCALES.GERMAN]: {
         'Book': 'Buch',
+        'Books': 'Bücher',
+        'Translate': 'Übersetzen',
+        'Dictionary': 'Wörterbuch',
+        'Settings': 'Einstellungen',
         'en': 'Englisch',
         'de': 'Deutsch',
         'nn': 'Nynorsk',

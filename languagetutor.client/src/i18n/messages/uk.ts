@@ -3,6 +3,10 @@ import { LOCALES } from '../locales';
 export default {
  [LOCALES.UKRAINIAN]: {
         'Book': 'Книга',
+        'Books': 'Книги',
+        'Translate': 'Переклад',
+        'Dictionary': 'Словник',
+        'Settings': 'Налаштування',
         'en': 'Англійська',
         'de': 'Німецька',
         'nn': 'Нюнорск',

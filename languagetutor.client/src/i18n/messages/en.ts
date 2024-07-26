@@ -3,6 +3,10 @@
 export default {
  [LOCALES.ENGLISH]: {
         'Book': 'Book',
+        'Books': 'Books',
+        'Translate': 'Translate',
+        'Dictionary': 'Dictionary',
+        'Settings': 'Settings',
         'en': 'English',
         'de': 'German',
         'nn': 'Nynorsk',
