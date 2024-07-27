@@ -1,11 +1,23 @@
 import React from 'react';
 import translate from '../../../i18n/translate';
 import './MenuSelection.css';
+import { MenuList } from '../menu-selector/MenuList';
+import { useLocation } from 'react-router-dom';
 
 const MenuSelection = () => {
+    let location = useLocation();
+    let name = location.pathname ? location.pathname.substring(1) : '';
+    let pos = name.indexOf('/');
+    if (pos >= 0) {
+        name = name.substring(0, pos);
+    }
+    const item = MenuList.find((elem) => elem.action === name);
+    if (item) {
+        name = item.name;
+    }
     return (
         <div className="menu-selection">
-            {translate("Books")}
+            {name && translate(name)}
         </div>
     ); 
 };
