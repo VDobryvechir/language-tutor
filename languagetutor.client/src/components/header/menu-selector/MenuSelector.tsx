@@ -1,5 +1,6 @@
 import React from 'react';
 import { translate } from '../../../i18n';
+import { Link } from 'react-router-dom';
 import BookIcon from '@mui/icons-material/Book';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -31,12 +32,14 @@ const MenuSelector = () => {
             <List>
                 {menuList.slice(start, end).map((menu) => (
                     <ListItem key={menu.name} disablePadding>
-                        <ListItemButton onClick={() => setMenuAction(menu.action) }>
-                            <ListItemIcon>
-                                {menu.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={translate(menu.name)} />
-                        </ListItemButton>
+                        <Link to={menu.action}>
+                            <ListItemButton onClick={() => setMenuAction(menu.action) }>
+                                <ListItemIcon>
+                                    {menu.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={translate(menu.name)} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 ))}
             </List>
