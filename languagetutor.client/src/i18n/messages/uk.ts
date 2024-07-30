@@ -2,16 +2,18 @@ import { LOCALES } from '../locales';
 
 export default {
  [LOCALES.UKRAINIAN]: {
+        'Audio': 'Аудіо',
+        'Audio repetition': 'Переслуховування',
         'Book': 'Книга',
         'Books': 'Книги',
-        'Translate': 'Переклад',
         'Dictionary': 'Словник',
-        'Settings': 'Налаштування',
-        'Audio repetition': 'Переслуховування',
-        'Text sources': 'Джерела тексту',
+        'From language': 'З мови',
         'Options': 'Опції',
-        'Audio': 'Аудіо',
         'Play': 'Відтворити',
+        'Settings': 'Налаштування',
+        'Source language': 'Мова джерела',
+        'Text sources': 'Джерела тексту',
+        'Translate': 'Переклад',
         'en': 'Англійська',
         'de': 'Німецька',
         'nn': 'Нюнорск',

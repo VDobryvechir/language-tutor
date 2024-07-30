@@ -2,16 +2,18 @@
 
 export default {
  [LOCALES.NYNORSK]: {
+        'Audio': 'Lyd',
+        'Audio repetition': 'Lyd repetisjon',
         'Book': 'Bok',
         'Books': 'Bøker',
-        'Translate': 'Omsetje',
         'Dictionary': 'Ordbok',
-        'Settings': 'Innstillingar',
-        'Audio repetition': 'Lyd repetisjon',
-        'Text sources': 'Tekstkjelder',
+        'From language': 'Frå språk',
         'Options': 'Alternativ',
-        'Audio': 'Lyd',
         'Play': 'Spel',
+        'Settings': 'Innstillingar',
+        'Source language': 'Opphavleg språk',
+        'Text sources': 'Tekstkjelder',
+        'Translate': 'Omsetje',
         'en': 'Engelsk',
         'de': 'Tysk',
         'nn': 'Nynorsk',

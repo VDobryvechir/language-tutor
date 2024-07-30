@@ -2,16 +2,18 @@ import { LOCALES } from '../locales';
 
 export default {
  [LOCALES.BOKMAL]: {
+        'Audio': 'Lyd',
+        'Audio repetition': 'Lyd repetisjon',
         'Book': 'Bok',
         'Books': 'Bøker',
-        'Translate': 'Oversette',
         'Dictionary': 'Ordbok',
-        'Settings': 'Innstillinger',
-        'Audio repetition': 'Lyd repetisjon',
-        'Text sources': 'Tekstkilder',
+        'From language': 'Fra språk',
         'Options': 'Alternativer',
-        'Audio': 'Lyd',
         'Play': 'Spill',
+        'Settings': 'Innstillinger',
+        'Source language': 'Opprinnelig språk',
+        'Text sources': 'Tekstkilder',
+        'Translate': 'Oversette',
         'en': 'Engelsk',
         'de': 'Tysk',
         'nn': 'Nynorsk',

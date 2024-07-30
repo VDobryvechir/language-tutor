@@ -2,16 +2,18 @@
 
 export default {
  [LOCALES.ENGLISH]: {
+        'Audio': 'Audio',
+        'Audio repetition': 'Audio repetition',
         'Book': 'Book',
         'Books': 'Books',
-        'Translate': 'Translate',
         'Dictionary': 'Dictionary',
-        'Settings': 'Settings',
-        'Audio repetition': 'Audio repetition',
-        'Text sources': 'Text sources',
+        'From language': 'From language',
         'Options': 'Options',
-        'Audio': 'Audio',
         'Play': 'Play',
+        'Settings': 'Settings',
+        'Source language': 'Source language',
+        'Text sources': 'Text sources',
+        'Translate': 'Translate',
         'en': 'English',
         'de': 'German',
         'nn': 'Nynorsk',

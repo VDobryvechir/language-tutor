@@ -10,6 +10,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
+import LanguageChooser from '../../common/language-chooser/LanguageChooser.tsx';
 
 const TranslateContent = () => {
     const [origin, setOrigin] = React.useState('');
@@ -28,23 +29,8 @@ const TranslateContent = () => {
                 autoComplete="off"
             >
                 <div>
-                    <FormControl fullWidth>
-                        <InputLabel id="origin-language-label">Origin language</InputLabel>
-                        <Select
-                            labelId="origin-language-label"
-                            id="origin-language-select"
-                            value={origin}
-                            label="From language"
-                            onChange={handleOriginLanguageChange}
-                        >
-                            <MenuItem value={"en"}>English</MenuItem>
-                            <MenuItem value={"de"}>Deutsch</MenuItem>
-                            <MenuItem value={"nn"}>Nynorsk</MenuItem>
-                            <MenuItem value={"nb"}>Bokmål</MenuItem>
-                            <MenuItem value={"uk"}>Українська</MenuItem>
-
-                        </Select>
-                    </FormControl>
+                    <LanguageChooser language={origin} setLanguage={(lang: string) => setOrigin(lang)} labelTitle="Source language" selectorLabel="From language" />
+                    
                     <FormGroup>
                         <InputLabel id="origin-language-label">Translate to</InputLabel>
                         <FormControlLabel control={<Switch defaultChecked />} label="English" />
