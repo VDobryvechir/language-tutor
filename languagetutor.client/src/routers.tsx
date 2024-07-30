@@ -5,6 +5,7 @@ import SettingContent from './components/common/setting-content/SettingContent';
 import CommonRoot from './components/common/common-root/CommonRoot';
 import ErrorPage from './components/common/error-page/ErrorPage';
 import { createBrowserRouter } from 'react-router-dom';
+import RepetitionContent from './components/repetition/repetition-content/RepetitionContent';
 
 const routerPaths = createBrowserRouter([
   {
@@ -12,22 +13,26 @@ const routerPaths = createBrowserRouter([
     element: <CommonRoot />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "book",
-        element: <BookContent />,
-      },
-      {
-        path: "translate",
-        element: <TranslateContent />,
-      },
-      {
-        path: "dictionary",
-        element: <WordContent />,
-      },
-      {
-        path: "settings",
-        element: <SettingContent />,
-      },
+        {
+            path: "book",
+            element: <BookContent />,
+        },
+        {
+            path: "translate",
+            element: <TranslateContent />,
+        },
+        {
+            path: "dictionary",
+            element: <WordContent />,
+        },
+        {
+            path: "repetition",
+            element: <RepetitionContent />,
+        },
+        {
+            path: "settings",
+            element: <SettingContent />,
+        },
     ],
   },
 ]);

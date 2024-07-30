@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { MenuList } from './MenuList';
+import { MenuListData } from './MenuList';
 
 const MenuSelector = () => {
     const [open, setOpen] = React.useState(false);
@@ -23,7 +23,7 @@ const MenuSelector = () => {
     };
     const DrawerList = (start:number, end:number) => (
             <List>
-                {MenuList.slice(start, end).map((menu) => (
+                {MenuListData.slice(start, end).map((menu) => (
                     <ListItem key={menu.name} disablePadding>
                         <Link to={menu.action}>
                             <ListItemButton onClick={() => setMenuAction(menu.action) }>
@@ -54,9 +54,9 @@ const MenuSelector = () => {
                 onClose={() => setOpen(false)}
             >
                 <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
-                    {DrawerList(0, 3)}
+                    {DrawerList(0, MenuListData.length - 1)}
                     <Divider />
-                    {DrawerList(3, 4)}
+                    {DrawerList(MenuListData.length - 1, MenuListData.length)}
                 </Box>
             </Drawer>
         </>

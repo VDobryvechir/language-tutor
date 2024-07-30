@@ -12,6 +12,7 @@
     <PackageJsonDependenciesEmotionReact Condition="$(PackageJsonDependenciesEmotionReact) == ''">^11.13.0</PackageJsonDependenciesEmotionReact>
     <PackageJsonDependenciesEmotionStyled Condition="$(PackageJsonDependenciesEmotionStyled) == ''">^11.13.0</PackageJsonDependenciesEmotionStyled>
     <PackageJsonDependenciesMuiIconsMaterial Condition="$(PackageJsonDependenciesMuiIconsMaterial) == ''">^5.16.5</PackageJsonDependenciesMuiIconsMaterial>
+    <PackageJsonDependenciesMuiLab Condition="$(PackageJsonDependenciesMuiLab) == ''">^5.0.0-alpha.173</PackageJsonDependenciesMuiLab>
     <PackageJsonDependenciesMuiMaterial Condition="$(PackageJsonDependenciesMuiMaterial) == ''">^5.16.5</PackageJsonDependenciesMuiMaterial>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.2.0</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.2.0</PackageJsonDependenciesReactDom>

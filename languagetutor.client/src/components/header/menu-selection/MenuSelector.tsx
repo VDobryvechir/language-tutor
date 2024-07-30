@@ -1,7 +1,7 @@
 import React from 'react';
 import translate from '../../../i18n/translate';
 import './MenuSelection.css';
-import { MenuList } from '../menu-selector/MenuList';
+import { MenuListData } from '../menu-selector/MenuList';
 import { useLocation } from 'react-router-dom';
 
 const MenuSelection = () => {
@@ -11,7 +11,7 @@ const MenuSelection = () => {
     if (pos >= 0) {
         name = name.substring(0, pos);
     }
-    const item = MenuList.find((elem) => elem.action === name);
+    const item = MenuListData.find((elem) => elem.action === name);
     if (item) {
         name = item.name;
     }
