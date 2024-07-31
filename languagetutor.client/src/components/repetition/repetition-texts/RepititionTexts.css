@@ -1,0 +1,13 @@
+.repetition-texts__translation-bar {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    padding: 5px 0;
+}
+.repetition-texts__translation-target {
+    margin-top: 10px;
+}
+.repetition-texts__translations {
+    font-size: 150%;
+    padding-top: 5px;
+}

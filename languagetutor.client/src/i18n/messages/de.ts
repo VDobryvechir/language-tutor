@@ -1,19 +1,23 @@
 ﻿import { LOCALES } from '../locales';
 
 export default {
- [LOCALES.GERMAN]: {
+    [LOCALES.GERMAN]: {
+        'Add translation': 'Übersetzung hinzufügen',
         'Audio': 'Audio',
         'Audio repetition': 'Audiowiederholung',
         'Book': 'Buch',
         'Books': 'Bücher',
         'Dictionary': 'Wörterbuch',
         'From language': 'Aus der Sprache',
+        'Into language': 'In die Sprache',
         'Options': 'Optionen',
         'Play': 'Abspielen',
         'Settings': 'Einstellungen',
-        'Source language': 'Ausgangssprache',
+        'Source': 'Ausgang',
+        'Target': 'Ziel',
         'Text sources': 'Textquellen',
         'Translate': 'Übersetzen',
+        'Translations': '*Übersetzungen',
         'en': 'Englisch',
         'de': 'Deutsch',
         'nn': 'Nynorsk',

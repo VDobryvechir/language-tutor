@@ -10,10 +10,11 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-import LanguageChooser from '../../common/language-chooser/LanguageChooser.tsx';
+import TranslationSource from '../../common/translation-source/TranslationSource.tsx';
 
 const TranslateContent = () => {
     const [origin, setOrigin] = React.useState('');
+    const [lines, setLines] = React.useState(['']);
 
     const handleOriginLanguageChange = (event: SelectChangeEvent) => {
         setOrigin(event.target.value as string);
@@ -29,7 +30,6 @@ const TranslateContent = () => {
                 autoComplete="off"
             >
                 <div>
-                    <LanguageChooser language={origin} setLanguage={(lang: string) => setOrigin(lang)} labelTitle="Source language" selectorLabel="From language" />
                     
                     <FormGroup>
                         <InputLabel id="origin-language-label">Translate to</InputLabel>
@@ -47,14 +47,14 @@ const TranslateContent = () => {
                         <FormControlLabel control={<Switch defaultChecked />} label="Greek" />
                     </FormGroup>
                 </div>
-                <div>
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="Text for translation"
-                        defaultValue=""
-                    />
-                </div>
+                <TranslationSource
+                    language={origin}
+                    setLanguage={(lang: string) => setOrigin(lang)}
+                    labelTitle="Source"
+                    selectorLabel="From language"
+                    lines={lines}
+                    setLines={setLines }
+                />
                 <div>
                     <Button variant="outlined">{translate("Translate")}</Button>
                 </div>

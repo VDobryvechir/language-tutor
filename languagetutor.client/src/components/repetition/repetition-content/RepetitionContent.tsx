@@ -5,9 +5,15 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { getInitialRepetitionModel } from '../../../providers/RepititionContext.ts';
+import RepetitionTexts from '../repetition-texts/RepetitionTexts.tsx';
+import RepetitionAudio from '../repetition-audio/RepetitionAudio.tsx';
+import RepetitionOptions from '../repetition-options/RepetitionOptions.tsx';
+import RepetitionPlay from '../repetition-play/RepetitionPlay.tsx';
 
 const RepetitionContent = () => {
     const [value, setValue] = React.useState('1');
+    const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel());
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
@@ -25,11 +31,17 @@ const RepetitionContent = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    Tekstkilde
+                    <RepetitionTexts repetitionModel={repetitionModel} setRepetitionModel={ setRepetitionModel} />
                 </TabPanel>
-                <TabPanel value="2">Lyd</TabPanel>
-                <TabPanel value="3">Optsjon</TabPanel>
-                <TabPanel value="4">Spill</TabPanel>
+                <TabPanel value="2">
+                    <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
+                </TabPanel>
+                <TabPanel value="3">
+                    <RepetitionOptions repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
+                </TabPanel>
+                <TabPanel value="4">
+                    <RepetitionPlay repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
+                </TabPanel>
             </TabContext>
         </Box>
     );
