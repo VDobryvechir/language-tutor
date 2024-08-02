@@ -1,0 +1,20 @@
+.repetition-play__audio-verse {
+    display: flex;
+    justify-content: space-around;
+}
+.repetition-play__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 15px 0;
+    row-gap: 7px;
+}
+.repetition-play__noinfo {
+    text-align: center;
+    color: #888888;
+}
+.repetition-play__present-lang {
+    display: inline-block;
+    width: 120px;
+    color: green;
+}
