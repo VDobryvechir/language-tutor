@@ -1,0 +1,10 @@
+.general-form {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 5px;
+}
+
+.general-form__field-label {
+    display: flex;
+    align-items: center;
+}

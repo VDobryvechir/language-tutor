@@ -37,6 +37,14 @@ const LanguageChooser = ({ language, labelTitle, selectorLabel, setLanguage }: P
                 <MenuItem value = { "nn"} > Nynorsk </MenuItem>
                 <MenuItem value = { "nb"} > Bokmål </MenuItem>
                 <MenuItem value = { "uk"} > Українська </MenuItem>
+                <MenuItem value={"it"} > Italiano </MenuItem>
+                <MenuItem value={"es"} > Español </MenuItem>
+                <MenuItem value={"fr"} > Français </MenuItem>
+                <MenuItem value={"gr"} > ελληνικά </MenuItem>
+                <MenuItem value={"ru"} > Русский </MenuItem>
+                <MenuItem value={"pl"} > Polski </MenuItem>
+                <MenuItem value={"da"} > Dansk </MenuItem>
+                <MenuItem value={"sv"} > Svenska </MenuItem>
             </Select>
        </FormControl>
     );
