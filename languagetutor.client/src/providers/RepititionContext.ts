@@ -30,6 +30,7 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
         kind: "int",
         defValue: "1",
         minValue: 1,
+        storageForDefault: "session",
     },
     {
         name: "Delay before each verse in seconds",
@@ -40,11 +41,13 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
         name: "Delay after each verse in seconds",
         field: "delayAfter",
         kind: "number",
+        storageForDefault: "session",
     },
     {
         name: "After which repetition should the source text be shown",
         field: "showSourceAt",
         kind: "selectorNumber",
+        storageForDefault: "session",
         options: [
             {
                 name: "immediately",
@@ -60,7 +63,8 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
             {
                 name: "after n repetitions",
                 valueStart: "1",
-                valueFinish: "repetitionNumber"
+                valueFinish: "repetitionNumber",
+                maxFinish: 20,
             }
         ]
     },
@@ -68,11 +72,13 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
         name: "Additional delay for the source text",
         field: "delaySource",
         kind: "number",
+        storageForDefault: "session",
     },
     {
         name: "After which repetition should the translation be shown",
         field: "showTranslationAt",
         kind: "selectorNumber",
+        storageForDefault: "session",
         options: [
             {
                 name: "immediately",
@@ -88,7 +94,8 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
             {
                 name: "after n repetitions",
                 valueStart: "1",
-                valueFinish: "repetitionNumber"
+                valueFinish: "repetitionNumber",
+                maxFinish: 20,
             }
         ]
 
@@ -97,17 +104,20 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
         name: "Additional delay for the translation",
         field: "delayTranslation",
         kind: "number",
+        storageForDefault: "session",
     },
     {
         name: "Primary translation language",
         field: "primaryLanguage",
         kind: "language",
+        storageForDefault: "local",
         defValue: "en",
     },
     {
         name: "Secondary translation language",
         field: "secondaryLanguage",
         kind: "language",
+        storageForDefault: "local",
         defValue: "uk",
     },
 ];

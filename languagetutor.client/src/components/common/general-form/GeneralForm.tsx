@@ -26,19 +26,32 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
         initValues[item.field] = "" + getter(source, item.field); 
     });
     const [tmpValue, setTmpValue] = React.useState(initValues); 
-    const setNumberKind = (item: GeneralFormField, val: string) => {
-        setTmpValue({
-            ...tmpValue,
-            [item.field]: val,
-        });
-        const intVal = item.kind==="int" ? parseInt(val) : parseFloat(val);
-        if (!isNaN(intVal) && (item.minValue === undefined || intVal >= item.minValue) && (item.maxValue === undefined || intVal <= item.maxValue)) {
-            setter(source, item.field, intVal);
-        }
-    }
+
     const getInputByKind = (item: GeneralFormField) => {
+        const oversetter = (value: any) => {
+            setter(source, item.field, value);
+            if (item.storageForDefault) {
+                const storageKey = item.storageKey || item.field;
+                const storageValue = "" + value;
+                if (item.storageForDefault === "local") {
+                    localStorage.setItem(storageKey, storageValue);
+                } else {
+                    sessionStorage.setItem(storageKey, storageValue);
+                }
+            }
+        };
+        const setNumberKind = (val: string) => {
+            setTmpValue({
+                ...tmpValue,
+                [item.field]: val,
+            });
+            const intVal = item.kind === "int" ? parseInt(val) : parseFloat(val);
+            if (!isNaN(intVal) && (item.minValue === undefined || intVal >= item.minValue) && (item.maxValue === undefined || intVal <= item.maxValue)) {
+                oversetter(intVal);
+            }
+        }
         const handleSelectorNumberChange = (event: SelectChangeEvent) => {
-            setter(source, item.field, event.target.value as number);
+            oversetter(event.target.value as number);
         };
         const getIntValue = (expression: string): number => {
             let n = parseInt(expression);
@@ -56,11 +69,19 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
         }
         const generateRowOfValues = (option: GeneralGeneratedOptions): string[] | null => {
             const start = getIntValue(option.valueStart);
-            const end = getIntValue(option.valueFinish);
+            let end = getIntValue(option.valueFinish);
             if (isNaN(start) || isNaN(end) || start > end) {
                 return null;
             }
             const res: string[] = [];
+            if (typeof option.maxFinish === "number") {
+                if (end > option.maxFinish) {
+                    end = option.maxFinish;
+                    if (start > end) {
+                        return null;
+                    }
+                }
+            }
             for (let i = start; i <= end; i++) {
                 res.push("" + i);
             }
@@ -102,7 +123,7 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
                         label=""
                         variant="standard"
                         value={tmpValue[item.field] }
-                        onChange={(event) => setNumberKind(item, event.target.value)}
+                        onChange={(event) => setNumberKind(event.target.value)}
                     />
                 );
             case "selectorNumber":
@@ -126,7 +147,7 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
                         label=""
                         variant="standard"
                         value={getter(source, item.field)}
-                        onChange={(event) => setter(source, item.field, event.target.value)}
+                        onChange={(event) => oversetter(event.target.value)}
                     />
                 );
             case "language":
@@ -135,7 +156,7 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
                         labelTitle="Language"
                         selectorLabel="Language"
                         language={getter(source, item.field)}
-                        setLanguage={(lang) => setter(source, item.field, lang)}
+                        setLanguage={oversetter}
                     />
                 );
         }
