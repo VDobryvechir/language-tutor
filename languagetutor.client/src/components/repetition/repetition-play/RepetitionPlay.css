@@ -18,3 +18,7 @@
     width: 120px;
     color: green;
 }
+.repetition-play__dict-link a, .repetition-play__dict-link a:visited, .repetition-play__dict-link a:focus,
+.repetition-play__dict-link a:active {
+    color: brown;
+}

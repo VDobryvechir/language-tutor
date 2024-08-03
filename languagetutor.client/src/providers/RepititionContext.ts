@@ -8,6 +8,8 @@ export interface RepetitionOptions {
     delayTranslation: number;
     showSourceAt: number;
     showTranslationAt: number;
+    primaryLanguage: string;
+    secondaryLanguage: string;
 };
 export interface RepetitionModel {
     sourceLanguage: string;
@@ -70,7 +72,7 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
     {
         name: "After which repetition should the translation be shown",
         field: "showTranslationAt",
-        kind: "number",
+        kind: "selectorNumber",
         options: [
             {
                 name: "immediately",
@@ -112,6 +114,7 @@ export const RepetitionOptionDefinition: GeneralFormField[] = [
 export interface RepetitionProps {
     repetitionModel: RepetitionModel;
     setRepetitionModel: (model: RepetitionModel) => void;
+    fireAction?: (name: string) => void;
 };
 
 export const getInitialRepetitionModel = (): RepetitionModel => {
@@ -133,6 +136,66 @@ export const getInitialRepetitionModel = (): RepetitionModel => {
 
 const translationPriorities = ["nb", "en", "uk", "de", "pl", "nn", "it", "fr", "es", "sv", "da", "gr", "ru"];
 
+const dictionariesExternal = {
+    nb: "https://ordbokene.no/nno/bm,nn/$$$",
+    nn: "https://ordbokene.no/nno/bm,nn/$$$",
+    de: "https://www.duden.de/rechtschreibung/$$$",
+};
+const translationsExternal = {
+    all: "https://translate.google.com/details?hl=no&sl=$$s$$&tl=$$t$$&text=$$$&op=translate",
+    nn: "",
+}
+export const getLinkedHtml = (link: string, sourceText: string, targetPage: string): string => {
+    let res = "", pos = 0, n = sourceText.length;
+    while (pos < n && sourceText[pos] === ' ') { pos++; }
+    const linkPos = link.indexOf("$$$");
+    const linkBefore = link.substring(0, linkPos);
+    const linkAfter = link.substring(linkPos + 3);
+
+
+    const part1 = `<a target="${targetPage}" href="${linkBefore}`;
+    const part2 = `${linkAfter}">`;
+    const part3 = `</a> `;
+    for (let i = pos; i < n; i++) {
+        if (sourceText[i] === ' ') {
+            const w = sourceText.substring(pos, i);
+            res += part1 + encodeURIComponent(w) + part2 + w + part3;
+            pos = i + 1;
+            while (pos < n && sourceText[pos] === ' ') { pos++; }
+            i = pos;
+        }
+    }
+    if (pos < n) {
+        const w = sourceText.substring(pos);
+        res += part1 + encodeURIComponent(w) + part2 + w + part3;
+    }
+    return res;
+};
+
+export const getDictionaryLinks = (lang: string, sourceText: string): string => {
+    const link = dictionariesExternal[lang];
+    if (!link) {
+        return "";
+    }
+    const target = "diction" + lang;
+    return getLinkedHtml(link, sourceText, target);
+};
+
+export const getTranslationLink = (screen: string, srcLang: string, lang1: string, lang2: string, sourceText: string): string => {
+    if (srcLang === "nb" || srcLang === "nn") srcLang = "no";
+    if (lang1 === "nb" || lang1 === "nn") lang1 = "no";
+    if (lang2 === "nb" || lang2 === "nn") lang2 = "no";
+
+    let tLang = srcLang === lang1 ? lang2 : lang1;
+    if (!tLang || tLang === srcLang) {
+        return sourceText;
+    }
+    let link = translationsExternal.all.replace("$$s$$", srcLang).replace("$$t$$", tLang);
+    if (screen && screen!=='nb' && screen!=='nn') {
+        link = link.replace("hl=no", "hl=" + screen);
+    }
+    return getLinkedHtml(link, sourceText, "transl" + srcLang);
+};
 
 export const addNewTargetTranslation = (model: RepetitionModel): RepetitionModel => {
     const usedLangs: { [key: string]: number } = {};
