@@ -3,8 +3,8 @@ import { LOCALES } from '../locales';
 export default {
     [LOCALES.BOKMAL]: {
         'Add translation': 'Legg til oversettelse',
-        'Additional delay for the source text': 'Ytterligere forsinkelse for kildeteksten',
-        'Additional delay for the translation': 'Ytterligere forsinkelse for oversettelsen',
+        'Additional delay for the source text': 'Ytterligere forsinkelse for kildeteksten i sekunder',
+        'Additional delay for the translation': 'Ytterligere forsinkelse for oversettelsen i sekunder',
         'after n repetitions': 'etter {n} repetisjoner',
         'After which repetition should the source text be shown': 'Etter hvilken repetisjon skal kildeteksten vises',
         'After which repetition should the translation be shown': 'Etter hvilken repetisjon skal oversettelsen vises',

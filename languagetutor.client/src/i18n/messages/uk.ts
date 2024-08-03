@@ -3,8 +3,8 @@ import { LOCALES } from '../locales';
 export default {
     [LOCALES.UKRAINIAN]: {
         'Add translation': 'Додати переклад',
-        'Additional delay for the source text': 'Додаткова затримка для тексту джерела',
-        'Additional delay for the translation': 'Додаткова затримка для перекладу',
+        'Additional delay for the source text': 'Додаткова затримка для тексту джерела в секундах',
+        'Additional delay for the translation': 'Додаткова затримка для перекладу в секундах',
         'after n repetitions': 'після {n} повторень',
         'After which repetition should the source text be shown': 'Після скількох повторень текст джерела з\'являється',
         'After which repetition should the translation be shown': 'Після скількох повторень переклад з\'являється',

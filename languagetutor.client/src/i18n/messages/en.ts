@@ -3,8 +3,8 @@
 export default {
     [LOCALES.ENGLISH]: {
         'Add translation': 'Add translation',
-        'Additional delay for the source text': 'Additional delay for the source text',
-        'Additional delay for the translation': 'Additional delay for the translation',
+        'Additional delay for the source text': 'Additional delay for the source text in seconds',
+        'Additional delay for the translation': 'Additional delay for the translation in seconds',
         'after n repetitions': 'after {n} repetitions',
         'After which repetition should the source text be shown': 'After which repetition should the source text be shown',
         'After which repetition should the translation be shown': 'After which repetition should the translation be shown',

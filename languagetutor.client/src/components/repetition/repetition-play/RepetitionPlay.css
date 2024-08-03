@@ -18,7 +18,12 @@
     width: 120px;
     color: green;
 }
-.repetition-play__dict-link a, .repetition-play__dict-link a:visited, .repetition-play__dict-link a:focus,
-.repetition-play__dict-link a:active {
-    color: brown;
-}
+    .repetition-play__present-lang a, .repetition-play__present-lang a:visited, .repetition-play__present-lang a:active,
+    .repetition-play__present-lang a:focus {
+        color: green;
+    }
+
+    .repetition-play__dict-link a, .repetition-play__dict-link a:visited, .repetition-play__dict-link a:focus,
+    .repetition-play__dict-link a:active {
+        color: brown;
+    }

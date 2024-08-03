@@ -6,15 +6,28 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './RepetitionPlay.css';
 
+const pageKey = "repetitionPlay_";
+const storageDictionaryKey = pageKey + "dictionary";
+const storageShowTranslationKey = pageKey + "showTranslation";
+const storageShowSourceKey = pageKey + "showSource";
+
+const saveBooleanLocal = (key: string, val: boolean) => {
+    localStorage.setItem(key, "" + val);
+};
+const retrieveBooleanLocal = (key: string, val: boolean) => {
+    const res = localStorage.getItem(key);
+    return res ? res==="true" : (val || false);
+};
+
 const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: RepetitionProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [verse, setVerse] = useState(1);
     const [stage, setStage] = useState(0);
     const [timeoutHandles, setTimeoutHandles] = useState([0, 0, 0]);
-    const [showSource, setShowSource] = useState(false);
-    const [showTranslation, setShowTranslation] = useState(false);
+    const [showSource, setShowSource] = useState(retrieveBooleanLocal(storageShowSourceKey,false));
+    const [showTranslation, setShowTranslation] = useState(retrieveBooleanLocal(storageShowTranslationKey, false));
     const [loop, setLoop] = useState(false);
-    const [dictionary, setDictionary] = useState(false);
+    const [dictionary, setDictionary] = useState(retrieveBooleanLocal(storageDictionaryKey, false));
 
     const markTimeoutHandle = (handleId: number, storeNumber) => {
         newHandles = timeoutHandles.slice();
@@ -139,21 +152,24 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
         }
     }; 
     const showHideSource = () => {
+        saveBooleanLocal(storageShowSourceKey, !showSource);
         setShowSource(!showSource);
     }; 
     const showHideTranslation = () => {
+        saveBooleanLocal(storageShowTranslationKey, !showTranslation);
         setShowTranslation(!showTranslation);
     }; 
     const loopVerse = () => {
         setLoop(!loop);
     }; 
     const showLinksToDictionary = () => {
+        saveBooleanLocal(storageDictionaryKey, !dictionary);
         setDictionary(!dictionary);
     };
     const presentLinkedContent = (lang: string, data: string) => {
-        let transLink = getTranslationLink("", repetitionModel.sourceLanguage, repetitionModel.options.primaryLanguage,
+        const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data);
-        let dictLink = dictionary ? getDictionaryLinks(lang, data) : "";
+        const dictLink = dictionary ? getDictionaryLinks(lang, data) : "";
 
         return (
             <div>
@@ -164,14 +180,20 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
             </div>
         );
     };
-    const presentContent = (lang: string, data: string[]) => {
+    const presentContent = (lang: string, dataList: string[]) => {
+        const data = verse <= dataList.length ? dataList[verse - 1] : ""; 
+        const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
+            repetitionModel.options.secondaryLanguage, data, "href");
+
         return (
             <div key={ lang } >
                 <span className="repetition-play__present-lang">
-                    {translate(lang) }
+                    <a target={"trans" + lang} href={transLink}>
+                        {translate(lang)}
+                    </a>
                 </span>
                 <span>
-                    {verse <= data.length ? presentLinkedContent(lang, data[verse-1]) : "" }
+                    { presentLinkedContent(lang, data)  }
                 </span>
             </div>
         )

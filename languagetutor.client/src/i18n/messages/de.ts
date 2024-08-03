@@ -3,8 +3,8 @@
 export default {
     [LOCALES.GERMAN]: {
         'Add translation': 'Übersetzung hinzufügen',
-        'Additional delay for the source text': 'Zusätzliche Verzögerung für den Quelltext',
-        'Additional delay for the translation': 'Zusätzliche Verzögerung für die Übersetzung',
+        'Additional delay for the source text': 'Zusätzliche Verzögerung für den Quelltext in Sekunden',
+        'Additional delay for the translation': 'Zusätzliche Verzögerung für die Übersetzung in Sekunden',
         'after n repetitions': 'nach {n} Wiederholungen',
         'After which repetition should the source text be shown': 'Nach welcher Wiederholung soll der Quelltext angezeigt werden',
         'After which repetition should the translation be shown': 'Nach welcher Wiederholung soll die Übersetzung angezeigt werden',

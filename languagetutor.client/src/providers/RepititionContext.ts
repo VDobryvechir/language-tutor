@@ -144,24 +144,34 @@ const dictionariesExternal = {
 const translationsExternal = {
     all: "https://translate.google.com/details?hl=no&sl=$$s$$&tl=$$t$$&text=$$$&op=translate",
     nn: "",
-}
-export const getLinkedHtml = (link: string, sourceText: string, targetPage: string): string => {
-    let res = "", pos = 0, n = sourceText.length;
-    while (pos < n && sourceText[pos] === ' ') { pos++; }
+};
+export const getLinkPartsWithTarget = (link: string, targetPage: string): string[] => {
     const linkPos = link.indexOf("$$$");
     const linkBefore = link.substring(0, linkPos);
     const linkAfter = link.substring(linkPos + 3);
-
-
     const part1 = `<a target="${targetPage}" href="${linkBefore}`;
     const part2 = `${linkAfter}">`;
-    const part3 = `</a> `;
+    const part3 = `</a>`;
+    return [part1, part2, part3];
+};
+
+export const getLinkedHtml = (link: string, sourceText: string, targetPage: string): string => {
+    let res = "", pos = 0, n = sourceText.length;
+    while (pos < n && (sourceText[pos] === ' ' || sourceText[pos] === '.' || sourceText[pos] === ',')) { pos++; }
+    if (pos > 0) {
+        res += sourceText.substring(0, pos);
+    }
+    const [part1, part2, part3] = getLinkPartsWithTarget(link, targetPage);
     for (let i = pos; i < n; i++) {
-        if (sourceText[i] === ' ') {
+        const c = sourceText[i]; 
+        if (c === ' ' || c=== '.' || c===',') {
             const w = sourceText.substring(pos, i);
             res += part1 + encodeURIComponent(w) + part2 + w + part3;
-            pos = i + 1;
-            while (pos < n && sourceText[pos] === ' ') { pos++; }
+            pos = i;
+            while (pos < n && (sourceText[pos] === ' ' || sourceText[pos] === '.' || sourceText[pos] === ',')) {
+                res += sourceText[pos];
+                pos++;
+            }
             i = pos;
         }
     }
@@ -181,7 +191,21 @@ export const getDictionaryLinks = (lang: string, sourceText: string): string => 
     return getLinkedHtml(link, sourceText, target);
 };
 
-export const getTranslationLink = (screen: string, srcLang: string, lang1: string, lang2: string, sourceText: string): string => {
+export const extractDoubleQuoteAttribute = (txt: string, attr: string): string => {
+    attr += '="';
+    let pos = txt.indexOf(attr);
+    if (pos < 0) {
+        return "";
+    }
+    txt = txt.substring(pos + attr.length);
+    pos = txt.indexOf('"');
+    if (pos >= 0) {
+        txt = txt.substring(0, pos);
+    } 
+    return txt;
+};
+
+export const getTranslationLink = (screen: string, srcLang: string, lang1: string, lang2: string, sourceText: string, isWhole: string): string => {
     if (srcLang === "nb" || srcLang === "nn") srcLang = "no";
     if (lang1 === "nb" || lang1 === "nn") lang1 = "no";
     if (lang2 === "nb" || lang2 === "nn") lang2 = "no";
@@ -194,7 +218,16 @@ export const getTranslationLink = (screen: string, srcLang: string, lang1: strin
     if (screen && screen!=='nb' && screen!=='nn') {
         link = link.replace("hl=no", "hl=" + screen);
     }
-    return getLinkedHtml(link, sourceText, "transl" + srcLang);
+    const targetPage = "transl" + srcLang;
+    if (isWhole) {
+        const [part1, part2, part3] = getLinkPartsWithTarget(link, targetPage);
+        let res = part1 + encodeURIComponent(sourceText) + part2 + isWhole + part3;
+        if (isWhole === "href") {
+            res = extractDoubleQuoteAttribute(res, "href");
+        }
+        return res;
+    }
+    return getLinkedHtml(link, sourceText, targetPage);
 };
 
 export const addNewTargetTranslation = (model: RepetitionModel): RepetitionModel => {
