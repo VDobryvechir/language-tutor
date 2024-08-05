@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { RepetitionProps, clearAudioPositions, extractSaveablePayload } from '../../../providers/RepititionContext';
+import React, { useState, useReducer, useEffect } from 'react';
+import { RepetitionProps, clearAudioPositions, extractSaveablePayload, RepetitionModel } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
 import {milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
@@ -7,14 +7,81 @@ import Button from '@mui/material/Button';
 import './RepetitionAudio.css';
 import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
 import { loadDbItem, saveDbItem } from '../../../providers/IndexedStorage';
+import { clearInterval } from 'timers';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
+interface PositionTime {
+    index?: number;
+    value: string;
+    payload?: RepetitionModel;
+};
+
+const repetitionPositionInit = (repetitionModel: RepetitionModel): string[] => {
+    const res: string[] = [];
+    const n = repetitionModel.audioPositions.length;
+    for (let i = 0; i < n; i++) {
+        res[i] = milisecondsToTime(repetitionModel.audioPositions[i]);
+    }
+    return res;
+}; 
+
+const reducePositionTime = (state: string[], action: PositionTime): string[] => {
+    if (typeof action.index === "number") {
+        const newState = state.slice();
+        newState[action.index] = action.value;
+        return newState;
+    } else if (action.payload) {
+        return repetitionPositionInit(action.payload);
+    }
+    return state;
+};
 
 const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
     const [step, setStep] = useState(-1);
     const [openLoad, setOpenLoad] = useState(false);
     const [openSave, setOpenSave] = useState(false);
+    const [finishTime, setFinishTime] = useState(-1);
+    const [timerCounter, setTimerCounter] = useState(0);
+    const [positionTime, dispatchPositionTime] = useReducer(reducePositionTime, repetitionModel, repetitionPositionInit);
 
+    useEffect(
+        () => {
+            const audio = document.getElementById("audio-calibrator");
+            if (finishTime < 0) {
+                console.log("ended", finishTime, audio.currentTime);
+                return;
+            }
+            let dif = (finishTime - audio.currentTime) * 1000;
+            console.log(dif, finishTime, audio.currentTime);
+            if (dif < 2) {
+                console.log("finished", dif, finishTime, audio.currentTime);
+                audio.pause();
+                setFinishTime(-1);
+                return;
+            };
+            dif = Math.round(dif);
+            console.log("continuation", dif, finishTime, audio.currentTime);
+            const timerId = setTimeout(() => setTimerCounter(timerCounter + 1), dif);
+            return () => timerId && window.clearTimeout(timerId);
+        },
+        [finishTime, timerCounter]
+    );
+
+    const audioVerse = (index: number): void => {
+        if (step < 0 && repetitionModel.audioPositions[index]) {
+            const start = index == 0 ? 0 : repetitionModel.audioPositions[index - 1];
+            const end = repetitionModel.audioPositions[index];
+            if (start < end) {
+                const audio = document.getElementById("audio-calibrator");
+                audio.pause();
+                audio.currentTime = start * 0.001;
+                audio.play();
+                const finTime = end * 0.001; 
+                setFinishTime(finTime);
+                setTimerCounter(timerCounter + 1);
+            }
+        }
+    };
     const setAudioUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
         const url = event.target.value;
         setRepetitionModel({
@@ -38,6 +105,15 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
         setAudioPosAmount(0, 0);
         startPlayer();
     };
+    const setAudioScrollPosition = (index: number) => {
+        const elem = document.getElementById(`repetition-audio-${index}`);
+        if (!elem) {
+            return;
+        }
+        elem.scrollIntoView({
+            behavior: "smooth",
+        });
+    };
     const markPosition = () => {
           if (step<0) {
               return;
@@ -48,13 +124,15 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
               endPlayer();
               setStep(-1);
           } else {
-            setStep(index+1);
-            const audio = document.getElementById("audio-calibrator");
-            const amount = Math.round(audio.currentTime * 1000);
-            if (index===limit-2) {
+              setStep(index+1);
+              const audio = document.getElementById("audio-calibrator");
+              const amount = Math.round(audio.currentTime * 1000);
+              if (index===limit-2) {
                 repetitionModel.audioPositions = getAudioPosAmount(Math.round(audio.duration * 1000),limit-1)
-            }
-            setAudioPosAmount(amount, index);
+              }
+              setAudioPosAmount(amount, index);
+              setAudioScrollPosition(index + 1);
+              dispatchPositionTime({ index: index, value: milisecondsToTime(amount)});
           }
     };
     const getAudioPosAmount = (amount: number, index:number): number[] => {
@@ -78,7 +156,9 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     if (res.error) {
                         console.log(res.error);
                     } else {
-                        setRepetitionModel(extractSaveablePayload(res.payload, repetitionModel));
+                        const model = extractSaveablePayload(res.payload, repetitionModel);
+                        setRepetitionModel(model);
+                        dispatchPositionTime({ payload: model });
                     }
                 }
             })
@@ -101,9 +181,10 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
             })
         }
     };
-    const setAudioPos = (time: string, index:number): void => {
-        const amount = timeToMiliseconds(time);
+    const setAudioPos = (value: string, index:number): void => {
+        const amount = timeToMiliseconds(value);
         setAudioPosAmount(amount, index);
+        dispatchPositionTime({index, value});
     };
     return (
         <>
@@ -149,18 +230,17 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                 >{translate("Mark position")}</Button>
             </div>
             <div className="repetition-audio__position-grid">
-                {repetitionModel.sourceLines.map((line:string,index:number) => (
-                    <React.Fragment key={'alt'+index}>
-                       <div>
+                {repetitionModel.sourceLines.map((line: string, index: number) => (
+                    <React.Fragment key={'alt' + index}>
+                        <div id={"repetition-audio-"+index} style={{ backgroundColor: step === index ? 'yellow' : 'inherit' }}>
                        <TextField
-                            id="repetition-audio-pos{index}"
-                            label="Time"
-                            variant="standard"
-                            value={ milisecondsToTime(repetitionModel.audioPositions[index]) }
-                            onChange={(event) => setAudioPos(event.target.value, index) }
+                                label="Time"
+                                variant="standard"
+                                value={positionTime[index]}
+                                onChange={(event) => setAudioPos(event.target.value, index) }
                         />
                        </div>
-                       <div className="repetition-audio__position-grid-text">
+                        <div className="repetition-audio__position-grid-text" onClick={() => audioVerse(index) } style={{ backgroundColor: step === index ? 'white' : 'inherit' }}>
                             {index+1}. {line}
                        </div>
                     </React.Fragment>

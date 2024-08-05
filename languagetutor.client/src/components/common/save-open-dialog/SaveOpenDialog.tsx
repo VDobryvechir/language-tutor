@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { getDbKeyList } from '../../../providers/IndexedStorage';
 import translate from '../../../i18n/translate';
-
+import "./SaveOpenDialog.css";
 export interface Props {
     open: boolean;
     operation: string;
@@ -55,40 +55,42 @@ const SaveOpenDialog = ({ onClose, operation, dbparams, open }: Props) => {
     return (
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>{translate(operation)}</DialogTitle>
-            <TextField
-                label="Name"
-                variant="standard"
-                value={filter}
-                onChange={(event) => setFilter(event.target.value)}
-            />
-            <List sx={{ pt: 0 }}>
-                {items.map((item) => (
-                    <ListItem disableGutters key={item}>
-                        <ListItemButton onClick={() => handleListItemClick(item)}>
+            <div className="save-open-dialog__content">
+                <TextField
+                    label="Name"
+                    variant="standard"
+                    value={filter}
+                    onChange={(event) => setFilter(event.target.value)}
+                />
+                <List sx={{ pt: 0 }}>
+                    {items.map((item) => (
+                        <ListItem disableGutters key={item}>
+                            <ListItemButton onClick={() => handleListItemClick(item)}>
+                                <ListItemAvatar>
+                                    <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                                        <PersonIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={item} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                    {operation === "Save" ? < ListItem disableGutters>
+                        <ListItemButton
+                            autoFocus
+                            onClick={() => handleListItemClick(filter)}
+                        >
                             <ListItemAvatar>
-                                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                                    <PersonIcon />
+                                <Avatar>
+                                    <AddIcon />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={item} />
+                            <ListItemText primary="Add new entry" />
                         </ListItemButton>
-                    </ListItem>
-                ))}
-                {operation==="Save" ? < ListItem disableGutters>
-                    <ListItemButton
-                        autoFocus
-                        onClick={() => handleListItemClick(filter)}
-                    >
-                        <ListItemAvatar>
-                            <Avatar>
-                                <AddIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary="Add new entry" />
-                    </ListItemButton>
-                </ListItem> : null
-                }
-            </List>
+                    </ListItem> : null
+                    }
+                </List>
+            </div>
         </Dialog>
     );
 }

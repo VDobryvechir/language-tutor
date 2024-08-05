@@ -132,7 +132,7 @@ export const getDbKeyList = (props: DbUtilityProps) => {
 export const saveDbItem = (props: DbUtilityProps) => {
     openingDbObjectStoreSingleKey(props, true, (objStore: IDBObjectStore, key?: IDBValidKey) => {
         const elem = { [props.keyName!]: props.filter, data: props.payload };
-        const objectStoreRequest = key ? objStore.put(elem, key) : objStore.add(elem);
+        const objectStoreRequest = key ? objStore.put(elem) : objStore.add(elem);
         objectStoreRequest.onsuccess = (event) => {
             props.response({ payload: "ok" });
             closingDb(props);

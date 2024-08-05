@@ -22,6 +22,8 @@
     padding: 3px;
     display: grid;
     grid-template-columns: minmax(50px, 1fr) 7fr;
+    height: 50vh;
+    overflow-y: scroll;
 }
 
 .repetition-audio__url-label {
@@ -36,4 +38,5 @@
     height: 48px;
     place-content: center;
     padding-left: 7px;
+    cursor: pointer;
 }

@@ -16,20 +16,41 @@ const countDigits = (s: string, pos: number, n: number): number => {
     return res;
 }; 
 
+const consumeUntilNextDigitLine = (data: string, pos: number, num: number): number => {
+    const n = data.length;
+    let i = pos + 1;
+    const numStr = "" + num;
+    const first = numStr[0];
+    for (; i < n; i++) {
+        if (data[i] === first && data.substr(i, numStr.length) === numStr) {
+            break;
+        }
+    }
+    return i - pos;
+}
+
 const separateTextToLines = (data: string): string[] => {
     const res: string[] = [];
     const n = data.length;
-    let num = 0, pos=0, omit=0;
+    let num = 0, pos=0, omit=0, pattern = 0;
     for (let i = 0; i < n; i++) {
         const c = data[i];
         if (c == '\n') {
-            omit = 1;
-        } else if (c >= '0' && c <= '9') {
+            if (pattern >= 2) {
+                omit = consumeUntilNextDigitLine(data, i, num);
+            } else {
+                if (pattern === 0) {
+                    pattern = -1;
+                }
+                omit = 1;
+            }
+        } else if (pattern>=0 && c >= '0' && c <= '9') {
             let cnt = countDigits(data, i, n);
             let dig = data.substring(i, i + cnt);
             let curDig = "" + num;
             if (i + cnt < n && data[i + cnt] >= 'A' && (dig === curDig || num === 0)) {
                 omit = cnt;
+                pattern++;
                 if (num === 0) {
                     num = +dig + 1;
                 } else {
