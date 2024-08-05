@@ -276,3 +276,15 @@ export const clearAudioPositions = (model: RepetitionModel): RepetitionModel => 
     };
 }
 
+export const extractSaveablePayload = (model: RepetitionModel, origin: RepetitionModel): RepetitionModel => {
+    return {
+        ...origin,
+        audioSource: model.audioSource,
+        audioPositions: model.audioPositions,
+        sourceLanguage: model.sourceLanguage,
+        sourceLines: model.sourceLines,
+        targetLanguages: model.targetLanguages,
+        targetLines: model.targetLines,
+    };
+};
+

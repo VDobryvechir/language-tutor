@@ -9,7 +9,10 @@
     justify-content: space-around;
     padding: 5px;
 }
-
+.repetition-audio__audio-player {
+    display: flex;
+    justify-content: space-between;
+}
 .repetition-audio__position-title {
     padding: 3px;
     font-size: 150%;

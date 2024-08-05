@@ -1,14 +1,19 @@
 import React, { useState} from 'react';
-import { RepetitionProps, clearAudioPositions } from '../../../providers/RepititionContext';
+import { RepetitionProps, clearAudioPositions, extractSaveablePayload } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
 import {milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './RepetitionAudio.css';
+import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
+import { loadDbItem, saveDbItem } from '../../../providers/IndexedStorage';
+
+const repetitionAudioDbParams = "repetition.chapter.name";
 
 const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
     const [step, setStep] = useState(-1);
-    
+    const [openLoad, setOpenLoad] = useState(false);
+    const [openSave, setOpenSave] = useState(false);
 
     const setAudioUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
         const url = event.target.value;
@@ -63,7 +68,39 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
             audioPositions: getAudioPosAmount(amount,index),
         });
     };
-
+    const handleLoadClose = (name:string) => {
+        setOpenLoad(false);
+        if (name) {
+            loadDbItem({
+                dbparams: repetitionAudioDbParams,
+                filter: name,
+                response: (res) => {
+                    if (res.error) {
+                        console.log(res.error);
+                    } else {
+                        setRepetitionModel(extractSaveablePayload(res.payload, repetitionModel));
+                    }
+                }
+            })
+        }
+    };
+    const handleSaveClose = (name:string) => {
+        setOpenSave(false);
+        if (name) {
+            saveDbItem({
+                dbparams: repetitionAudioDbParams,
+                filter: name,
+                payload: repetitionModel,
+                response: (res) => {
+                    if (res.error) {
+                        console.log(res.error);
+                    } else {
+                        console.log(res.payload);
+                    }
+                }
+            })
+        }
+    };
     const setAudioPos = (time: string, index:number): void => {
         const amount = timeToMiliseconds(time);
         setAudioPosAmount(amount, index);
@@ -81,9 +118,17 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     onChange={setAudioUrl }
                 />
             </div>
-            <div>
+            <div className="repetition-audio__audio-player">
                 <audio controls src={repetitionModel.audioSource} id="audio-calibrator">
                 </audio>
+                <Button
+                    variant="outlined"
+                    onClick={() => setOpenSave(true)}
+                >{translate("Save")}</Button>
+                <Button
+                    variant="outlined"
+                    onClick={()=>setOpenLoad(true)}
+                >{translate("Load")}</Button>
             </div>
             <div className="repetition-audio__position-bar">
                 <div className="repetition-audio__position-title">
@@ -121,6 +166,19 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     </React.Fragment>
                 ))}        
             </div>
+            <SaveOpenDialog
+                operation="Load"
+                open={openLoad}
+                onClose={handleLoadClose}
+                dbparams={repetitionAudioDbParams}
+            />
+            <SaveOpenDialog
+                operation="Save"
+                open={openSave}
+                onClose={handleSaveClose}
+                dbparams={repetitionAudioDbParams }
+            />
+
         </>
     );
 };
