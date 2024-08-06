@@ -1,13 +1,19 @@
 using LanguageTutor.Server.Models;
 using LanguageTutor.Server.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var initBuilder = WebApplication.CreateBuilder(args);
+var webRootPath = initBuilder.Configuration.GetValue<string>("webroot");
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions {
+    Args = args,
+    WebRootPath = webRootPath
+});
 
 // Add services to the container.
 builder.Services.Configure<ServerDatabaseSettings>(
     builder.Configuration.GetSection("ServerDatabase"));
 
 builder.Services.AddSingleton<DbLanguageService>();
+builder.Services.AddSingleton<DbResourceService>();
 
 builder.Services.AddControllers();
        // .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);

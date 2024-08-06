@@ -1,3 +1,4 @@
+[
 {
   "name": "English",
   "code": "en",
@@ -23,7 +24,6 @@
   "code": "uk",
   "translate": {"de":"Ukrainisch","nn":"ukrainsk","nb":"ukrainsk","en":"Ukrainian","ru":"украинский","pl":"ukraiński","fr":"ukrainienne","it":"ucraina","es":"ucrania","gr":"Ουκρανός","sv":"ukrainska","da":"ukrainsk"}
 },
-[
 {
   "name": "Русский",
   "code": "ru",
