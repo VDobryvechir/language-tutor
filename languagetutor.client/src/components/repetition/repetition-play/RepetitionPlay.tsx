@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RepetitionProps, getTranslationLink, getDictionaryLinks } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
-import { milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './RepetitionPlay.css';
@@ -10,6 +9,15 @@ const pageKey = "repetitionPlay_";
 const storageDictionaryKey = pageKey + "dictionary";
 const storageShowTranslationKey = pageKey + "showTranslation";
 const storageShowSourceKey = pageKey + "showSource";
+enum PlayAction {
+    PlayIdle,
+    StartPlayingStage,
+    StartPlayingVerse,
+    CheckPlayingStageStop,
+    GoToNextStage,
+    GoToNextVerse,
+} 
+
 
 const saveBooleanLocal = (key: string, val: boolean) => {
     localStorage.setItem(key, "" + val);
@@ -28,9 +36,38 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
     const [showTranslation, setShowTranslation] = useState(retrieveBooleanLocal(storageShowTranslationKey, false));
     const [loop, setLoop] = useState(false);
     const [dictionary, setDictionary] = useState(retrieveBooleanLocal(storageDictionaryKey, false));
+    const [playAction, setPlayAction] = useState(PlayAction.PlayIdle);
 
-    const markTimeoutHandle = (handleId: number, storeNumber) => {
-        newHandles = timeoutHandles.slice();
+    useEffect(
+        () => {
+            if (playAction === PlayAction.PlayIdle) {
+                return;
+            }
+            const action = playAction;
+            setPlayAction(PlayAction.PlayIdle);
+            switch (action) {
+                case PlayAction.StartPlayingStage:
+                    startPlayingStage();
+                    break;
+                case PlayAction.StartPlayingVerse:
+                    startPlayingVerse();
+                    break;
+                case PlayAction.CheckPlayingStageStop:
+                    checkPlayingStageStop();
+                    break;
+                case PlayAction.GoToNextStage:
+                    goToNextStage();
+                    break;
+                case PlayAction.GoToNextVerse:
+                    goToNextVerse();
+                    break;
+            }
+        },
+        [playAction]
+    );
+
+    const markTimeoutHandle = (handleId: number, storeNumber: number) => {
+        const newHandles = timeoutHandles.slice();
         newHandles[storeNumber || 0] = handleId;
         setTimeoutHandles(newHandles);
     };
@@ -42,7 +79,7 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
         setTimeoutHandles([0, 0, 0]);
     };
     const stopAudio = () => {
-        const audio = document.getElementById("audio-repetitor");
+        const audio = document.getElementById("audio-repetitor") as HTMLAudioElement;
         audio.pause();
     };
     const startingShowSource = () => {
@@ -51,124 +88,128 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
     const startingShowTranslation = () => {
         setShowTranslation(true);
     }
-    const checkStartingText = (stageNo: number, delaySeconds: number, fn: Function, timeoutNumber: number): void => {
-        if (stageNo !== stage) {
+    const checkStartingText = (stageCurrent: number, stageNo: number, delaySeconds: number, fn: Function, timeoutNumber: number): void => {
+        if (stageNo !== stageCurrent) {
             return;
         }
         const delay = Math.round(delaySeconds * 1000);
         if (delay > 0) {
-
-        } else {
             markTimeoutHandle(setTimeout(fn, delay), timeoutNumber);
+        } else {
+            fn();
         }
     };
 
-    const checkStartingSources = () => {
-        checkStartingText(repetitionModel.options.showSourceAt, repetitionModel.options.delaySource, startingShowSource, 1);
-        checkStartingText(repetitionModel.options.showTranslationAt, repetitionModel.options.delayTranslation, startingShowTranslation, 2);
+    const checkStartingSources = (stageCurrent: number): void => {
+        checkStartingText(stageCurrent, repetitionModel.options.showSourceAt, repetitionModel.options.delaySource, startingShowSource, 1);
+        checkStartingText(stageCurrent, repetitionModel.options.showTranslationAt, repetitionModel.options.delayTranslation, startingShowTranslation, 2);
     }
-    const goToNextVerse = () => {
+    const goToNextVerse = (): void => {
         if (loop) {
-            startPlayingVerse();
+            setPlayAction(PlayAction.StartPlayingVerse);
             return;
         }
-        const numberOfVerses = repetitionModel.sourceLines.length;
-        if (verse < sourceLines.length) {
+        const numberOfVerses = repetitionModel.sourceLines?.length || 0;
+        if (verse < numberOfVerses) {
             setShowSource(false);
             setShowTranslation(false);
             setVerse(verse + 1);
-            startPlayingVerse();
+            setPlayAction(PlayAction.StartPlayingVerse);
         } else {
             fireAction && fireAction("next-chapter");
         }
     }
-    const goToNextStage = () => {
+    const goToNextStage = (): void => {
         const stageAmount = repetitionModel.options.repetitionNumber || 0;
         const nextStage = stage + 1;
         if (nextStage >= stageAmount) {
-            goToNextVerse();
+            setPlayAction(PlayAction.GoToNextVerse);
         } else {
             setStage(nextStage);
-            checkStartingSources();
-            startPlayingStage();
+            checkStartingSources(nextStage);
+            setPlayAction(PlayAction.StartPlayingStage);
         }
     };
-    const checkPlayingStageStop = () => {
-        const audio = document.getElementById("audio-repetitor");
+    const checkPlayingStageStop = (): void => {
+        const audio = document.getElementById("audio-repetitor") as HTMLAudioElement;
         const expectedWaiting = Math.round(repetitionModel.audioPositions[verse - 1] - audio.currentTime * 1000);
-        if (expectedWaiting < 10) {
+        if (expectedWaiting < 2) {
             audio.pause();
             const delayAfter = Math.round(repetitionModel.options.delayAfter * 1000);
             if (delayAfter > 0) {
-                markTimeoutHandle(setTimeout(goToNextStage, delayAfter));
+                markTimeoutHandle(setTimeout(()=>setPlayAction(PlayAction.GoToNextStage), delayAfter));
             } else {
-                goToNextStage();
+                setPlayAction(PlayAction.GoToNextStage);
             }
         } else {
-            markTimeoutHandle(setTimeout(checkPlayingStageStop, expectedWaiting));
+            markTimeoutHandle(setTimeout(()=>setPlayAction(PlayAction.CheckPlayingStageStop), expectedWaiting));
         }
     }
-    const startPlayingStage = () => {
-        const audio = document.getElementById("audio-repetitor");
+    const startPlayingStage = (): void => {
+        const audio = document.getElementById("audio-repetitor") as HTMLAudioElement;
         const currentTime = verse <= 1 ? 0 : repetitionModel.audioPositions[verse - 2];
         audio.currentTime = currentTime * 0.001;
         audio.play();
-        checkPlayingStageStop();
+        setPlayAction(PlayAction.CheckPlayingStageStop);
     }
-    const startPlayingVerse = () => {
+    const cleanPlayingVerse = (): void => {
         stopAudio();
         resetTimeoutHandles();
         setStage(0);
-        checkStartingSources();
+    }
+    const startPlayingVerse = (): void => {
+        cleanPlayingVerse();
+        checkStartingSources(0);
         const delayBefore = Math.round(repetitionModel.options.delayBefore * 1000);
         if (delayBefore > 0) {
-            startPlayingStage();
+            markTimeoutHandle(setTimeout(() => setPlayAction(PlayAction.StartPlayingStage), delayBefore));
         } else {
-            markTimeoutHandle(setTimeout(startPlayingStage, delayBefore));
+            setPlayAction(PlayAction.StartPlayingStage);
         }
     };
-    const startStopPlaying = () => {
+    const startStopPlaying = (): void => {
         setIsPlaying(!isPlaying);
-        if (isPlaying) {
-            startPlayingVerse();
+        if (!isPlaying) {
+            setPlayAction(PlayAction.StartPlayingVerse);
         } else {
-            stopAudio();
+            cleanPlayingVerse();
+            setPlayAction(PlayAction.PlayIdle);
         }
     }; 
-    const nextVerse = () => {
+    const nextVerse = (): void => {
         if (verse < (repetitionModel.sourceLines?.length || 0)) {
             setVerse(verse + 1);
             if (isPlaying) {
-                startPlayingVerse();
+                setPlayAction(PlayAction.StartPlayingVerse);
             }
         }
     }; 
-    const previousVerse = () => {
+    const previousVerse = (): void => {
         if (verse > 1) {
             setVerse(verse - 1);
             if (isPlaying) {
-                startPlayingVerse();
+                setPlayAction(PlayAction.StartPlayingVerse);
             }
         }
     }; 
-    const showHideSource = () => {
+    const showHideSource = (): void => {
         saveBooleanLocal(storageShowSourceKey, !showSource);
         setShowSource(!showSource);
     }; 
-    const showHideTranslation = () => {
+    const showHideTranslation = (): void => {
         saveBooleanLocal(storageShowTranslationKey, !showTranslation);
         setShowTranslation(!showTranslation);
     }; 
-    const loopVerse = () => {
+    const loopVerse = (): void => {
         setLoop(!loop);
     }; 
-    const showLinksToDictionary = () => {
+    const showLinksToDictionary = (): void => {
         saveBooleanLocal(storageDictionaryKey, !dictionary);
         setDictionary(!dictionary);
     };
-    const presentLinkedContent = (lang: string, data: string) => {
+    const presentLinkedContent = (lang: string, data: string): JSX.Element => {
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
-            repetitionModel.options.secondaryLanguage, data);
+            repetitionModel.options.secondaryLanguage, data, false);
         const dictLink = dictionary ? getDictionaryLinks(lang, data) : "";
 
         return (
@@ -180,7 +221,7 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
             </div>
         );
     };
-    const presentContent = (lang: string, dataList: string[]) => {
+    const presentContent = (lang: string, dataList: string[]): JSX.Element => {
         const data = verse <= dataList.length ? dataList[verse - 1] : ""; 
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data, "href");

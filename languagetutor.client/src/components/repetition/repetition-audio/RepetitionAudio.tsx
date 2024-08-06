@@ -48,19 +48,16 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
         () => {
             const audio = document.getElementById("audio-calibrator");
             if (finishTime < 0) {
-                console.log("ended", finishTime, audio.currentTime);
                 return;
             }
             let dif = (finishTime - audio.currentTime) * 1000;
             console.log(dif, finishTime, audio.currentTime);
             if (dif < 2) {
-                console.log("finished", dif, finishTime, audio.currentTime);
                 audio.pause();
                 setFinishTime(-1);
                 return;
             };
             dif = Math.round(dif);
-            console.log("continuation", dif, finishTime, audio.currentTime);
             const timerId = setTimeout(() => setTimerCounter(timerCounter + 1), dif);
             return () => timerId && window.clearTimeout(timerId);
         },
