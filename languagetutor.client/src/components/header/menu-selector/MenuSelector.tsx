@@ -18,15 +18,12 @@ import { MenuListData } from './MenuList';
 const MenuSelector = () => {
     const [open, setOpen] = React.useState(false);
     
-    const setMenuAction = (action: string) => {
-        console.log(action);
-    };
     const DrawerList = (start:number, end:number) => (
             <List>
                 {MenuListData.slice(start, end).map((menu) => (
                     <ListItem key={menu.name} disablePadding>
                         <Link to={menu.action}>
-                            <ListItemButton onClick={() => setMenuAction(menu.action) }>
+                            <ListItemButton>
                                 <ListItemIcon>
                                     {menu.icon}
                                 </ListItemIcon>

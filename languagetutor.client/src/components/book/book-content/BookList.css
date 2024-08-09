@@ -1,0 +1,8 @@
+.book-content {
+    text-align: center;
+    padding: 20px 10px;
+}
+.book-content__title {
+    color: brown;
+    font-size: 140%;
+}

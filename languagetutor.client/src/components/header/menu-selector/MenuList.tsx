@@ -10,5 +10,6 @@ export const MenuListData = [
     { name: "Dictionary", action: "dictionary", icon: <SpellcheckIcon /> },
     { name: "Audio repetition", action: "repetition", icon: <LyricsIcon /> },
     { name: "Settings", action: "settings", icon: <SettingsIcon /> },
+    { name: "Resources", action: "resource", icon: <BookIcon /> },
 ];
 

@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 
 export default {
     [LOCALES.BOKMAL]: {
+        'Active languages': 'Aktive språk',
         'Add translation': 'Legg til oversettelse',
         'Additional delay for the source text': 'Ytterligere forsinkelse for kildeteksten i sekunder',
         'Additional delay for the translation': 'Ytterligere forsinkelse for oversettelsen i sekunder',
@@ -15,6 +16,8 @@ export default {
         'Books': 'Bøker',
         'Break loop': 'Bryte sløyfe',
         'Calibrate': 'Kalibrer',
+        'Choose book': 'Velge bok',
+        'Choose resource': 'Velge ressurs',
         'Clear': 'Rydde',
         'Delay after each verse in seconds': 'Forsinkelse etter hvert vers i sekunder',
         'Delay before each verse in seconds': 'Forsinkelse før hvert vers i sekunder',
@@ -26,6 +29,7 @@ export default {
         'immediately': 'øyeblikkelig',
         'Into language': 'Til språk',
         'Language': 'Språk',
+        'Language of study': 'Studiespråk',
         'Load': 'Laste',
         'Loop verse': 'Løkk vers',
         'Mark position': 'Merk posisjon',
@@ -36,6 +40,7 @@ export default {
         'Play': 'Spill',
         'Previous verse': 'Forrige vers',
         'Primary translation language': 'Primært oversettelsesspråk',
+        'Resources': 'Ressurser',
         'Save': 'Lagre',
         'Secondary translation language': 'Sekundært oversettelsesspråk',
         'Settings': 'Innstillinger',

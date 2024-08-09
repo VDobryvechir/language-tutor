@@ -2,10 +2,10 @@
 {
    "code": "bible",
    "name": "Bible",
-   "translate":{"en":"Bible","nb":"Bibel","nn":"Bibel","uk":"Біблія","de":"Bibel","pl":"Biblia","es":"Biblia","fr":"Bible","it":"Bibbia","sv":"Bibeln","da":"Bibel","ru":"Библия","gr":"βίβλος"},
+   "translate":{"en":"Bible","nb":"Bibel","nn":"Bibel","uk":"Біблія","de":"Bibel","pl":"Biblia","es":"Biblia","fr":"Bible","it":"Bibbia","sv":"Bibeln","da":"Bibel","ru":"Библия","gr":"βίβλος","bg":"Библия","cz":"Bible","pt":"Bíblia"},
    "options":{"showOrderNo":true},
-   "langs":["en","nb","nn","uk","de","pl","es","fr","it","sv","da","ru","da","gr"],
-   "activeLangs":["en","nb","uk","de","nn"]
+   "langs":["en","nb","nn","uk","de","pl","es","fr","it","sv","da","ru","bg","gr","pt","cz"],
+   "activeLangs":["en","nb","uk","de","nn","pl"]
 },
 {
    "code": "godinorsk",

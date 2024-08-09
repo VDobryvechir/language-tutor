@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import translate from '../../../i18n/translate.tsx';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -10,10 +11,12 @@ import RepetitionTexts from '../repetition-texts/RepetitionTexts.tsx';
 import RepetitionAudio from '../repetition-audio/RepetitionAudio.tsx';
 import RepetitionOptions from '../repetition-options/RepetitionOptions.tsx';
 import RepetitionPlay from '../repetition-play/RepetitionPlay.tsx';
-
-const RepetitionContent = () => {
+interface Props {
+    iniModel: Partial<RepetitionModel>;
+};
+const RepetitionContent = ({iniModel }: Props) => {
     const [value, setValue] = React.useState('1');
-    const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel());
+    const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel(iniModel));
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);

@@ -1,0 +1,604 @@
+[
+{
+    "resource": "bible",
+    "code": "GEN",
+    "name": "Genesis",
+    "chapters": 50,
+    "translate": {"en":"Genesis","nb":"","nn":"","uk":"Буття","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "EXO",
+    "name": "Exodus",
+    "chapters": 40,
+    "translate": {"en":"Exodus","nb":"","nn":"","uk":"Вихід","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "LEV",
+    "name": "Leviticus",
+    "chapters": 27,
+    "translate": {"en":"Leviticus","nb":"","nn":"","uk":"Левит","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "NUM",
+    "name": "Numbers",
+    "chapters": 36,
+    "translate": {"en":"Numbers","nb":"","nn":"","uk":"Числа","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "DEU",
+    "name": "Deuteronomy",
+    "chapters": 34,
+    "translate": {"en":"Deuteronomy","nb":"","nn":"","uk":"Повторення Закону","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JOS",
+    "name": "Joshua",
+    "chapters": 24,
+    "translate": {"en":"Joshua","nb":"","nn":"","uk":"Iсус Навин","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JDG",
+    "name": "Judges",
+    "chapters": 21,
+    "translate": {"en":"Judges","nb":"","nn":"","uk":"Книга Суддiв","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "RUT",
+    "name": "Ruth",
+    "chapters": 4,
+    "translate": {"en":"Ruth","nb":"","nn":"","uk":"Рут","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1SA",
+    "name": "1 Samuel",
+    "chapters": 31,
+    "translate": {"en":"1 Samuel","nb":"","nn":"","uk":"1-а Самуїлова","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2SA",
+    "name": "2 Samuel",
+    "chapters": 24,
+    "translate": {"en":"2 Samuel","nb":"","nn":"","uk":"2-а Самуїлова","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1KI",
+    "name": "1 Kings",
+    "chapters": 22,
+    "translate": {"en":"1 Kings","nb":"","nn":"","uk":"1-а царiв","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2KI",
+    "name": "2 Kings",
+    "chapters": 25,
+    "translate": {"en":"1 Kings","nb":"","nn":"","uk":"2-а царiв","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1CH",
+    "name": "1 Chronicles",
+    "chapters": 29,
+    "translate": {"en":"1 Chronicles","nb":"","nn":"","uk":"1-а хронiки","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2CH",
+    "name": "2 Chronicles",
+    "chapters": 36,
+    "translate": {"en":"2 Chronicles","nb":"","nn":"","uk":"2-а хронiки","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "EZR",
+    "name": "Ezra",
+    "chapters": 10,
+    "translate": {"en":"Ezra","nb":"","nn":"","uk":"Ездра","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "NEH",
+    "name": "Nehemiah",
+    "chapters": 13,
+    "translate": {"en":"Nehemiah","nb":"","nn":"","uk":"Неемія","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "EST",
+    "name": "Esther",
+    "chapters": 10,
+    "translate": {"en":"Esther","nb":"","nn":"","uk":"Естер","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JOB",
+    "name": "Job",
+    "chapters": 42,
+    "translate": {"en":"Job","nb":"","nn":"","uk":"Йов","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "PSA",
+    "name": "Psalms",
+    "chapters": 150,
+    "translate": {"en":"Psalms","nb":"","nn":"","uk":"Псалми","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "PRO",
+    "name": "Proverbs",
+    "chapters": 31,
+    "translate": {"en":"Proverbs","nb":"","nn":"","uk":"Приповiстi","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ECC",
+    "name": "Ecclesiastes",
+    "chapters": 12,
+    "translate": {"en":"Ecclesiastes","nb":"","nn":"","uk":"Екклезiяст","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "SNG",
+    "name": "Song of Solomon",
+    "chapters": 8,
+    "translate": {"en":"Song of Solomon","nb":"","nn":"","uk":"Пiсня над пiснями","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ISA",
+    "name": "Isaiah",
+    "chapters": 66,
+    "translate": {"en":"Isaiah","nb":"","nn":"","uk":"Iсая","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JER",
+    "name": "Jeremiah",
+    "chapters": 52,
+    "translate": {"en":"Jeremiah","nb":"","nn":"","uk":"Єремiя","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "LAM",
+    "name": "Lamentations",
+    "chapters": 5,
+    "translate": {"en":"Lamentations","nb":"","nn":"","uk":"Плач Єремiї","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "EZK",
+    "name": "Ezekiel",
+    "chapters": 48,
+    "translate": {"en":"Ezekiel","nb":"","nn":"","uk":"Єзекiїль","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "DAN",
+    "name": "Daniel",
+    "chapters": 12,
+    "translate": {"en":"Daniel","nb":"","nn":"","uk":"Даниїл","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "HOS",
+    "name": "Hosea",
+    "chapters": 14,
+    "translate": {"en":"Hosea","nb":"","nn":"","uk":"Осiя","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JOL",
+    "name": "Joel",
+    "chapters": 3,
+    "translate": {"en":"Joel","nb":"","nn":"","uk":"Йоїл","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "AMO",
+    "name": "Amos",
+    "chapters": 9,
+    "translate": {"en":"Amos","nb":"","nn":"","uk":"Амос","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "OBA",
+    "name": "Obadiah",
+    "chapters": 1,
+    "translate": {"en":"Obadiah","nb":"","nn":"","uk":"Овдiй","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JON",
+    "name": "Jonah",
+    "chapters": 4,
+    "translate": {"en":"Jonah","nb":"","nn":"","uk":"Йона","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "MIC",
+    "name": "Micah",
+    "chapters": 7,
+    "translate": {"en":"Micah","nb":"","nn":"","uk":"Михей","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "NAM",
+    "name": "Nahum",
+    "chapters": 3,
+    "translate": {"en":"Nahum","nb":"","nn":"","uk":"Наум","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "HAB",
+    "name": "Habakkuk",
+    "chapters": 3,
+    "translate": {"en":"Habakkuk","nb":"","nn":"","uk":"Авакум","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ZEP",
+    "name": "Zephaniah",
+    "chapters": 3,
+    "translate": {"en":"Zephaniah","nb":"","nn":"","uk":"Софонiя","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "HAG",
+    "name": "Haggai",
+    "chapters": 2,
+    "translate": {"en":"Haggai","nb":"","nn":"","uk":"Огiй","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ZEC",
+    "name": "Zechariah",
+    "chapters": 14,
+    "translate": {"en":"Zechariah","nb":"","nn":"","uk":"Захарiя","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "MAL",
+    "name": "Malachi",
+    "chapters": 4,
+    "translate": {"en":"Malachi","nb":"","nn":"","uk":"Малахiї","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "MAT",
+    "name": "Matthew",
+    "chapters": 28,
+    "translate": {"en":"Matthew","nb":"","nn":"","uk":"Вiд Матвiя","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "MRK",
+    "name": "Mark",
+    "chapters": 16,
+    "translate": {"en":"Mark","nb":"","nn":"","uk":"Вiд Марка","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "LUK",
+    "name": "Luke",
+    "chapters": 24,
+    "translate": {"en":"Luke","nb":"","nn":"","uk":"Вiд Луки","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JHN",
+    "name": "John",
+    "chapters": 21,
+    "translate": {"en":"John","nb":"","nn":"","uk":"Вiд Iвана","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ACT",
+    "name": "Acts",
+    "chapters": 28,
+    "translate": {"en":"Acts","nb":"","nn":"","uk":"Дiї","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "ROM",
+    "name": "Romans",
+    "chapters": 16,
+    "translate": {"en":"Romans","nb":"","nn":"","uk":"До римлян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1CO",
+    "name": "1 Corinthians",
+    "chapters": 16,
+    "translate": {"en":"1 Corinthians","nb":"","nn":"","uk":"1-е до коринтян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2CO",
+    "name": "2 Corinthians",
+    "chapters": 13,
+    "translate": {"en":"2 Corinthians","nb":"","nn":"","uk":"2-е до коринтян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "GAL",
+    "name": "Galatians",
+    "chapters": 6,
+    "translate": {"en":"Galatians","nb":"","nn":"","uk":"До галатiв","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "EPH",
+    "name": "Ephesians",
+    "chapters": 6,
+    "translate": {"en":"Ephesians","nb":"","nn":"","uk":"До ефесян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "PHP",
+    "name": "Philippians",
+    "chapters": 4,
+    "translate": {"en":"Philippians","nb":"","nn":"","uk":"До филип'ян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "COL",
+    "name": "Colossians",
+    "chapters": 4,
+    "translate": {"en":"Colossians","nb":"","nn":"","uk":"До колоссян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1TH",
+    "name": "1 Thessalonians",
+    "chapters": 5,
+    "translate": {"en":"1 Thessalonians","nb":"","nn":"","uk":"1-е до солунян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2TH",
+    "name": "2 Thessalonians",
+    "chapters": 3,
+    "translate": {"en":"2 Thessalonians","nb":"","nn":"","uk":"2-е до солунян","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1TI",
+    "name": "1 Timothy",
+    "chapters": 6,
+    "translate": {"en":"1 Timothy","nb":"","nn":"","uk":"1-е Тимофiю","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2TI",
+    "name": "2 Timothy",
+    "chapters": 4,
+    "translate": {"en":"2 Timothy","nb":"","nn":"","uk":"2-е Тимофiю","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "TIT",
+    "name": "Titus",
+    "chapters": 3,
+    "translate": {"en":"Titus","nb":"","nn":"","uk":"До Тита","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "PHM",
+    "name": "Philemon",
+    "chapters": 1,
+    "translate": {"en":"Philemon","nb":"","nn":"","uk":"До Филимона","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "HEB",
+    "name": "Hebrews",
+    "chapters": 13,
+    "translate": {"en":"Hebrews","nb":"","nn":"","uk":"До євреїв","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JAS",
+    "name": "James",
+    "chapters": 5,
+    "translate": {"en":"James","nb":"","nn":"","uk":"Якова","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1PE",
+    "name": "1 Peter",
+    "chapters": 5,
+    "translate": {"en":"1 Peter","nb":"","nn":"","uk":"1-е Петра","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2PE",
+    "name": "2 Peter",
+    "chapters": 3,
+    "translate": {"en":"2 Peter","nb":"","nn":"","uk":"2-е Петра","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "1JN",
+    "name": "1 John",
+    "chapters": 5,
+    "translate": {"en":"1 John","nb":"","nn":"","uk":"1-е Iвана","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "2JN",
+    "name": "2 John",
+    "chapters": 1,
+    "translate": {"en":"2 John","nb":"","nn":"","uk":"2-е Iвана","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "3JN",
+    "name": "3 John",
+    "chapters": 1,
+    "translate": {"en":"3 John","nb":"","nn":"","uk":"3-е Iвана","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "JUD",
+    "name": "Jude",
+    "chapters": 1,
+    "translate": {"en":"Jude","nb":"","nn":"","uk":"Юда","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "bible",
+    "code": "REV",
+    "name": "Revelation",
+    "chapters": 22,
+    "translate": {"en":"Revelation","nb":"","nn":"","uk":"Об'явлення","de":"","pl":"",
+                  "es":"","fr":"","it":"","da":"","sv":"","ru":"",
+                  "gr":"","pt":"","bg":"","cz":""} 
+},
+{
+    "resource": "godinorsk",
+    "code": "1",
+    "name": "1 (A1-A2)",
+    "chapters": 15,
+    "translate": {} 
+}
+]
+

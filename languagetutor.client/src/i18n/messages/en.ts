@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.ENGLISH]: {
+        'Active languages': 'Active languages',
         'Add translation': 'Add translation',
         'Additional delay for the source text': 'Additional delay for the source text in seconds',
         'Additional delay for the translation': 'Additional delay for the translation in seconds',
@@ -15,6 +16,8 @@ export default {
         'Books': 'Books',
         'Break loop': 'Break loop',
         'Calibrate': 'Calibrate',
+        'Choose book': 'Choose book',
+        'Choose resource': 'Choose resource',
         'Clear': 'Clear',
         'Delay after each verse in seconds': 'Delay after each verse in seconds',
         'Delay before each verse in seconds': 'Delay before each verse in seconds',
@@ -26,6 +29,7 @@ export default {
         'immediately': 'immediately',
         'Into language': 'Into language',
         'Language': 'Language',
+        'Language of study': 'Language of study',
         'Load': 'Load',
         'Loop verse': 'Loop verse',
         'Mark position': 'Mark position',
@@ -36,6 +40,7 @@ export default {
         'Play': 'Play',
         'Previous verse': 'Previous verse',
         'Primary translation language': 'Primary translation language',
+        'Resources': 'Resources',
         'Save': 'Save',
         'Secondary translation language': 'Secondary translation language',
         'Settings': 'Settings',

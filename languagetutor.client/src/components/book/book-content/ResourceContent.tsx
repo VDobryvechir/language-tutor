@@ -2,10 +2,10 @@ import React from 'react';
 import translate from '../../../i18n/translate.tsx';
 import BookList from './BookList.tsx';
 
-const BookContent = () => {
+const ResourceContent = () => {
     return (
-        <BookList code="book" /> 
+        <BookList code="resource" /> 
     ); 
 };
 
-export default BookContent;
+export default ResourceContent;

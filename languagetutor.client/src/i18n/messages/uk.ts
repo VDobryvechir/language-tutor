@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 
 export default {
     [LOCALES.UKRAINIAN]: {
+        'Active languages': 'Активні мови',
         'Add translation': 'Додати переклад',
         'Additional delay for the source text': 'Додаткова затримка для тексту джерела в секундах',
         'Additional delay for the translation': 'Додаткова затримка для перекладу в секундах',
@@ -15,6 +16,8 @@ export default {
         'Books': 'Книги',
         'Break loop': 'Припинити зациклювання',
         'Calibrate': 'Відкалібровати',
+        'Choose book': 'Оберіть книгу',
+        'Choose resource': 'Оберіть ресурс',
         'Clear': 'Очистити',
         'Delay after each verse in seconds': 'Затримка після кожного вірша в секундах',
         'Delay before each verse in seconds': 'Затримка перед кожним віршем в секундах',
@@ -26,6 +29,7 @@ export default {
         'immediately': 'одразу',
         'Into language': 'На мову',
         'Language': 'Мова',
+        'Language of study': 'Мова навчання',
         'Load': 'Завантажити',
         'Loop verse': 'Зациклити вірш',
         'Mark position': 'Помітити позицію',
@@ -36,6 +40,7 @@ export default {
         'Play': 'Відтворити',
         'Previous verse': 'Попередній вірш',
         'Primary translation language': 'Головна мова перекладу',
+        'Resources': 'Ресурси',
         'Save': 'Зберегти',
         'Secondary translation language': 'Другорядна мова перекладу',
         'Settings': 'Налаштування',

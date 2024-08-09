@@ -1,0 +1,28 @@
+.book-chooser {
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.book-chooser__title {
+    color: brown;
+    font-size: 140%;
+}
+
+.book-chooser__pool {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book-chooser__item {
+    background-color: green;
+    color: white!important;
+    padding: 7px;
+    display: flex;
+    width: 200px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    justify-content: space-between;
+    margin: 5px;
+}

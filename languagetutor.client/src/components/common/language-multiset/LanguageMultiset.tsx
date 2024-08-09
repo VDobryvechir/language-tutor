@@ -12,24 +12,21 @@ import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 
 interface Props {
-    language: string;
-    labelTitle: string;
-    selectorLabel: string;
-    setLanguage: (lang: string) => void;
+    languages: string[];
+    setLanguages: (lang: string[]) => void;
 };
 
-const LanguageChooser = ({ language, labelTitle, selectorLabel, setLanguage }: Props) => {
+const LanguageMultiset = ({ languages, setLanguages }: Props) => {
     const handleLanguageChange = (event: SelectChangeEvent) => {
-        setLanguage(event.target.value as string);
+        setLanguages([event.target.value as string]);
     };
     return (
         <FormControl fullWidth >
-            <InputLabel id="origin-language-label" > { translate(labelTitle)} </InputLabel>
+            <InputLabel id="origin-language-label" >  </InputLabel>
             <Select
                 labelId = "origin-language-label"
                 id = "origin-language-select"
-                value = { language }
-                label={translate(selectorLabel) }
+                value = { languages[0] }
                 onChange = { handleLanguageChange }
             >
                 <MenuItem value={ "en" }> English </MenuItem>
@@ -53,4 +50,4 @@ const LanguageChooser = ({ language, labelTitle, selectorLabel, setLanguage }: P
     );
 };
 
-export default LanguageChooser;
+export default LanguageMultiset;

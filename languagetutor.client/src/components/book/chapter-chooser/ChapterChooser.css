@@ -1,0 +1,28 @@
+.chapter-chooser {
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.chapter-chooser__title {
+    color: brown;
+    font-size: 140%;
+}
+
+.chapter-chooser__pool {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chapter-chooser__item {
+    background-color: #0094ff;
+    color: white!important;
+    padding: 7px;
+    display: flex;
+    width: 200px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    justify-content: space-between;
+    margin: 5px;
+}

@@ -1,5 +1,6 @@
 using LanguageTutor.Server.Models;
 using LanguageTutor.Server.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var initBuilder = WebApplication.CreateBuilder(args);
 var webRootPath = initBuilder.Configuration.GetValue<string>("webroot");
@@ -22,10 +23,31 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 var app = builder.Build();
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        var corsService = ctx.Context.RequestServices.GetRequiredService<ICorsService>();
+        var corsPolicyProvider = ctx.Context.RequestServices.GetRequiredService<ICorsPolicyProvider>();
+        var policy = corsPolicyProvider.GetPolicyAsync(ctx.Context, "AllowAll").Result;
+        var corsResult = corsService.EvaluatePolicy(ctx.Context, policy);
+        corsService.ApplyResult(corsResult, ctx.Context.Response);
+    }
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -41,6 +63,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
+// IConfiguration configuration = app.Configuration.;
+// IWebHostEnvironment environment = app.Environment;
 
 app.Run();
 

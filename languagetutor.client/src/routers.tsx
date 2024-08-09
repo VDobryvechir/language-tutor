@@ -1,4 +1,7 @@
 import BookContent from './components/book/book-content/BookContent';
+import BookChooser from './components/book/book-chooser/BookChooser';
+import ChapterChooser from './components/book/chapter-chooser/ChapterChooser';
+import ResourceContent from './components/book/book-content/ResourceContent';
 import TranslateContent from './components/translate/translate-content/TranslateContent';
 import WordContent from './components/word/word-content/WordContent';
 import SettingContent from './components/common/setting-content/SettingContent';
@@ -6,6 +9,7 @@ import CommonRoot from './components/common/common-root/CommonRoot';
 import ErrorPage from './components/common/error-page/ErrorPage';
 import { createBrowserRouter } from 'react-router-dom';
 import RepetitionContent from './components/repetition/repetition-content/RepetitionContent';
+import BookVerse from './components/book/book-verse/BookVerse';
 
 const routerPaths = createBrowserRouter([
   {
@@ -16,6 +20,10 @@ const routerPaths = createBrowserRouter([
         {
             path: "book",
             element: <BookContent />,
+        },
+        {
+            path: "resource",
+            element: <ResourceContent />,
         },
         {
             path: "translate",
@@ -33,6 +41,32 @@ const routerPaths = createBrowserRouter([
             path: "settings",
             element: <SettingContent />,
         },
+        {
+            path: "book/:resource",
+            element: <BookChooser code="book" />
+        },
+        {
+            path: "resource/:resource",
+            element: <BookChooser code="resource" />
+        },
+        {
+            path: "book/:resource/:book",
+            element: <ChapterChooser code="book" />
+        },
+        {
+            path: "resource/:resource/:book",
+            element: <ChapterChooser code="resource" />
+        },
+        {
+            path: "book/:resource/:book/:chapter",
+            element: <BookVerse code="book" />
+        },
+        {
+            path: "resource/:resource/:book/:chapter",
+            element: <BookVerse code="resource" />
+        }
+
+
     ],
   },
 ]);

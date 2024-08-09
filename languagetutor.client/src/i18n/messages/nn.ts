@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.NYNORSK]: {
+        'Active languages': 'Aktive språk',
         'Add translation': 'Legg til omsetjing',
         'Additional delay for the source text': 'Ytterlegare forseinking for kjeldeteksten',
         'Additional delay for the translation': 'Ytterlegare forseinking for omsetjinga',
@@ -15,6 +16,8 @@ export default {
         'Books': 'Bøker',
         'Break loop': 'Bryta sløyfa',
         'Calibrate': 'Kalibrer',
+        'Choose book': 'Velja bok',
+        'Choose resource': 'Velja ressurs',
         'Clear': 'Rydde',
         'Delay after each verse in seconds': 'Forseinking etter kvart vers i sekund',
         'Delay before each verse in seconds': 'Forseinking før kvart vers i sekund',
@@ -26,6 +29,7 @@ export default {
         'immediately': 'umiddelbart',
         'Into language': 'Til språk',
         'Language': 'Språk',
+        'Language of study': 'Studiespråk',
         'Load': 'Lasta',
         'Loop verse': 'Løkk vers',
         'Mark position': 'Merk posisjon',
@@ -36,6 +40,7 @@ export default {
         'Play': 'Spel',
         'Previous verse': 'Førre vers',
         'Primary translation language': 'Primært omsetjingsspråk',
+        'Resources': 'Ressursar',
         'Save': 'Lager',
         'Secondary translation language': 'Sekundært omsetjingsspråk',
         'Settings': 'Innstillingar',

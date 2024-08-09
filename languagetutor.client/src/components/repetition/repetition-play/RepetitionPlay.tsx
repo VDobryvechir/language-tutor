@@ -180,6 +180,8 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
         if (verse < (repetitionModel.sourceLines?.length || 0)) {
             setVerse(verse + 1);
             if (isPlaying) {
+                setShowSource(false);
+                setShowTranslation(false);
                 setPlayAction(PlayAction.StartPlayingVerse);
             }
         }
@@ -188,6 +190,8 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
         if (verse > 1) {
             setVerse(verse - 1);
             if (isPlaying) {
+                setShowSource(false);
+                setShowTranslation(false);
                 setPlayAction(PlayAction.StartPlayingVerse);
             }
         }

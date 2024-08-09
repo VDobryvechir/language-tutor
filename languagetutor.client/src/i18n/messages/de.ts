@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.GERMAN]: {
+        'Active languages': 'Aktive Sprachen',
         'Add translation': 'Übersetzung hinzufügen',
         'Additional delay for the source text': 'Zusätzliche Verzögerung für den Quelltext in Sekunden',
         'Additional delay for the translation': 'Zusätzliche Verzögerung für die Übersetzung in Sekunden',
@@ -15,6 +16,8 @@ export default {
         'Books': 'Bücher',
         'Break loop': 'Schleife unterbrechen',
         'Calibrate': 'Kalibrieren',
+        'Choose book': 'Wählen Sie ein Buch aus',
+        'Choose resource': 'Wählen Sie eine Ressource aus',
         'Clear': 'Löschen',
         'Delay after each verse in seconds': 'Verzögerung nach jedem Vers in Sekunden',
         'Delay before each verse in seconds': 'Verzögerung vor jedem Vers in Sekunden',
@@ -26,6 +29,7 @@ export default {
         'immediately': 'unmittelbar',
         'Into language': 'In die Sprache',
         'Language': 'Sprache',
+        'Language of study': 'Studiensprache',
         'Load': 'Beladen',
         'Loop verse': 'Verse wiederholen',
         'Mark position': 'Position markieren',
@@ -36,6 +40,7 @@ export default {
         'Play': 'Abspielen',
         'Previous verse': 'Vorheriger Vers',
         'Primary translation language': 'Primäre Übersetzungssprache',
+        'Resources': 'Ressourcen',
         'Save': 'Speichern',
         'Secondary translation language': 'Sekundäre Übersetzungssprache',
         'Settings': 'Einstellungen',

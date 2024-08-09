@@ -63,7 +63,23 @@
   "name": "Dansk",
   "code": "da",
   "translate": {"de":"Dänisch","nn":"dansk","nb":"dansk","uk":"датська","ru":"датский","pl":"duński","fr":"danoise","it":"danese","es":"danés","gr":"δανέζικη","sv":"danska","en":"Danish"}
-}
+},
+{
+  "name": "Български",
+  "code": "bg",
+  "translate": {"de":"Dänisch","nn":"dansk","nb":"dansk","uk":"датська","ru":"датский","pl":"duński","fr":"danoise","it":"danese","es":"danés","gr":"δανέζικη","sv":"danska","en":"Danish"}
+},
+{
+  "name": "čeština",
+  "code": "cz",
+  "translate": {"de":"Dänisch","nn":"dansk","nb":"dansk","uk":"датська","ru":"датский","pl":"duński","fr":"danoise","it":"danese","es":"danés","gr":"δανέζικη","sv":"danska","en":"Danish"}
+},
+{
+  "name": "",
+  "code": "pt",
+  "translate": {"de":"Dänisch","nn":"dansk","nb":"dansk","uk":"датська","ru":"датский","pl":"duński","fr":"danoise","it":"danese","es":"danés","gr":"δανέζικη","sv":"danska","en":"Danish"}
+},
+
 ]
 
 

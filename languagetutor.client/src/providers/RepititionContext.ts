@@ -1,27 +1,6 @@
 import { GeneralFormField, generateGeneralFormDefaults } from '../components/common/general-form/GeneralFormModel';
-
-export interface RepetitionOptions {
-    repetitionNumber: number;
-    delayBefore: number;
-    delayAfter: number;
-    delaySource: number;
-    delayTranslation: number;
-    showSourceAt: number;
-    showTranslationAt: number;
-    primaryLanguage: string;
-    secondaryLanguage: string;
-};
-export interface RepetitionModel {
-    sourceLanguage: string;
-    sourceLines: string[];
-    targetLanguages: string[];
-    targetLines: string[][];
-    activeLanguages: string[];
-    useDictionary: boolean;
-    audioSource: string;
-    audioPositions: number[];
-    options: RepetitionOptions;
-};
+import { RepetitionModel } from '../models/RepetitionModel';
+import { getLanguageOfStudy, getActiveLanguagesAsArray } from './StorageUtils';
 
 export const RepetitionOptionDefinition: GeneralFormField[] = [
     { 
@@ -126,19 +105,18 @@ export interface RepetitionProps {
     setRepetitionModel: (model: RepetitionModel) => void;
     fireAction?: (name: string) => void;
 };
-
-export const getInitialRepetitionModel = (): RepetitionModel => {
+export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): RepetitionModel => {
     const options: RepetitionOptions = generateGeneralFormDefaults({}, RepetitionOptionDefinition);
-
+    params = params || {};
     const res: RepetitionModel = {
-        sourceLanguage: 'nb',
-        sourceLines: [],
-        targetLanguages: [],
-        targetLines: [],
-        activeLanguages: ['nb', 'en', 'uk', 'de'],
+        sourceLanguage: params.sourceLanguage || getLanguageOfStudy(),
+        sourceLines: params.sourceLines || [],
+        targetLanguages: params.targetLanguages || [],
+        targetLines: params.targetLines || [],
+        activeLanguages: getActiveLanguagesAsArray(),
         useDictionary: true,
-        audioSource: '',
-        audioPositions: [],
+        audioSource: params.audioSource || '',
+        audioPositions: params.audioPositions || [],
         options: options,
     };
     return res;

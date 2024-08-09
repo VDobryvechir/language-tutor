@@ -1,17 +1,24 @@
 import React from 'react';
 
-const apiHost = "https://localhost:5162";
+const apiHost = window.DvApiHost !== undefined ? window.DvApiHost :  "https://localhost:7001";
 
 const apiCache = {};
 
-export const apiRequest = (url: string, method: string, body: string, cache: boolean) => {
-        if (cache && apiCache[method] && apiCache[method][url]) {
-            return Promise.resolve(apiCache[method][url]);
-        }
-        return fetch(apiHost + url, {
+export const apiRequest = (url: string, method?: string, body?: string | null, cache?: boolean) => {
+    if (!method) {
+        method = "GET";
+    }
+    if (cache && apiCache[method] && apiCache[method][url]) {
+        return Promise.resolve(apiCache[method][url]);
+    }
+    if (!url.startsWith('http')) {
+        url = apiHost + url;
+    }
+    return fetch(url, {
             method: method,
             body: body,
-        }).then((res) => {
+    }).then( (response)=> { return response.json(); })
+        .then((res) => {
             if (cache) {
                 if (!apiCache[method]) {
                     apiCache[method] = {};
