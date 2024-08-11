@@ -1,10 +1,12 @@
-import React from 'react';
 import { RepetitionProps, RepetitionOptionDefinition } from '../../../providers/RepititionContext';
 import GeneralForm from '../../common/general-form/GeneralForm';
 import './RepetitionOptions.css';
 
 const RepetitionOptions = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
-    const setRepetitionOption = (obj:any, key:string,val:any) => {
+    const setRepetitionOption = (obj: any, key: string, val: any) => {
+        if (!obj) {
+            return;
+        }
         const options = {
             ...repetitionModel.options,
             [key]: val,
@@ -15,7 +17,10 @@ const RepetitionOptions = ({ repetitionModel, setRepetitionModel }: RepetitionPr
         });
     };
     const getRepetitionOption = (obj: any, key: string): any => {
-        return repetitionModel.options[key];
+        if (!obj) {
+            return "";
+        }
+        return (repetitionModel.options as any)[key];
     };
     return (
         <div className="repetition-options">

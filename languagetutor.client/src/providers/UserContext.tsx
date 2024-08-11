@@ -1,8 +1,13 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-export const UserContext = createContext(null); 
+export const UserContext = createContext(null);
+interface Props {
+    children: any;
+    locale: string;
+    setLocale: (loc: string) => void;
+};
 
-export const UserContextProvider = ({ children, locale, setLocale }) => {
+export const UserContextProvider = ({ children, locale, setLocale }: Props) => {
    const [userInfo, setUserInfo] = useState(null);
    const [isAuth, setIsAuth] = useState(false);
 
@@ -10,14 +15,14 @@ export const UserContextProvider = ({ children, locale, setLocale }) => {
        fetch("/api/login", {
            method: "POST",
            body: JSON.stringify({name:name, pass: btoa(pass)}),
-       }).then((res) => {
+       }).then(() => {
            setIsAuth(true);
-           setUserInfo(res.user)
+           // setUserInfo(res.user)
        });
    };
    
    const logout = () => {
-      fetch('/api/logout').then((res) => {
+      fetch('/api/logout').then(() => {
            setIsAuth(false);
            setUserInfo(null);
        });

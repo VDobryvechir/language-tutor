@@ -16,18 +16,18 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 const LanguageSelector = () => {
-    const { setLocale } = useContext(UserContext);
+    const { setLocale } = (useContext(UserContext) as any);
     const [open, setOpen] = React.useState(false);
     const DrawerList = (
         <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
             <List>
                 {Object.keys(LOCALES).map((name, index) => (
-                    <ListItem key={LOCALES[name]} disablePadding>
-                        <ListItemButton onClick={() => setLocale(LOCALES[name])}>
+                    <ListItem key={(LOCALES as any)[name]} disablePadding>
+                        <ListItemButton onClick={() => setLocale((LOCALES as any)[name])}>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <FlagCircleIcon /> : <FlagIcon />}
                             </ListItemIcon>
-                            <ListItemText primary={translate(LOCALES[name] + "_full")} />
+                            <ListItemText primary={translate((LOCALES as any)[name] + "_full")} />
                         </ListItemButton>
                     </ListItem>
                 ))}

@@ -1,6 +1,6 @@
 import { GeneralFormField, generateGeneralFormDefaults } from '../components/common/general-form/GeneralFormModel';
-import { RepetitionModel } from '../models/RepetitionModel';
-import { getLanguageOfStudy, getActiveLanguagesAsArray } from './StorageUtils';
+import { RepetitionModel, RepetitionOptions } from '../models/RepetitionModel';
+import { getLanguageOfStudy, getActiveLanguagesAsMap } from './StorageUtils';
 
 export const RepetitionOptionDefinition: GeneralFormField[] = [
     { 
@@ -104,6 +104,8 @@ export interface RepetitionProps {
     repetitionModel: RepetitionModel;
     setRepetitionModel: (model: RepetitionModel) => void;
     fireAction?: (name: string) => void;
+    saveAudioPositions?: (pos: number[]) => void;
+    startTab?: number;
 };
 export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): RepetitionModel => {
     const options: RepetitionOptions = generateGeneralFormDefaults({}, RepetitionOptionDefinition);
@@ -113,7 +115,7 @@ export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): Rep
         sourceLines: params.sourceLines || [],
         targetLanguages: params.targetLanguages || [],
         targetLines: params.targetLines || [],
-        activeLanguages: getActiveLanguagesAsArray(),
+        activeLanguages: getActiveLanguagesAsMap(),
         useDictionary: true,
         audioSource: params.audioSource || '',
         audioPositions: params.audioPositions || [],
@@ -124,7 +126,7 @@ export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): Rep
 
 const translationPriorities = ["nb", "en", "uk", "de", "pl", "nn", "it", "fr", "es", "sv", "da", "gr", "ru"];
 
-const dictionariesExternal = {
+const dictionariesExternal: {[key:string]: string} = {
     nb: "https://ordbokene.no/nno/bm,nn/$$$",
     nn: "https://ordbokene.no/nno/bm,nn/$$$",
     de: "https://www.duden.de/rechtschreibung/$$$",

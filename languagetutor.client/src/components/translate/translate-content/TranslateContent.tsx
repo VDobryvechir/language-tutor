@@ -1,24 +1,17 @@
 ﻿import React from 'react';
 import translate from '../../../i18n/translate.tsx';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 import TranslationSource from '../../common/translation-source/TranslationSource.tsx';
+import { getLanguageOfStudy, setLanguageOfStudy, getActiveLanguagesAsArray } from '../../../providers/StorageUtils';
+import LanguageMultiset from '../../common/language-multiset/LanguageMultiset.tsx';
 
 const TranslateContent = () => {
-    const [origin, setOrigin] = React.useState('');
+    const [origin, setOrigin] = React.useState(getLanguageOfStudy());
     const [lines, setLines] = React.useState(['']);
+    const [destLanguages, setDestLanguages] = React.useState(getActiveLanguagesAsArray());
 
-    const handleOriginLanguageChange = (event: SelectChangeEvent) => {
-        setOrigin(event.target.value as string);
-    };
     return (
         <div className="translate-content">
             <Box
@@ -30,22 +23,7 @@ const TranslateContent = () => {
                 autoComplete="off"
             >
                 <div>
-                    
-                    <FormGroup>
-                        <InputLabel id="origin-language-label">Translate to</InputLabel>
-                        <FormControlLabel control={<Switch defaultChecked />} label="English" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Deutsch" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Nynorsk" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Bokmål" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Українська" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Polski" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Italiano" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Espanol" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Francais" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Dansk" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Svensk" />
-                        <FormControlLabel control={<Switch defaultChecked />} label="Greek" />
-                    </FormGroup>
+                    <LanguageMultiset label="Translate into" languages={destLanguages} setLanguages={ setDestLanguages} />                   
                 </div>
                 <TranslationSource
                     language={origin}

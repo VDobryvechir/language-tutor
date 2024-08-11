@@ -3,16 +3,15 @@ import { useParams } from 'react-router-dom';
 import translate from '../../../i18n/translate';
 import './BookChooser.css';
 import { Link } from 'react-router-dom';
-import { Resource } from '../../../models/Resource.ts';
 import { Book } from '../../../models/Book.ts';
-import { TestResources, TestBooks, getBooksForResource } from '../../../providers/TestMode.ts';
+import { getBooksForResource } from '../../../providers/TestMode.ts';
 import UserContext from '../../../providers/UserContext';
 
 
 interface Props {
     code: string;
 };
-const BookChooser = ({ code }: Props) => {
+const BookChooser = ({ }: Props) => {
     let { resource } = useParams();
     const { locale } = useContext(UserContext);
     let books = getBooksForResource(resource);

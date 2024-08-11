@@ -9,7 +9,7 @@ const externalGet = "?id=";
 
 export const loadVerseResource = (resource: string, book: string, chapter: string): Promise<ChapterModel> => {
     const url = `/tutor/${resource}/${book}/${chapter}.json`;
-    return apiRequest(url, "GET", null, true); 
+    return apiRequest(url, "GET", null, {cache: true}); 
 }
 
 export const getExternalId = (resource: string, book: string): string => {
@@ -27,12 +27,12 @@ export const saveAudioPositions = (resource: string, book: string, chapter: stri
     const id = getExternalId(resource, book);
     let url = externalUrl + externalGet + id;
     return apiRequest(url).then((chapterPositions: ChapterPositions) => {
-        url = externalUrl + externalGet;
+        url = externalUrl;
         chapterPositions = chapterPositions || {};
         chapterPositions[chapter] = pos;
         const data = encodeURIComponent(JSON.stringify(chapterPositions));
         const body = `id=${id}&d=${data}`;
-        return apiRequest(url, "POST", body);
+        return apiRequest(url, "POST", body, {isForm: true});
     });
 }
 

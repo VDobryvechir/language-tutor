@@ -1,4 +1,3 @@
-import React from 'react';
 import translate from '../../../i18n/translate';
 import './MenuSelection.css';
 import { MenuListData } from '../menu-selector/MenuList';

@@ -13,9 +13,11 @@ import RepetitionOptions from '../repetition-options/RepetitionOptions.tsx';
 import RepetitionPlay from '../repetition-play/RepetitionPlay.tsx';
 interface Props {
     iniModel: Partial<RepetitionModel>;
+    saveAudioPositions?: (pos: number[]) => void;
+    startTab: number;
 };
-const RepetitionContent = ({iniModel }: Props) => {
-    const [value, setValue] = React.useState('1');
+const RepetitionContent = ({ iniModel, saveAudioPositions, startTab }: Props) => {
+    const [value, setValue] = React.useState('' + (startTab+1));
     const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel(iniModel));
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -27,8 +29,8 @@ const RepetitionContent = ({iniModel }: Props) => {
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="Audio repetition">
-                        <Tab label={ translate("Text sources")} value="1" />
-                        <Tab label={translate("Audio")} value="2" />
+                        {startTab === 0 ? < Tab label={translate("Text sources")} value="1" /> : null }
+                        {startTab < 2 ? <Tab label={translate("Audio")} value="2" /> : null}
                         <Tab label={ translate("Options") } value="3" />
                         <Tab label={ translate("Play") } value="4" />
                     </TabList>
@@ -37,7 +39,7 @@ const RepetitionContent = ({iniModel }: Props) => {
                     <RepetitionTexts repetitionModel={repetitionModel} setRepetitionModel={ setRepetitionModel} />
                 </TabPanel>
                 <TabPanel value="2">
-                    <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
+                    <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} saveAudioPositions={saveAudioPositions} startTab={ startTab} />
                 </TabPanel>
                 <TabPanel value="3">
                     <RepetitionOptions repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />

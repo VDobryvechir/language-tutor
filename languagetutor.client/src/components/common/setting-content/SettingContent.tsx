@@ -3,6 +3,7 @@ import { getLanguageOfStudy, setLanguageOfStudy, getActiveLanguagesAsArray, setA
 import translate from '../../../i18n/translate';
 import LanguageMultiset from '../language-multiset/LanguageMultiset';
 import LanguageChooser from '../language-chooser/LanguageChooser';
+import './SettingContent.css';
 
 const SettingContent = () => {
     const [language, setLanguage] = useState(getLanguageOfStudy());
@@ -18,14 +19,14 @@ const SettingContent = () => {
     };
     return (
         <>
-            <div>
-                <span>{translate("Language of study")}</span>
-                <LanguageChooser language={language} labelTitle="language" selectorLabel="language"
+            <div className="setting-content__study">
+                <div className="setting-content__study-label">{translate("Language of study")}</div>
+                <LanguageChooser language={language} labelTitle="" selectorLabel=""
                     setLanguage={setLanguageAdvanced}
                 />
             </div>
             <div>
-                <span>{translate("Active languages")}</span>
+                <div className="setting-content__study-label">{translate("Active languages")}</div>
                 <LanguageMultiset languages={activeLanguages} setLanguages={setActiveLanguagesAdvanced} />
             </div>
         </>

@@ -24,12 +24,12 @@ const LanguageChooser = ({ language, labelTitle, selectorLabel, setLanguage }: P
     };
     return (
         <FormControl fullWidth >
-            <InputLabel id="origin-language-label" > { translate(labelTitle)} </InputLabel>
+            <InputLabel id="origin-language-label" > {labelTitle && translate(labelTitle)} </InputLabel>
             <Select
                 labelId = "origin-language-label"
                 id = "origin-language-select"
                 value = { language }
-                label={translate(selectorLabel) }
+                label={selectorLabel && translate(selectorLabel) }
                 onChange = { handleLanguageChange }
             >
                 <MenuItem value={ "en" }> English </MenuItem>

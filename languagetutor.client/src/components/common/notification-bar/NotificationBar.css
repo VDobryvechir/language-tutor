@@ -1,0 +1,16 @@
+.notification-bar__error {
+    background-color: #ff006e;
+    color: white;
+}
+.notification-bar__info {
+    background-color: forestgreen;
+    color: white;
+}
+.notification-bar__info, .notification-bar__error {
+    height: 36px;
+    width: 250px;
+    display: flex;
+    place-items: center;
+    padding-left: 3px;
+}
+

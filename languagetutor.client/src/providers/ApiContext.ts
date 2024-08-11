@@ -1,31 +1,44 @@
-import React from 'react';
+import { showError } from './Notifier';
+const globalRoot: any = window as any; 
+const apiHost = globalRoot.DvApiHost !== undefined ? globalRoot.DvApiHost :  "https://localhost:7001";
+export interface ApiContextOption {
+    cache?: boolean;
+    isForm?: boolean;
+    headers?: { [key: string]: string };
+};
+const apiCache: { [key: string]: {[key:string]: string}} = {};
 
-const apiHost = window.DvApiHost !== undefined ? window.DvApiHost :  "https://localhost:7001";
-
-const apiCache = {};
-
-export const apiRequest = (url: string, method?: string, body?: string | null, cache?: boolean) => {
+export const apiRequest = (url: string, method?: string, body?: string | null, options?: ApiContextOption) => {
     if (!method) {
         method = "GET";
     }
-    if (cache && apiCache[method] && apiCache[method][url]) {
+    if (options?.cache && apiCache[method] && apiCache[method][url]) {
         return Promise.resolve(apiCache[method][url]);
     }
     if (!url.startsWith('http')) {
         url = apiHost + url;
     }
-    return fetch(url, {
-            method: method,
-            body: body,
-    }).then( (response)=> { return response.json(); })
+    const headers = options?.headers || {};
+    if (!headers['Content-Type'] && method!=="GET") {
+        headers['Content-Type'] = options?.isForm ? "application/x-www-form-urlencoded" : "application/json";
+    }
+    const fetchData = {
+        method: method,
+        body: body,
+        headers: headers,
+    };
+    return fetch(url, fetchData).then( (response)=> { return response.json(); })
         .then((res) => {
-            if (cache) {
+            if (options?.cache) {
                 if (!apiCache[method]) {
                     apiCache[method] = {};
                 }
                 apiCache[method][url] = res;
             }
             return res;
+        }).catch((reason) => {
+            console.log(reason);
+            showError("Server error");
         });
     };
 

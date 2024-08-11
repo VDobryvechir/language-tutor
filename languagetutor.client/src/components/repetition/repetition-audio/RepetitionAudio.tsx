@@ -8,6 +8,7 @@ import './RepetitionAudio.css';
 import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
 import { loadDbItem, saveDbItem } from '../../../providers/IndexedStorage';
 import { clearInterval } from 'timers';
+import { showError } from '../../../providers/Notifier';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
@@ -36,7 +37,7 @@ const reducePositionTime = (state: string[], action: PositionTime): string[] => 
     return state;
 };
 
-const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
+const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositions, startTab }: RepetitionProps) => {
     const [step, setStep] = useState(-1);
     const [openLoad, setOpenLoad] = useState(false);
     const [openSave, setOpenSave] = useState(false);
@@ -46,7 +47,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
 
     useEffect(
         () => {
-            const audio = document.getElementById("audio-calibrator");
+            const audio = document.getElementById("audio-calibrator") as HTMLAudioElement;
             if (finishTime < 0) {
                 return;
             }
@@ -69,7 +70,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
             const start = index == 0 ? 0 : repetitionModel.audioPositions[index - 1];
             const end = repetitionModel.audioPositions[index];
             if (start < end) {
-                const audio = document.getElementById("audio-calibrator");
+                const audio = document.getElementById("audio-calibrator") as HTMLAudioElement;
                 audio.pause();
                 audio.currentTime = start * 0.001;
                 audio.play();
@@ -87,13 +88,13 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
         });
     }; 
     const startPlayer = () => {
-        const audio = document.getElementById("audio-calibrator");
+        const audio = document.getElementById("audio-calibrator") as HTMLAudioElement;
         audio.pause();
         audio.currentTime = 0;
         audio.play();
     };
     const endPlayer = () => {
-        const audio = document.getElementById("audio-calibrator");
+        const audio = document.getElementById("audio-calibrator") as HTMLAudioElement;
         audio.pause();
     };
     const startCalibration = () => {
@@ -122,26 +123,55 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
               setStep(-1);
           } else {
               setStep(index+1);
-              const audio = document.getElementById("audio-calibrator");
+              const audio = document.getElementById("audio-calibrator") as HTMLAudioElement;
+              if (!audio) {
+                  showError("Audio is not present");
+                  return;
+              }
               const amount = Math.round(audio.currentTime * 1000);
-              if (index===limit-2) {
-                repetitionModel.audioPositions = getAudioPosAmount(Math.round(audio.duration * 1000),limit-1)
+              if (index === limit - 2) {
+                  const positions = getAudioPosAmount(Math.round(audio.duration * 1000), limit - 1);
+                  if (positions) {
+                      repetitionModel.audioPositions = positions;
+                  }
               }
               setAudioPosAmount(amount, index);
               setAudioScrollPosition(index + 1);
               dispatchPositionTime({ index: index, value: milisecondsToTime(amount)});
           }
     };
-    const getAudioPosAmount = (amount: number, index:number): number[] => {
+    const getAudioPosAmount = (amount: number, index: number): number[] | null => {
+        if (repetitionModel.audioPositions && repetitionModel.audioPositions[index] === amount) {
+            return null;
+        }
         const audioPositions = (repetitionModel.audioPositions || []).slice();
         audioPositions[index] = amount;
         return audioPositions;
     };
-    const setAudioPosAmount = (amount: number, index:number): void => {
+    const isFullyValidPosition = (positions: number[]): boolean => {
+        const n = positions?.length || 0;
+        if (!n || n !== repetitionModel.sourceLines.length || !positions[n-1]) {
+            return false;
+        }
+        for (let i = 1; i < n; i++) {
+            if (positions[i] < positions[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    };
+    const setAudioPosAmount = (amount: number, index: number): void => {
+        const positions: number[] = getAudioPosAmount(amount, index);
+        if (!positions) {
+            return;
+        }
         setRepetitionModel({
             ...repetitionModel,
-            audioPositions: getAudioPosAmount(amount,index),
+            audioPositions: positions,
         });
+        if (isFullyValidPosition(positions) && startTab === 1 && saveAudioPositions) {
+            saveAudioPositions(positions); 
+        }
     };
     const handleLoadClose = (name:string) => {
         setOpenLoad(false);
@@ -183,6 +213,13 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
         setAudioPosAmount(amount, index);
         dispatchPositionTime({index, value});
     };
+    const clearProcedure = () => {
+        if (startTab === 1) {
+            showError("Here function is not defined");
+            return;
+        }
+        setRepetitionModel(clearAudioPositions(repetitionModel));
+    };
     return (
         <>
             <div className="repetition-audio__url">
@@ -199,23 +236,31 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
             <div className="repetition-audio__audio-player">
                 <audio controls src={repetitionModel.audioSource} id="audio-calibrator">
                 </audio>
-                <Button
+                {startTab === 0 ?
+                    <Button
                     variant="outlined"
                     onClick={() => setOpenSave(true)}
                 >{translate("Save")}</Button>
+                    : null
+                }
+                {startTab === 0 ?
                 <Button
-                    variant="outlined"
-                    onClick={()=>setOpenLoad(true)}
-                >{translate("Load")}</Button>
+                        variant="outlined"
+                        onClick={() => setOpenLoad(true)}
+                    >{translate("Load")}</Button>
+                    : null 
+                }
             </div>
             <div className="repetition-audio__position-bar">
                 <div className="repetition-audio__position-title">
                     { translate("Audio positions")}
                 </div>
-                <Button
+                {startTab === 0 ? <Button
                     variant="outlined"
-                    onClick={() => setRepetitionModel(clearAudioPositions(repetitionModel))}
+                    onClick={clearProcedure}
                 >{translate("Clear")}</Button>
+                    : null
+                }
                 <Button
                     variant="outlined"
                     onClick={startCalibration}
@@ -231,9 +276,8 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     <React.Fragment key={'alt' + index}>
                         <div id={"repetition-audio-"+index} style={{ backgroundColor: step === index ? 'yellow' : 'inherit' }}>
                        <TextField
-                                label="Time"
                                 variant="standard"
-                                value={positionTime[index]}
+                                value={positionTime[index] || ''}
                                 onChange={(event) => setAudioPos(event.target.value, index) }
                         />
                        </div>

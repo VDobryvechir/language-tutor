@@ -1,0 +1,10 @@
+.setting-content__study {
+    padding: 5px;
+    max-width: 300px;
+    text-align: center;
+}
+.setting-content__study-label {
+    padding: 5px;
+    font-size: 120%;
+    max-width: 300px;
+}

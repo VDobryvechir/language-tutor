@@ -28,15 +28,21 @@ const openingDb = (props: DbUtilityProps, nextFn: () => void) => {
     // these two event handlers act on the database being opened
     // successfully, or not
     DBOpenRequest.onerror = (event) => {
+        console.log('error', event);
         props.response({
             error: "Error opening database",
         });
     };
 
     DBOpenRequest.onupgradeneeded = (event) => {
-        const db = event.target.result;
+        if (!event.target) {
+            console.log('error - empty reply', event);
+            return; 
+        }
+        const db = (event.target as any).result;
 
-        db.onerror = (event) => {
+        db.onerror = (event: any) => {
+            console.log('error', event);
             props.response({
                 error: "Error opening database in upgrade",
             });
@@ -44,11 +50,11 @@ const openingDb = (props: DbUtilityProps, nextFn: () => void) => {
 
         // Create an objectStore for this database
 
-        const objectStore = db.createObjectStore(dbparams[1], {
+        db.createObjectStore(dbparams[1], {
             keyPath: dbparams[2],
         });
     };
-    DBOpenRequest.onsuccess = (event) => {
+    DBOpenRequest.onsuccess = () => {
         props.db = DBOpenRequest.result;
         nextFn();
     };
@@ -103,7 +109,7 @@ const closingDb = (props: DbUtilityProps) => {
 export const openingDbObjectStoreAndKeys = (props: DbUtilityProps, write: boolean, nextFn: (objStore: IDBObjectStore, keys:string[])=>void) => {
     openingDbTransaction(props, write, (objStore: IDBObjectStore) => {
         const objectStoreRequest = objStore.getAllKeys();
-        objectStoreRequest.onsuccess = (event) => {
+        objectStoreRequest.onsuccess = () => {
             const res = collectDbRecordNames(props, objectStoreRequest.result);
             nextFn(objStore, res);
         };
@@ -113,7 +119,7 @@ export const openingDbObjectStoreAndKeys = (props: DbUtilityProps, write: boolea
 export const openingDbObjectStoreSingleKey = (props: DbUtilityProps, write: boolean, nextFn: (objStore: IDBObjectStore, keys?: IDBValidKey) => void) => {
     openingDbTransaction(props, write, (objStore: IDBObjectStore) => {
         const objectStoreRequest = objStore.getAllKeys();
-        objectStoreRequest.onsuccess = (event) => {
+        objectStoreRequest.onsuccess = () => {
             const res = findSingleValidKey(props, objectStoreRequest.result);
             nextFn(objStore, res);
         };
@@ -126,6 +132,9 @@ export const getDbKeyList = (props: DbUtilityProps) => {
             payload: keys,
         });
         closingDb(props);
+        if (objStore) {
+            return true;
+        }
     });
 };
 
@@ -133,7 +142,7 @@ export const saveDbItem = (props: DbUtilityProps) => {
     openingDbObjectStoreSingleKey(props, true, (objStore: IDBObjectStore, key?: IDBValidKey) => {
         const elem = { [props.keyName!]: props.filter, data: props.payload };
         const objectStoreRequest = key ? objStore.put(elem) : objStore.add(elem);
-        objectStoreRequest.onsuccess = (event) => {
+        objectStoreRequest.onsuccess = () => {
             props.response({ payload: "ok" });
             closingDb(props);
         };
@@ -148,7 +157,7 @@ export const loadDbItem = (props: DbUtilityProps) => {
             return;
         }
         const objectStoreRequest = objStore.get(key);
-        objectStoreRequest.onsuccess = (event) => {
+        objectStoreRequest.onsuccess = () => {
             props.response({ payload: objectStoreRequest.result.data });
             closingDb(props);
         };

@@ -4,7 +4,6 @@ import translate from '../../../i18n/translate.tsx';
 import { Link } from 'react-router-dom';
 import { TestResources } from '../../../providers/TestMode.ts';
 import { Resource } from '../../../models/Resource.ts';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,7 +16,7 @@ import './BookList.css';
 interface Props {
     code: string;
 };
-const BookList = ({ code }: Props) => {
+const BookList = ({  }: Props) => {
     const { locale } = useContext(UserContext);
     return (
         <div className="book-content">

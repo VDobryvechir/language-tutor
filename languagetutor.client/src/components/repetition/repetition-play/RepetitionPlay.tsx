@@ -27,7 +27,7 @@ const retrieveBooleanLocal = (key: string, val: boolean) => {
     return res ? res==="true" : (val || false);
 };
 
-const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: RepetitionProps) => {
+const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [verse, setVerse] = useState(1);
     const [stage, setStage] = useState(0);
@@ -283,7 +283,7 @@ const RepetitionPlay = ({ repetitionModel, setRepetitionModel, fireAction }: Rep
                     <div className="repetition-play__noinfo">{translate("Source is hidden")}</div>} 
             </div>
             <div>
-                {showTranslation && repetitionModel.targetLanguages && repetitionModel.targetLanguages.map((lang, index) => presentContent(lang, repetitionModel.targetLines[index])) ||
+                {showTranslation && repetitionModel.targetLanguages && repetitionModel.targetLanguages.map((lang, index) => repetitionModel.activeLanguages[lang] ? presentContent(lang, repetitionModel.targetLines[index]) : null) ||
                     <div className="repetition-play__noinfo">{translate("Translation is hidden")}</div>}
             </div>
         </div>

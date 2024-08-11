@@ -1,0 +1,10 @@
+.language-multiset__list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+}
+
+.language-multiset__list > div {
+        margin: 5px;
+        width: 150px;
+}

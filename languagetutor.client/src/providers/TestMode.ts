@@ -31,3 +31,13 @@ export const getBookForResource = (resource: string, code: string): Book | null 
     const book = TestBooks.find((book: Book) => book.code === code && book.resource === resource) || null;
     return book;
 };
+
+export const getResourceName = (locale: string, resource: string): string => {
+    const res = TestResources.find((item) => item.code === resource);
+    return res ? res.translate[locale] || res.name : '';
+}
+
+export const getBookName = (locale: string, resource: string, book: string): string => {
+    const res = TestBooks.find((item) => item.code===book && item.resource === resource);
+    return res ? res.translate[locale] || res.name : '';
+}

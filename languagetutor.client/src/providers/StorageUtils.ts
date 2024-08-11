@@ -5,13 +5,22 @@ export const getLanguageOfStudy = () => localStorage.getItem('lang') || 'nb';
 
 export const setLanguageOfStudy = (lng: string) => localStorage.setItem('lang', lng);
 
-export const getActiveLanguagesAsArray = () => {
+export const getActiveLanguagesAsArray = (): string[] => {
     const s = (localStorage.getItem('activeLanguages') || "").split(",");
-    return s.length && s[0] ? s : ['nb', 'en', 'uk', 'de', 'pl'];
+    const langs = s.length && s[0] ? s : ['nb', 'en', 'uk', 'de', 'pl'];
+    return langs;
+}
+
+export const getActiveLanguagesAsMap = (): { [key: string]: boolean } => {
+    const res: { [key: string]: boolean } = {};
+    const langs = getActiveLanguagesAsArray();
+    langs.forEach((lng) => res[lng] = true);
+    return res;
 }
 
 export const setActiveLanguagesAsArray = (langs: string[]) => {
-    localStorage.setItem('activeLanguages', (langs || []).join(","));
+    const languages = (langs || []).join(",");
+    localStorage.setItem('activeLanguages', languages);
 }
 
 export const convertChapterModelToRepetitionModel = (chapterModel: ChapterModel, audioPositions: number[]): Partial<RepetitionModel> => {

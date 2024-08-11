@@ -18,7 +18,7 @@ const ChapterChooser = ({ code }: Props) => {
     const bok: Book = getBookForResource(resource, book);
     const n = bok?.chapters || 0;
     const data = [];
-    for (let i = 0; i < n; i++) {
+    for (let i = 1; i <= n; i++) {
         data.push(
             {
                 code: "" + i,

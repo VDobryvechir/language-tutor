@@ -14,7 +14,7 @@ export interface RepetitionModel {
     sourceLines: string[];
     targetLanguages: string[];
     targetLines: string[][];
-    activeLanguages: string[];
+    activeLanguages: { [key: string]: boolean };
     useDictionary: boolean;
     audioSource: string;
     audioPositions: number[];
