@@ -3,7 +3,7 @@ import React from 'react';
 import './TranslationText.css';
 
 interface Props {
-    hint: string;
+    hint?: string;
     lines: string[];
     setLines: (lines: string[]) => void;
 };
@@ -85,7 +85,7 @@ const TranslationText = ({ hint, setLines, lines}: Props) => {
     return (
         <div className="translation-text">
             <TextField
-                placeholder={hint}
+                placeholder={hint || ''}
                 multiline
                 fullWidth
                 onChange={handleChange}

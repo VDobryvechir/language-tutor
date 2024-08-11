@@ -1,4 +1,3 @@
-import React from 'react';
 import LanguageName from '../language-name/LanguageName';
 import LanguageSelector from '../language-selector/LanguageSelector';
 import './Header.css';

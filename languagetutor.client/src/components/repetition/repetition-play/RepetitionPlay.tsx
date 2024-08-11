@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { RepetitionProps, getTranslationLink, getDictionaryLinks } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './RepetitionPlay.css';
 
@@ -137,12 +136,12 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
             audio.pause();
             const delayAfter = Math.round(repetitionModel.options.delayAfter * 1000);
             if (delayAfter > 0) {
-                markTimeoutHandle(setTimeout(()=>setPlayAction(PlayAction.GoToNextStage), delayAfter));
+                markTimeoutHandle(window.setTimeout(()=>setPlayAction(PlayAction.GoToNextStage), delayAfter) as number, 0);
             } else {
                 setPlayAction(PlayAction.GoToNextStage);
             }
         } else {
-            markTimeoutHandle(setTimeout(()=>setPlayAction(PlayAction.CheckPlayingStageStop), expectedWaiting));
+            markTimeoutHandle(window.setTimeout(()=>setPlayAction(PlayAction.CheckPlayingStageStop), expectedWaiting) as number, 0);
         }
     }
     const startPlayingStage = (): void => {
@@ -162,7 +161,7 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
         checkStartingSources(0);
         const delayBefore = Math.round(repetitionModel.options.delayBefore * 1000);
         if (delayBefore > 0) {
-            markTimeoutHandle(setTimeout(() => setPlayAction(PlayAction.StartPlayingStage), delayBefore));
+            markTimeoutHandle(window.setTimeout(() => setPlayAction(PlayAction.StartPlayingStage), delayBefore) as number, 0);
         } else {
             setPlayAction(PlayAction.StartPlayingStage);
         }
@@ -213,7 +212,7 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
     };
     const presentLinkedContent = (lang: string, data: string): JSX.Element => {
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
-            repetitionModel.options.secondaryLanguage, data, false);
+            repetitionModel.options.secondaryLanguage, data);
         const dictLink = dictionary ? getDictionaryLinks(lang, data) : "";
 
         return (

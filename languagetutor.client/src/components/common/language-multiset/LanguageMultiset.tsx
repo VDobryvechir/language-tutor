@@ -1,9 +1,5 @@
 ﻿import translate from '../../../i18n/translate.tsx';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -16,9 +12,6 @@ interface Props {
 };
 
 const LanguageMultiset = ({ languages, setLanguages, label }: Props) => {
-    const handleLanguageChange = (event: SelectChangeEvent) => {
-        setLanguages([event.target.value as string]);
-    };
     const turnOn = (locale: string) => {
         const pos = (languages || []).findIndex((item)=> item===locale);
         if (pos >= 0) {
@@ -36,7 +29,7 @@ const LanguageMultiset = ({ languages, setLanguages, label }: Props) => {
     const turnOffOn = (state: boolean, locale: string) => {
         state ? turnOn(locale) : turnOff(locale);
     };
-    const isLangUsed = {};
+    const isLangUsed: {[key:string]: boolean} = {};
     (languages || []).forEach((lng) => isLangUsed[lng] = true);
     const langList = ALL_LOCALES.map((locale: string) => {
         const swch = isLangUsed[locale] || false;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import translate from '../../../i18n/translate';
 import './BookVerse.css';
 import RepetitionContent from '../../repetition/repetition-content/RepetitionContent.tsx';
 import { loadPartialRepetitionModel, saveAudioPositions } from '../../../providers/BookDataLoad.ts';
@@ -11,7 +10,7 @@ interface Props {
     code: string;
 };
 const BookVerse = ({ code }: Props) => {
-    const [ repetitionModel, setRepetitionModel ] = useState({});
+    const [ repetitionModel, setRepetitionModel ] = useState<Partial<RepetitionModel>>({});
     const { resource, book, chapter } = useParams();
     useEffect(() => {
         if (resource && book && chapter) {

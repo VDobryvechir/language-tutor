@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { RepetitionProps, clearAudioPositions, extractSaveablePayload, RepetitionModel } from '../../../providers/RepititionContext';
+import { RepetitionProps, clearAudioPositions, extractSaveablePayload } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
 import {milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
@@ -7,13 +7,13 @@ import Button from '@mui/material/Button';
 import './RepetitionAudio.css';
 import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
 import { loadDbItem, saveDbItem } from '../../../providers/IndexedStorage';
-import { clearInterval } from 'timers';
 import { showError } from '../../../providers/Notifier';
+import { RepetitionModel } from '../../../models/RepetitionModel';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
     index?: number;
-    value: string;
+    value?: string;
     payload?: RepetitionModel;
 };
 
@@ -29,7 +29,7 @@ const repetitionPositionInit = (repetitionModel: RepetitionModel): string[] => {
 const reducePositionTime = (state: string[], action: PositionTime): string[] => {
     if (typeof action.index === "number") {
         const newState = state.slice();
-        newState[action.index] = action.value;
+        newState[action.index] = action.value || '';
         return newState;
     } else if (action.payload) {
         return repetitionPositionInit(action.payload);
@@ -161,7 +161,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
         return true;
     };
     const setAudioPosAmount = (amount: number, index: number): void => {
-        const positions: number[] = getAudioPosAmount(amount, index);
+        const positions: number[] | null = getAudioPosAmount(amount, index);
         if (!positions) {
             return;
         }

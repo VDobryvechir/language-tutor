@@ -17,7 +17,7 @@ interface Props {
     code: string;
 };
 const BookList = ({  }: Props) => {
-    const { locale } = useContext(UserContext);
+    const { locale } = useContext(UserContext) as any;
     return (
         <div className="book-content">
             <div className="book-content__title">{ translate("Choose resource")}</div>

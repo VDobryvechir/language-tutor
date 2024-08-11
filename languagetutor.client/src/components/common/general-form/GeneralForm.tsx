@@ -1,19 +1,14 @@
 ﻿import React from 'react';
-import { GeneralFormField, GeneralGeneratedOptions } from './GeneralFormModel';
-import { get } from 'http';
+import { GeneralFormField, GeneralGeneratedOptions, GeneralFieldOption } from './GeneralFormModel';
 import translate from '../../../i18n/translate';
 import './GeneralForm.css';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Button from '@mui/material/Button';
 import LanguageChooser from '../language-chooser/LanguageChooser';
+
 interface Props {
     source: any;
     setter: (obj: any, key: string, val: any) => void;
@@ -21,7 +16,7 @@ interface Props {
     fields: GeneralFormField[];
 };
 const GeneralForm = ({ source, setter, getter, fields }: Props) => {
-    const initValues = {};
+    const initValues: { [key:string]: string } = {};
     fields.forEach((item: GeneralFormField) => {
         initValues[item.field] = "" + getter(source, item.field); 
     });
@@ -51,14 +46,21 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
             }
         }
         const handleSelectorNumberChange = (event: SelectChangeEvent) => {
-            oversetter(event.target.value as number);
+            const val: string = event.target.value;
+            if (!val) {
+                return;
+            }
+            const selNumber = parseInt(val);
+            if (!isNaN(selNumber)) {
+                oversetter(selNumber);
+            }
         };
         const getIntValue = (expression: string): number => {
             let n = parseInt(expression);
             if (!isNaN(n)) {
                 return n;
             }
-            let v = getter(source,expression);
+            let v = getter(source, expression);
             if (typeof v === "number") {
                 return v;
             }
@@ -87,7 +89,7 @@ const GeneralForm = ({ source, setter, getter, fields }: Props) => {
             }
             return res;
         }
-        const getMenuItem = (vl: string, txt: string) => {
+        const getMenuItem = (vl: string, txt: string | JSX.Element) => {
             return (
                 <MenuItem value={vl} key={vl}> {txt} </MenuItem>
             );

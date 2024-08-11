@@ -1,3 +1,4 @@
+import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { LOCALES } from './locales';
@@ -11,7 +12,7 @@ interface Props {
 const Provider = ({children, locale = LOCALES.ENGLISH}: Props) => (
    <IntlProvider
      locale={locale}
-     textComponent={Fragment}
+     textComponent={React.Fragment}
      messages={messages[locale]}
    >
     {children}

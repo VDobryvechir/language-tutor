@@ -1,21 +1,19 @@
-import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import translate from '../../../i18n/translate';
 import './ChapterChooser.css';
 import { Link } from 'react-router-dom';
-import { Resource } from '../../../models/Resource.ts';
 import { Book } from '../../../models/Book.ts';
-import { TestResources, TestBooks, getBooksForResource, getBookForResource } from '../../../providers/TestMode.ts';
-import UserContext from '../../../providers/UserContext';
-
+import { getBookForResource } from '../../../providers/TestMode.ts';
 
 interface Props {
     code: string;
 };
-const ChapterChooser = ({ code }: Props) => {
+const ChapterChooser = ({  }: Props) => {
     let { resource, book } = useParams();
-    const { locale } = useContext(UserContext);
-    const bok: Book = getBookForResource(resource, book);
+    if (!resource || !book) {
+        return <></>;
+    }
+    const bok: Book | null = getBookForResource(resource, book);
     const n = bok?.chapters || 0;
     const data = [];
     for (let i = 1; i <= n; i++) {

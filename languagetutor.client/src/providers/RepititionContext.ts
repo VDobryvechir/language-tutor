@@ -195,7 +195,7 @@ export const extractDoubleQuoteAttribute = (txt: string, attr: string): string =
     return txt;
 };
 
-export const getTranslationLink = (screen: string, srcLang: string, lang1: string, lang2: string, sourceText: string, isWhole: string): string => {
+export const getTranslationLink = (screen: string, srcLang: string, lang1: string, lang2: string, sourceText: string, isWhole: string = ''): string => {
     if (srcLang === "nb" || srcLang === "nn") srcLang = "no";
     if (lang1 === "nb" || lang1 === "nn") lang1 = "no";
     if (lang2 === "nb" || lang2 === "nn") lang2 = "no";

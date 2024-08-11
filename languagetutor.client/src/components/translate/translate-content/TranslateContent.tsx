@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import TranslationSource from '../../common/translation-source/TranslationSource.tsx';
-import { getLanguageOfStudy, setLanguageOfStudy, getActiveLanguagesAsArray } from '../../../providers/StorageUtils';
+import { getLanguageOfStudy, getActiveLanguagesAsArray } from '../../../providers/StorageUtils';
 import LanguageMultiset from '../../common/language-multiset/LanguageMultiset.tsx';
 
 const TranslateContent = () => {

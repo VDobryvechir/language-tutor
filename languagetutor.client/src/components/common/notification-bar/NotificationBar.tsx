@@ -16,7 +16,7 @@ const NotificationBar = () => {
         event: React.SyntheticEvent | Event,
         reason?: SnackbarCloseReason,
     ) => {
-        if (reason === 'clickaway') {
+        if (event && reason === 'clickaway') {
             return;
         }
         setMessage(HideNotification);

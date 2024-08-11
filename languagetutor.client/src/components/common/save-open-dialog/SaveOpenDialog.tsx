@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import List from '@mui/material/List';
@@ -11,9 +10,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
-import { getDbKeyList } from '../../../providers/IndexedStorage';
+import { getDbKeyList, dbPayloadResponse } from '../../../providers/IndexedStorage';
 import translate from '../../../i18n/translate';
 import "./SaveOpenDialog.css";
 export interface Props {

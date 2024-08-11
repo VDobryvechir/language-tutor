@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-export const UserContext = createContext(null);
+export const UserContext = createContext<any>(null);
 interface Props {
     children: any;
     locale: string;

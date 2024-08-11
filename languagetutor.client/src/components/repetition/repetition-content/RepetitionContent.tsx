@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { RepetitionModel } from '../../../models/RepetitionModel.ts';
 import translate from '../../../i18n/translate.tsx';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -21,7 +21,9 @@ const RepetitionContent = ({ iniModel, saveAudioPositions, startTab }: Props) =>
     const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel(iniModel));
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
+        if (event) {
+            setValue(newValue);
+        }
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getLanguageOfStudy, setLanguageOfStudy, getActiveLanguagesAsArray, setActiveLanguagesAsArray } from '../../../providers/StorageUtils';
 import translate from '../../../i18n/translate';
 import LanguageMultiset from '../language-multiset/LanguageMultiset';
@@ -10,7 +10,7 @@ const SettingContent = () => {
     const [activeLanguages, setActiveLanguages] = useState(getActiveLanguagesAsArray());
 
     const setLanguageAdvanced = (lng: string) => {
-        getLanguageOfStudy(lng);
+        setLanguageOfStudy(lng);
         setLanguage(lng);
     };
     const setActiveLanguagesAdvanced = (langs: string[]) => {

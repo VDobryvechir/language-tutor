@@ -13,7 +13,10 @@ interface Props {
 };
 const BookChooser = ({ }: Props) => {
     let { resource } = useParams();
-    const { locale } = useContext(UserContext);
+    const { locale } = useContext(UserContext) as any;
+    if (!resource) {
+        return <></>;
+    }
     let books = getBooksForResource(resource);
     return (
         <div className="book-chooser">

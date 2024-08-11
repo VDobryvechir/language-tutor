@@ -1,15 +1,8 @@
-﻿import React from 'react';
-import translate from '../../../i18n/translate.tsx';
-import Box from '@mui/material/Box';
+﻿import translate from '../../../i18n/translate.tsx';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Button from '@mui/material/Button';
 
 interface Props {
     language: string;
