@@ -69,6 +69,6 @@ const routerPaths = createBrowserRouter([
 
     ],
   },
-]);
+], { basename: '/tutor' });
 
 export default routerPaths;

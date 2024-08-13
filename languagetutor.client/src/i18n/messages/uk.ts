@@ -52,7 +52,7 @@ export default {
         'Show translation': 'Показати переклад',
         'Source': 'Джерело',
         'Source is hidden': 'Джерело приховано',
-        'Start playing': 'Почати програвання',
+        'Start playing': 'Почати відтворення',
         'Stop playing': 'Зупинити програвання',
         'Target': 'На меті',
         'Text sources': 'Джерела тексту',

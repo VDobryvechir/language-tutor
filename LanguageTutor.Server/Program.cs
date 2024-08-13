@@ -62,7 +62,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
+app.MapFallbackToFile("/tutor/index.html");
 
 // IConfiguration configuration = app.Configuration.;
 // IWebHostEnvironment environment = app.Environment;
