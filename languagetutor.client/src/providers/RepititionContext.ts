@@ -106,6 +106,7 @@ export interface RepetitionProps {
     fireAction?: (name: string) => void;
     saveAudioPositions?: (pos: number[]) => void;
     startTab?: number;
+    initVerse?: number;
 };
 export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): RepetitionModel => {
     const options: RepetitionOptions = generateGeneralFormDefaults({}, RepetitionOptionDefinition);
@@ -120,6 +121,10 @@ export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): Rep
         audioSource: params.audioSource || '',
         audioPositions: params.audioPositions || [],
         options: options,
+        shortLines: params.shortLines || [],
+        shortSource: params.shortSource || [],
+        longLines: params.longLines || [],
+        longSource: params.longSource || [],
     };
     return res;
 } 

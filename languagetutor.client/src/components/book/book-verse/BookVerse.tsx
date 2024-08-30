@@ -11,7 +11,7 @@ interface Props {
 };
 const BookVerse = ({ code }: Props) => {
     const [ repetitionModel, setRepetitionModel ] = useState<Partial<RepetitionModel>>({});
-    const { resource, book, chapter } = useParams();
+    const { resource, book, chapter, verse } = useParams();
     useEffect(() => {
         if (resource && book && chapter) {
             loadPartialRepetitionModel(resource, book, chapter).then((model: Partial<RepetitionModel>) => {
@@ -28,7 +28,7 @@ const BookVerse = ({ code }: Props) => {
     };
     return (
         <div className="book-verse">
-            {repetitionModel?.targetLines ? < RepetitionContent iniModel={repetitionModel} saveAudioPositions={saveAudioPos} startTab={code==="book"? 2: 1 } /> : null}
+            {repetitionModel?.targetLines ? < RepetitionContent iniModel={repetitionModel} saveAudioPositions={saveAudioPos} startTab={code === "book" ? 2 : 1} initVerse={ verse? parseInt(verse) : 0} /> : null}
        </div>
     )
 

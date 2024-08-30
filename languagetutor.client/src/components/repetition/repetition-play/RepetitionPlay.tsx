@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { RepetitionProps, getTranslationLink, getDictionaryLinks } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
 import Button from '@mui/material/Button';
+import WordPresenter from '../../common/word-presenter/WordPresenter';
+
 import './RepetitionPlay.css';
 
 const pageKey = "repetitionPlay_";
 const storageDictionaryKey = pageKey + "dictionary";
 const storageShowTranslationKey = pageKey + "showTranslation";
+const storageShowWordTranslationKey = pageKey + "showWordTranslation";
 const storageShowSourceKey = pageKey + "showSource";
 enum PlayAction {
     PlayIdle,
@@ -26,13 +29,14 @@ const retrieveBooleanLocal = (key: string, val: boolean) => {
     return res ? res==="true" : (val || false);
 };
 
-const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
+const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [verse, setVerse] = useState(1);
+    const [verse, setVerse] = useState(initVerse ? initVerse : 1);
     const [stage, setStage] = useState(0);
     const [timeoutHandles, setTimeoutHandles] = useState([0, 0, 0]);
     const [showSource, setShowSource] = useState(retrieveBooleanLocal(storageShowSourceKey,false));
     const [showTranslation, setShowTranslation] = useState(retrieveBooleanLocal(storageShowTranslationKey, false));
+    const [showWordTranslation, setShowWordTranslation] = useState(retrieveBooleanLocal(storageShowWordTranslationKey, true));
     const [loop, setLoop] = useState(false);
     const [dictionary, setDictionary] = useState(retrieveBooleanLocal(storageDictionaryKey, false));
     const [playAction, setPlayAction] = useState(PlayAction.PlayIdle);
@@ -203,6 +207,10 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
         saveBooleanLocal(storageShowTranslationKey, !showTranslation);
         setShowTranslation(!showTranslation);
     }; 
+    const showHideWordTranslation = (): void => {
+        saveBooleanLocal(storageShowWordTranslationKey, !showWordTranslation);
+        setShowWordTranslation(!showWordTranslation);
+    }; 
     const loopVerse = (): void => {
         setLoop(!loop);
     }; 
@@ -224,21 +232,26 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
             </div>
         );
     };
-    const presentContent = (lang: string, dataList: string[]): JSX.Element => {
+    const presentContent = (lang: string, dataList: string[], shortList?: PerWordInfo[], longList?: PerWordInfo[]): JSX.Element => {
         const data = verse <= dataList.length ? dataList[verse - 1] : ""; 
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data, "href");
+        const shortVerse = shortList ? shortList[verse - 1] : null;
+        const longVerse = longList ? longList[verse - 1] : null;
 
         return (
-            <div key={ lang } >
-                <span className="repetition-play__present-lang">
-                    <a target={"trans" + lang} href={transLink}>
-                        {translate(lang)}
-                    </a>
-                </span>
-                <span>
-                    { presentLinkedContent(lang, data)  }
-                </span>
+            <div key={lang} >
+                <div>
+                    <span className="repetition-play__present-lang">
+                        <a target={"trans" + lang} href={transLink}>
+                            {translate(lang)}
+                        </a>
+                    </span>
+                    <span>
+                        {presentLinkedContent(lang, data)}
+                    </span>
+                </div>
+                {showWordTranslation && shortVerse ? <WordPresenter language={lang} shortList={shortVerse} longList={longVerse} /> : null}        
             </div>
         )
     }
@@ -270,6 +283,10 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
                 >{translate(showTranslation ? "Hide translation" : "Show translation")}</Button>
                 <Button
                     variant="outlined"
+                    onClick={showHideWordTranslation}
+                >{translate(showWordTranslation ? "Hide word translation" : "Show word translation")}</Button>
+                <Button
+                    variant="outlined"
                     onClick={loopVerse}
                 >{translate(loop ? "Break loop" : "Loop verse")}</Button>
                 <Button
@@ -278,11 +295,11 @@ const RepetitionPlay = ({ repetitionModel, fireAction }: RepetitionProps) => {
                 >{translate(dictionary ? "Hide dictionary links" : "Show dictionary links")}</Button>
             </div>
             <div>
-                {showSource ? presentContent(repetitionModel.sourceLanguage, repetitionModel.sourceLines) :
+                {showSource ? presentContent(repetitionModel.sourceLanguage, repetitionModel.sourceLines, repetitionModel.shortSource, repetitionModel.longSource) :
                     <div className="repetition-play__noinfo">{translate("Source is hidden")}</div>} 
             </div>
             <div>
-                {showTranslation && repetitionModel.targetLanguages && repetitionModel.targetLanguages.map((lang, index) => repetitionModel.activeLanguages[lang] ? presentContent(lang, repetitionModel.targetLines[index]) : null) ||
+                {showTranslation && repetitionModel.targetLanguages && repetitionModel.targetLanguages.map((lang, index) => repetitionModel.activeLanguages[lang] ? presentContent(lang, repetitionModel.targetLines[index], repetitionModel.shortLines && repetitionModel.shortLines[index], repetitionModel.longLines && repetitionModel.longLines[index]) : null) ||
                     <div className="repetition-play__noinfo">{translate("Translation is hidden")}</div>}
             </div>
         </div>

@@ -1,0 +1,27 @@
+.word-presenter {
+    display: flex;
+    flex-wrap: wrap;
+}
+.word-presenter__orig {
+    color: #000;
+    margin-left: 7px;
+}
+.word-presenter__sep {
+    color: #888;
+}
+.word-presenter__tr {
+    color: green;
+}
+.word-presenter__tr._tr2{
+    color: brown;
+}
+.word-presenter__tr._tr4 {
+        color: darkred;
+}
+.word-presenter__tr._tr6 {
+        color: #b200ff;
+}
+.word-presenter__tr._tr8 {
+        color: #00ff21;
+}
+

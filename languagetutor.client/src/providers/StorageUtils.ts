@@ -34,7 +34,16 @@ export const convertChapterModelToRepetitionModel = (chapterModel: ChapterModel,
     const targetLanguages = chapterModel.targetLanguages.slice();
     targetLanguages.splice(pos, 1);
     const audioSource: string = chapterModel.audioSource && chapterModel.audioSource[lng] || "";
-
+    const shortLines = chapterModel.shortLines?.slice() || [];
+    const longLines = chapterModel.longLines?.slice() || [];
+    const shortSource = shortLines[pos] || [];
+    const longSource = longLines[pos] || [];
+    if (pos < shortLines.length) {
+        shortLines.slice(pos, 1);
+    }
+    if (pos < longLines.length) {
+        longLines.slice(pos, 1);
+    }
     const model: Partial<RepetitionModel> = {
         sourceLanguage: lng,
         sourceLines: chapterModel.targetLines[pos],
@@ -42,6 +51,10 @@ export const convertChapterModelToRepetitionModel = (chapterModel: ChapterModel,
         targetLines: targetLines,
         audioPositions: audioPositions || [],
         audioSource: audioSource,
+        shortLines: shortLines,
+        longLines: longLines,
+        shortSource: shortSource,
+        longSource: longSource,
     };
     return model;
 };

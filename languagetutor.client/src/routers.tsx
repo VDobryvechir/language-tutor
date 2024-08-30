@@ -35,7 +35,7 @@ const routerPaths = createBrowserRouter([
         },
         {
             path: "repetition",
-            element: <RepetitionContent startTab={0} iniModel={ {} } />,
+            element: <RepetitionContent startTab={0} iniModel={{}} initVerse={0 } />,
         },
         {
             path: "settings",
@@ -63,6 +63,14 @@ const routerPaths = createBrowserRouter([
         },
         {
             path: "resource/:resource/:book/:chapter",
+            element: <BookVerse code="resource" />
+        },
+        {
+            path: "book/:resource/:book/:chapter/:verse",
+            element: <BookVerse code="book" />
+        },
+        {
+            path: "resource/:resource/:book/:chapter/:verse",
             element: <BookVerse code="resource" />
         }
 

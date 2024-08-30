@@ -15,9 +15,10 @@ interface Props {
     iniModel: Partial<RepetitionModel>;
     saveAudioPositions?: (pos: number[]) => void;
     startTab: number;
+    initVerse: number;
 };
-const RepetitionContent = ({ iniModel, saveAudioPositions, startTab }: Props) => {
-    const [value, setValue] = React.useState('' + (startTab+1));
+const RepetitionContent = ({ iniModel, saveAudioPositions, startTab, initVerse }: Props) => {
+    const [value, setValue] = React.useState('' + (initVerse > 0 ? 4 : startTab+1));
     const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel(iniModel));
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -26,6 +27,14 @@ const RepetitionContent = ({ iniModel, saveAudioPositions, startTab }: Props) =>
         }
     };
 
+    const fireAction = (name: string) => {
+        if (name.startsWith("tab")) {
+            const tab = name.substring(3);
+            if (tab.length === 1 && tab >= "1" && tab <= "4") {
+                setValue(tab);
+            }
+        }
+    };
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
@@ -41,13 +50,14 @@ const RepetitionContent = ({ iniModel, saveAudioPositions, startTab }: Props) =>
                     <RepetitionTexts repetitionModel={repetitionModel} setRepetitionModel={ setRepetitionModel} />
                 </TabPanel>
                 <TabPanel value="2">
-                    <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} saveAudioPositions={saveAudioPositions} startTab={ startTab} />
+                    <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel}
+                        saveAudioPositions={saveAudioPositions} startTab={startTab} fireAction={fireAction} />
                 </TabPanel>
                 <TabPanel value="3">
                     <RepetitionOptions repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
                 </TabPanel>
                 <TabPanel value="4">
-                    <RepetitionPlay repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />
+                    <RepetitionPlay repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} initVerse={initVerse} />
                 </TabPanel>
             </TabContext>
         </Box>

@@ -119,11 +119,18 @@ namespace LanguageTutor.Server.Utils
         public static string InsertEmptyLine(List<string> lines, int lineNo)
         {
             int total = lines.Count;
-            if (lineNo < 1 || lineNo >= total)
+            if (lineNo < 1 || lineNo > total + 1)
             {
                 return "error: line must be from 1 to " + total;
             }
-            lines.Insert(lineNo - 1, "---");
+            if (lineNo > total)
+            {
+                lines.Add("---");
+            }
+            else
+            {
+                lines.Insert(lineNo - 1, "---");
+            }
             return "ok inserted at " + lineNo;
         }
 

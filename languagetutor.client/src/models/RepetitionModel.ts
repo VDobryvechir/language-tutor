@@ -1,3 +1,6 @@
+export interface PerWordInfo {
+    tr: { [key: string]: string };
+}
 export interface RepetitionOptions {
     repetitionNumber: number;
     delayBefore: number;
@@ -18,5 +21,9 @@ export interface RepetitionModel {
     useDictionary: boolean;
     audioSource: string;
     audioPositions: number[];
+    shortLines: PerWordInfo[][];
+    shortSource: PerWordInfo[];
+    longLines: PerWordInfo[][];
+    longSource: PerWordInfo[];
     options: RepetitionOptions;
 };
