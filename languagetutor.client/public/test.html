@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="background-color: blue; color:white">
+        <form action="https://localhost:7001/api/document/upload" enctype="multipart/form-data" method="post" target="blue1">
+            <input type="file" name="file" />
+            <button type="submit">Upload</button>
+        </form>
+        <iframe name="blue1" width="800" height="600">
+
+        </iframe>
+    </div>
+    <div style="background-color: yellow; color:brown">
+        <form action="https://localhost:7001/api/document/upload" enctype="multipart/form-data" method="post">
+        </form>
+
+        <input type="file" name="file" onchange="uploadFile(event)" />
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </div>
+<script>
+    function uploadFile(event) {
+        const file = event.target.files[0];
+        console.log(file);
+        const formData = new FormData();
+        formData.append("file", file);
+        const method = "POST";
+        const fetchData = {
+            method: method,
+            body: formData,
+        };
+        fetch("https://localhost:7001/api/document/upload", fetchData).then((res) => {
+            console.log(res);
+        });
+
+    }
+</script>
+</body>
+</html>

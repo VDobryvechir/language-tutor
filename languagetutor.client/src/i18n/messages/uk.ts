@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 
 export default {
     [LOCALES.UKRAINIAN]: {
+        'Action': 'Дія',
         'Active languages': 'Активні мови',
         'Add translation': 'Додати переклад',
         'Additional delay for the source text': 'Додаткова затримка для тексту джерела в секундах',
@@ -23,6 +24,7 @@ export default {
         'Delay after each verse in seconds': 'Затримка після кожного вірша в секундах',
         'Delay before each verse in seconds': 'Затримка перед кожним віршем в секундах',
         'Dictionary': 'Словник',
+        'Download': 'Зберегти в файл',
         'From language': 'З мови',
         'Hide dictionary links': 'Приховати посилання на тлумачник',
         'Hide source': 'Приховати джерело',
@@ -42,6 +44,7 @@ export default {
         'Play': 'Відтворити',
         'Previous verse': 'Попередній вірш',
         'Primary translation language': 'Головна мова перекладу',
+        'Refine text': 'Обробити текст',
         'Resources': 'Ресурси',
         'Save': 'Зберегти',
         'Saved': 'Збережено',
@@ -59,8 +62,10 @@ export default {
         'Target': 'На меті',
         'Text sources': 'Джерела тексту',
         'Translate': 'Переклад',
+        'Translate into': 'Переклад на мову',
         'Translation is hidden': 'Переклад прихований',
         'Translations': 'Переклади',
+        'Upload': 'Взяти з файлу',
         'Verse': 'Вірш',
         'en': 'Англійська',
         'bg': 'Болгарська',

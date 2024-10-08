@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.GERMAN]: {
+        'Action': 'Aktion',
         'Active languages': 'Aktive Sprachen',
         'Add translation': 'Übersetzung hinzufügen',
         'Additional delay for the source text': 'Zusätzliche Verzögerung für den Quelltext in Sekunden',
@@ -23,6 +24,7 @@ export default {
         'Delay after each verse in seconds': 'Verzögerung nach jedem Vers in Sekunden',
         'Delay before each verse in seconds': 'Verzögerung vor jedem Vers in Sekunden',
         'Dictionary': 'Wörterbuch',
+        'Download': 'Herunterladen',
         'From language': 'Aus der Sprache',
         'Hide dictionary links': 'Wörterbuch-Links ausblenden',
         'Hide source': 'Quelle ausblenden',
@@ -42,6 +44,7 @@ export default {
         'Play': 'Abspielen',
         'Previous verse': 'Vorheriger Vers',
         'Primary translation language': 'Primäre Übersetzungssprache',
+        'Refine text': 'Text verfeinern',
         'Resources': 'Ressourcen',
         'Save': 'Speichern',
         'Saved': 'Gespeichert',
@@ -59,8 +62,10 @@ export default {
         'Target': 'Ziel',
         'Text sources': 'Textquellen',
         'Translate': 'Übersetzen',
+        'Translate into': 'Übersetzen ins',
         'Translation is hidden': 'Übersetzung ist versteckt',
         'Translations': 'Übersetzungen',
+        'Upload': 'Hochladen',
         'Verse': 'Vers',
         'en': 'Englisch',
         'bg': 'Bulgarisch',

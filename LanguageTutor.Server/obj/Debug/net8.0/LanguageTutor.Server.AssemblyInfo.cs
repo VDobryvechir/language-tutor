@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LanguageTutor.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d736f2942a002a6847505672fea14946b01ddc97")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d580a18fcab1b8a9575a0ce7b8b978e2fb66d960")]
 [assembly: System.Reflection.AssemblyProductAttribute("LanguageTutor.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LanguageTutor.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

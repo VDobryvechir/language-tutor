@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.ENGLISH]: {
+        'Action': 'Action',
         'Active languages': 'Active languages',
         'Add translation': 'Add translation',
         'Additional delay for the source text': 'Additional delay for the source text in seconds',
@@ -23,6 +24,7 @@ export default {
         'Delay after each verse in seconds': 'Delay after each verse in seconds',
         'Delay before each verse in seconds': 'Delay before each verse in seconds',
         'Dictionary': 'Dictionary',
+        'Download': 'Download',
         'From language': 'From language',
         'Hide dictionary links': 'Hide dictionary links',
         'Hide source': 'Hide source',
@@ -42,6 +44,7 @@ export default {
         'Play': 'Play',
         'Previous verse': 'Previous verse',
         'Primary translation language': 'Primary translation language',
+        'Refine text': 'Refine text',
         'Resources': 'Resources',
         'Save': 'Save',
         'Saved': 'Saved',
@@ -59,8 +62,10 @@ export default {
         'Target': 'Target',
         'Text sources': 'Text sources',
         'Translate': 'Translate',
+        'Translate into': 'Translate into',
         'Translation is hidden': 'Translation is hidden',
         'Translations': 'Translations',
+        'Upload': 'Upload',
         'Verse': 'Verse',
         'en': 'English',
         'bg': 'Bulgarian',

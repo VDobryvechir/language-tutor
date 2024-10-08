@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 
 export default {
     [LOCALES.BOKMAL]: {
+        'Action': 'Handling',
         'Active languages': 'Aktive språk',
         'Add translation': 'Legg til oversettelse',
         'Additional delay for the source text': 'Ytterligere forsinkelse for kildeteksten i sekunder',
@@ -23,6 +24,7 @@ export default {
         'Delay after each verse in seconds': 'Forsinkelse etter hvert vers i sekunder',
         'Delay before each verse in seconds': 'Forsinkelse før hvert vers i sekunder',
         'Dictionary': 'Ordbok',
+        'Download': 'Last ned',
         'From language': 'Fra språk',
         'Hide dictionary links': 'Skjul ordboklenker',
         'Hide source': 'Skjul kilde',
@@ -42,6 +44,7 @@ export default {
         'Play': 'Spill',
         'Previous verse': 'Forrige vers',
         'Primary translation language': 'Primært oversettelsesspråk',
+        'Refine text': 'Avgrens tekst',
         'Resources': 'Ressurser',
         'Save': 'Lagre',
         'Saved': 'Lagret',
@@ -59,8 +62,10 @@ export default {
         'Target': 'Mål',
         'Text sources': 'Tekstkilder',
         'Translate': 'Oversette',
+        'Translate into': 'Oversette til',
         'Translation is hidden': 'Oversettelsen er skjult',
         'Translations': 'Oversettelser',
+        'Upload': 'Last opp',
         'Verse': 'Vers',
         'en': 'Engelsk',
         'bg': 'Bulgarsk',

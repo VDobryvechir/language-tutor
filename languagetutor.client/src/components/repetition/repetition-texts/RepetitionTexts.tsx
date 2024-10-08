@@ -3,8 +3,13 @@ import { RepetitionProps, addNewTargetTranslation } from '../../../providers/Rep
 import Button from '@mui/material/Button';
 import translate from '../../../i18n/translate';
 import './RepititionTexts.css';
+import { RepetitionModel } from '../../../models/RepetitionModel';
+import { cleanRepetitionModelByTimeRemoving } from '../../../providers/TextProcessing';
 
 const RepetitionTexts = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
+    const refineText = (model: RepetitionModel): RepetitionModel => {
+        return cleanRepetitionModelByTimeRemoving(model);
+    };
     const setSourceLanguage = (lang: string) => {
         setRepetitionModel({
             ...repetitionModel,
@@ -53,6 +58,11 @@ const RepetitionTexts = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     variant="outlined"
                     onClick={ () => setRepetitionModel(addNewTargetTranslation(repetitionModel))}
                 >{translate("Add translation")}</Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => setRepetitionModel(refineText(repetitionModel))}
+                >{translate("Refine text")}</Button>
+
             </div>
             {
                 repetitionModel.targetLanguages.map((lng, index) => (

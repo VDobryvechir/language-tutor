@@ -6,12 +6,29 @@ import Button from '@mui/material/Button';
 import TranslationSource from '../../common/translation-source/TranslationSource.tsx';
 import { getLanguageOfStudy, getActiveLanguagesAsArray } from '../../../providers/StorageUtils';
 import LanguageMultiset from '../../common/language-multiset/LanguageMultiset.tsx';
+import { executeTranslations } from '../../../providers/TranslationApi.ts';
+import { TranslationResponse } from '../../../models/TranslationResponse.ts';
+import './TranslateContent.css';
 
 const TranslateContent = () => {
     const [origin, setOrigin] = React.useState(getLanguageOfStudy());
     const [lines, setLines] = React.useState(['']);
     const [destLanguages, setDestLanguages] = React.useState(getActiveLanguagesAsArray());
+    const [product, setProduct] = React.useState([] as TranslationResponse[]);
 
+    const makeTranslation = () => {
+        if (!destLanguages || !destLanguages.length || !lines || !lines.length || !origin) {
+            console.log("No data to proceed");
+        }
+        executeTranslations(origin, destLanguages, lines).then((data: TranslationResponse[]) => {
+            console.log(data);
+            if (data && data.length) {
+                setProduct(data);
+            } else {
+                setProduct([]);
+            }
+        });
+    }; 
     return (
         <div className="translate-content">
             <Box
@@ -34,110 +51,23 @@ const TranslateContent = () => {
                     setLines={setLines }
                 />
                 <div>
-                    <Button variant="outlined">{translate("Translate")}</Button>
+                    <Button variant="outlined" onClick={makeTranslation }>{translate("Translate")}</Button>
                 </div>
             </Box>
             <Box>
                 <div>
-                    <TextField
-                        id="result-en-input"
-                        label="English"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-ge-input"
-                        label="Deutsch"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-nn-input"
-                        label="Nynorsk"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-nb-input"
-                        label="Bokmål"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-uk-input"
-                        label="Українська"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-it-input"
-                        label="Italiano"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-fr-input"
-                        label="Francais"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-es-input"
-                        label="Espanol"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-da-input"
-                        label="Danish"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-sv-input"
-                        label="Svenska"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
-                    <TextField
-                        id="result-gr-input"
-                        label="Greek"
-                        defaultValue=""
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        variant="standard"
-                    />
+                    {product.map((item: TranslationResponse) => (
+                        <div key={item.language} className="translate-content__product">
+                            <div className="translate-content__product-lang">
+                                { translate(item.language) }
+                            </div>
+                            <div> 
+                            {item.text.map((line) => (
+                                <div dangerouslySetInnerHTML={{ __html: line }}></div>
+                            ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </Box>
         </div>

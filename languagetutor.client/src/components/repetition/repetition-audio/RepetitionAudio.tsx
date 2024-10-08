@@ -11,11 +11,15 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 import './RepetitionAudio.css';
 import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
+import DownloadDialog from '../../common/download-dialog/DownloadDialog';
+import UploadDialog from '../../common/upload-dialog/UploadDialog';
+
 import { loadDbItem, saveDbItem } from '../../../providers/IndexedStorage';
 import { showError } from '../../../providers/Notifier';
 import { RepetitionModel } from '../../../models/RepetitionModel';
 import WordPresenter from '../../common/word-presenter/WordPresenter';
 import { useParams, useNavigate } from 'react-router-dom';
+import { convertToAudioTextBlocks, extractAudioTextData } from '../../../providers/DownloadUtils';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
@@ -59,6 +63,8 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
     const [step, setStep] = useState(-1);
     const [verse, setVerse] = useState(-1);
     const [openLoad, setOpenLoad] = useState(false);
+    const [openUpLoad, setOpenUpLoad] = useState(false);
+    const [openDownLoad, setOpenDownLoad] = useState(false);
     const [openSave, setOpenSave] = useState(false);
     const [showWordTranslation, setShowWordTranslation] = useState(retrieveBooleanLocal(storageShowWordTranslationKey, false));
     const [finishTime, setFinishTime] = useState(-1);
@@ -214,6 +220,17 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             })
         }
     };
+    const handleDownloadClose = () => {
+        setOpenDownLoad(false);
+    };
+    const handleUploadClose = (payload: any) => {
+        setOpenUpLoad(false);
+        const model = extractAudioTextData(payload, repetitionModel);
+        if (model) {
+            setRepetitionModel(model);
+            dispatchPositionTime({ payload: model });
+        }
+    };
     const handleSaveClose = (name: string) => {
         setOpenSave(false);
         if (name) {
@@ -277,6 +294,13 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
     const calculateCurrentVerse = (): number => {
         return step < 0 ? (verse<0 ? 0 : verse): step;
     };
+    const prepareDownloadData = (): AudioTextData => {
+        return {
+            audio: repetitionModel.audioSource,
+            positions: repetitionModel.audioPositions,
+            data: convertToAudioTextBlocks(repetitionModel),
+        };
+    }
     return (
         <>
             <div className="repetition-audio__url">
@@ -306,6 +330,20 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                         onClick={() => setOpenLoad(true)}
                     >{translate("Load")}</Button>
                     : null 
+                }
+                {startTab === 0 ?
+                    <Button
+                        variant="outlined"
+                        onClick={() => setOpenUpLoad(true)}
+                    >{translate("Upload")}</Button>
+                    : null
+                }
+                {startTab === 0 ?
+                    <Button
+                        variant="outlined"
+                        onClick={() => setOpenDownLoad(true)}
+                    >{translate("Download")}</Button>
+                    : null
                 }
                 {showWordTranslation ?
                     <WordPresenter language={repetitionModel.sourceLanguage} shortList={repetitionModel.shortSource[calculateCurrentVerse()]} longList={repetitionModel.longSource[calculateCurrentVerse()]} />
@@ -387,7 +425,22 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                 onClose={handleSaveClose}
                 dbparams={repetitionAudioDbParams }
             />
-
+            <DownloadDialog
+                operation=""
+                open={openDownLoad}
+                onClose={handleDownloadClose}
+                url="/api/document/download"
+                method="POST"
+                payload={ prepareDownloadData }
+            />
+            <UploadDialog
+                operation=""
+                open={openUpLoad}
+                onClose={handleUploadClose}
+                url="/api/document/upload"
+                method="POST"
+            />
+            
         </>
     );
 };

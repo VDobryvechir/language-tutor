@@ -2,6 +2,7 @@
 
 export default {
     [LOCALES.NYNORSK]: {
+        'Action': 'Handling',
         'Active languages': 'Aktive språk',
         'Add translation': 'Legg til omsetjing',
         'Additional delay for the source text': 'Ytterlegare forseinking for kjeldeteksten',
@@ -23,6 +24,7 @@ export default {
         'Delay after each verse in seconds': 'Forseinking etter kvart vers i sekund',
         'Delay before each verse in seconds': 'Forseinking før kvart vers i sekund',
         'Dictionary': 'Ordbok',
+        'Download': 'Last ned',
         'From language': 'Frå språk',
         'Hide dictionary links': 'Skjul ordboklenkjer',
         'Hide source': 'Skjul kjelde',
@@ -42,6 +44,7 @@ export default {
         'Play': 'Spel',
         'Previous verse': 'Førre vers',
         'Primary translation language': 'Primært omsetjingsspråk',
+        'Refine text': 'Avgrens tekst',
         'Resources': 'Ressursar',
         'Save': 'Lager',
         'Saved': 'Lagra',
@@ -59,8 +62,10 @@ export default {
         'Target': 'Mål',
         'Text sources': 'Tekstkjelder',
         'Translate': 'Omsetje',
+        'Translate into': 'Omsetje til',
         'Translation is hidden': 'Omsetjinga er skjult',
         'Translations': 'Omsetjingar',
+        'Upload': 'Last opp',
         'Verse': 'Vers',
         'en': 'Engelsk',
         'bg': 'Bulgarsk',

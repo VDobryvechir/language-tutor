@@ -15,6 +15,7 @@ builder.Services.Configure<ServerDatabaseSettings>(
 
 builder.Services.AddSingleton<DbLanguageService>();
 builder.Services.AddSingleton<DbResourceService>();
+builder.Services.AddSingleton<TranslationService>();
 
 builder.Services.AddControllers();
        // .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
