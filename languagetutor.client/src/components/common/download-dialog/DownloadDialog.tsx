@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
-import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -10,7 +9,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
-import { blue } from '@mui/material/colors';
 import translate from '../../../i18n/translate';
 import { downloadMedia } from '../../../providers/DownloadUtils';
 import "./DownloadDialog.css";
@@ -19,11 +17,12 @@ export interface Props {
     operation: string;
     url: string;
     method: string;
+    fileName: string;
     payload: any;
     onClose: (value: string) => void;
 }
-const DownloadDialog = ({ onClose, operation, open, url, method, payload }: Props) => {
-    const [name, setName] = useState("doc");
+const DownloadDialog = ({ onClose, operation, open, url, method, payload, fileName }: Props) => {
+    const [name, setName] = useState(fileName);
 
     const handleClose = () => {
         onClose("");
@@ -40,7 +39,7 @@ const DownloadDialog = ({ onClose, operation, open, url, method, payload }: Prop
 
     return (
         <Dialog onClose={handleClose} open={open}>
-            <DialogTitle>{translate(operation || "Download")}</DialogTitle>
+            <DialogTitle>{translate(operation || "Action")}</DialogTitle>
             <div className="download-dialog__content">
                 <TextField
                     label="Name"
@@ -59,7 +58,7 @@ const DownloadDialog = ({ onClose, operation, open, url, method, payload }: Prop
                                     <DownloadIcon />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary="Download" />
+                            <ListItemText primary={translate("Download")} />
                         </ListItemButton>
                     </ListItem> 
                 </List>

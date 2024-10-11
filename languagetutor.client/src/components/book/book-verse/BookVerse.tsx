@@ -28,7 +28,7 @@ const BookVerse = ({ code }: Props) => {
     };
     return (
         <div className="book-verse">
-            {repetitionModel?.targetLines ? < RepetitionContent iniModel={repetitionModel} saveAudioPositions={saveAudioPos} startTab={code === "book" ? 2 : 1} initVerse={ verse? parseInt(verse) : 0} /> : null}
+            {repetitionModel?.targetLines ? < RepetitionContent iniModel={repetitionModel} baseName={ code} saveAudioPositions={saveAudioPos} startTab={code === "book" ? 2 : 1} initVerse={ verse? parseInt(verse) : 0} /> : null}
        </div>
     )
 

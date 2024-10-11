@@ -3,8 +3,9 @@ import { RepetitionProps, getTranslationLink, getDictionaryLinks } from '../../.
 import translate from '../../../i18n/translate';
 import Button from '@mui/material/Button';
 import WordPresenter from '../../common/word-presenter/WordPresenter';
-
+import AudioRange from '../audio-range/AudioRange';
 import './RepetitionPlay.css';
+import DebouncedSlider from '../../common/debounced-slider/DebouncedSlider';
 
 const pageKey = "repetitionPlay_";
 const storageDictionaryKey = pageKey + "dictionary";
@@ -29,7 +30,7 @@ const retrieveBooleanLocal = (key: string, val: boolean) => {
     return res ? res==="true" : (val || false);
 };
 
-const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionProps) => {
+const RepetitionPlay = ({ repetitionModel, fireAction, initVerse, setRepetitionModel }: RepetitionProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [verse, setVerse] = useState(initVerse ? initVerse : 1);
     const [stage, setStage] = useState(0);
@@ -140,26 +141,26 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionPr
             audio.pause();
             const delayAfter = Math.round(repetitionModel.options.delayAfter * 1000);
             if (delayAfter > 0) {
-                markTimeoutHandle(window.setTimeout(()=>setPlayAction(PlayAction.GoToNextStage), delayAfter) as number, 0);
+                markTimeoutHandle(window.setTimeout(() => setPlayAction(PlayAction.GoToNextStage), delayAfter) as number, 0);
             } else {
                 setPlayAction(PlayAction.GoToNextStage);
             }
         } else {
-            markTimeoutHandle(window.setTimeout(()=>setPlayAction(PlayAction.CheckPlayingStageStop), expectedWaiting) as number, 0);
+            markTimeoutHandle(window.setTimeout(() => setPlayAction(PlayAction.CheckPlayingStageStop), expectedWaiting) as number, 0);
         }
-    }
+    };
     const startPlayingStage = (): void => {
         const audio = document.getElementById("audio-repetitor") as HTMLAudioElement;
         const currentTime = verse <= 1 ? 0 : repetitionModel.audioPositions[verse - 2];
         audio.currentTime = currentTime * 0.001;
         audio.play();
         setPlayAction(PlayAction.CheckPlayingStageStop);
-    }
+    };
     const cleanPlayingVerse = (): void => {
         stopAudio();
         resetTimeoutHandles();
         setStage(0);
-    }
+    };
     const startPlayingVerse = (): void => {
         cleanPlayingVerse();
         checkStartingSources(0);
@@ -180,24 +181,10 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionPr
         }
     }; 
     const nextVerse = (): void => {
-        if (verse < (repetitionModel.sourceLines?.length || 0)) {
-            setVerse(verse + 1);
-            if (isPlaying) {
-                setShowSource(false);
-                setShowTranslation(false);
-                setPlayAction(PlayAction.StartPlayingVerse);
-            }
-        }
+        performSetVerse(verse + 1);
     }; 
     const previousVerse = (): void => {
-        if (verse > 1) {
-            setVerse(verse - 1);
-            if (isPlaying) {
-                setShowSource(false);
-                setShowTranslation(false);
-                setPlayAction(PlayAction.StartPlayingVerse);
-            }
-        }
+        performSetVerse(verse - 1);
     }; 
     const showHideSource = (): void => {
         saveBooleanLocal(storageShowSourceKey, !showSource);
@@ -233,7 +220,7 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionPr
         );
     };
     const presentContent = (lang: string, dataList: string[], shortList?: PerWordInfo[], longList?: PerWordInfo[]): JSX.Element => {
-        const data = verse <= dataList.length ? dataList[verse - 1] : ""; 
+        const data = verse <= dataList.length ? dataList[verse - 1] : "";
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data, "href");
         const shortVerse = shortList ? shortList[verse - 1] : null;
@@ -251,14 +238,57 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse }: RepetitionPr
                         {presentLinkedContent(lang, data)}
                     </span>
                 </div>
-                {showWordTranslation && shortVerse ? <WordPresenter language={lang} shortList={shortVerse} longList={longVerse} /> : null}        
+                {showWordTranslation && shortVerse ? <WordPresenter language={lang} shortList={shortVerse} longList={longVerse} /> : null}
             </div>
         )
-    }
+    };
+    const performSetVerse = (value: number) => {
+        const numberOfVerses = repetitionModel.sourceLines?.length || 0;
+        if (value && value !== verse && value > 0 && value <= numberOfVerses) {
+            setVerse(value);
+            if (isPlaying) {
+                setShowSource(false);
+                setShowTranslation(false);
+                setPlayAction(PlayAction.StartPlayingVerse);
+            }
+        }
+    };
+
+    const verseSliderHandleChange = (value: number): void => {
+        performSetVerse(value);
+    };
+    const handleAudioPositions = (value: number[]): void => {
+        const model = {
+            ...repetitionModel,
+            audioPositions: value,
+        };
+        setRepetitionModel(model);
+    };
     return (
         <div>
             <div className="repetition-play__audio-verse"><audio controls src={repetitionModel.audioSource} id="audio-repetitor"></audio>
-                <span>{translate("Verse")} {verse} / {repetitionModel.sourceLines && repetitionModel.sourceLines.length || 0} </span>
+                <span>
+                    <div className="repetition-play__verse-slider">
+                        <span>{translate("Verse")} {verse} / {repetitionModel.sourceLines?.length || 0} </span>
+                        <span className="repetition-play__slider">
+                            {repetitionModel.sourceLines?.length && verse ? <DebouncedSlider
+                                size="small"
+                                value={verse}
+                                aria-label="Small"
+                                valueLabelDisplay="auto"
+                                min={1}
+                                max={repetitionModel.sourceLines.length}
+                                step={1}
+                                onChange={verseSliderHandleChange}
+                                delay={400}
+                            /> : null
+                            }
+                        </span>
+                    </div>
+                    <div>
+                        <AudioRange audioPositions={repetitionModel.audioPositions} verse={verse} onChange={handleAudioPositions} />
+                    </div>
+                </span>
             </div>
             <div className="repetition-play__buttons">
                 <Button

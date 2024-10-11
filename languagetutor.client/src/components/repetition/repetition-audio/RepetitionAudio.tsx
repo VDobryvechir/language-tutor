@@ -59,7 +59,8 @@ const retrieveBooleanLocal = (key: string, val: boolean) => {
 };
 
 
-const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositions, startTab, fireAction }: RepetitionProps) => {
+const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositions, fireAction, baseName }: RepetitionProps) => {
+    const isFullSave = baseName === "repetition";
     const [step, setStep] = useState(-1);
     const [verse, setVerse] = useState(-1);
     const [openLoad, setOpenLoad] = useState(false);
@@ -198,7 +199,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             ...repetitionModel,
             audioPositions: positions,
         });
-        if (isFullyValidPosition(positions) && startTab === 1 && saveAudioPositions) {
+        if (isFullyValidPosition(positions) && !isFullSave && saveAudioPositions) {
             saveAudioPositions(positions);
         }
     };
@@ -274,14 +275,21 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
     };
     const followVerseDetails = (index: number): void => {
         const { resource, book, chapter } = initParams;
-        if (resource && book && chapter && index >= 0) {
-            const url = "/resource/" + resource + "/" + book + "/" + chapter + "/" + (index + 1);
+        if (index < 0) {
+            return;
+        }
+        if (resource && book && chapter) {
+            const url = "/" + baseName + "/" + resource + "/" + book + "/" + chapter + "/" + (index + 1);
             navigate(url);
-            fireAction("tab4");
+            fireAction!("tab4");
+        } else if (isFullSave) {
+            const url = "/" + baseName + "/" + (index + 1);
+            navigate(url);
+            fireAction!("tab4");
         }
     };
     const clearProcedure = () => {
-        if (startTab === 1) {
+        if (!isFullSave) {
             showError("Here function is not defined");
             return;
         }
@@ -292,7 +300,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
         setShowWordTranslation(!showWordTranslation);
     };
     const calculateCurrentVerse = (): number => {
-        return step < 0 ? (verse<0 ? 0 : verse): step;
+        return step < 0 ? (verse < 0 ? 0 : verse) : step;
     };
     const prepareDownloadData = (): AudioTextData => {
         return {
@@ -301,6 +309,18 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             data: convertToAudioTextBlocks(repetitionModel),
         };
     }
+    const parseAudioName = (name: string): string => {
+        let pos = name.lastIndexOf("/");
+        if (pos >= 0) {
+            name = name.substring(pos + 1);
+        }
+        pos = name.lastIndexOf(".");
+        if (pos >= 0) {
+            name = name.substring(0, pos);
+        }
+        return name || "doc";
+    };
+
     return (
         <>
             <div className="repetition-audio__url">
@@ -317,32 +337,32 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             <div className="repetition-audio__audio-player">
                 <audio controls src={repetitionModel.audioSource} id="audio-calibrator">
                 </audio>
-                {startTab === 0 ?
+                {isFullSave && repetitionModel.audioSource ?
                     <Button
                     variant="outlined"
                     onClick={() => setOpenSave(true)}
-                >{translate("Save")}</Button>
+                    >{translate("Save in memory")}</Button>
                     : null
                 }
-                {startTab === 0 ?
+                {isFullSave ?
                 <Button
                         variant="outlined"
                         onClick={() => setOpenLoad(true)}
-                    >{translate("Load")}</Button>
+                    >{translate("Load from memory")}</Button>
                     : null 
                 }
-                {startTab === 0 ?
+                {isFullSave ?
                     <Button
                         variant="outlined"
                         onClick={() => setOpenUpLoad(true)}
-                    >{translate("Upload")}</Button>
+                    >{translate("Upload from file")}</Button>
                     : null
                 }
-                {startTab === 0 ?
+                {isFullSave && repetitionModel.audioSource ?
                     <Button
                         variant="outlined"
                         onClick={() => setOpenDownLoad(true)}
-                    >{translate("Download")}</Button>
+                    >{translate("Download as file")}</Button>
                     : null
                 }
                 {showWordTranslation ?
@@ -425,14 +445,17 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                 onClose={handleSaveClose}
                 dbparams={repetitionAudioDbParams }
             />
-            <DownloadDialog
-                operation=""
-                open={openDownLoad}
-                onClose={handleDownloadClose}
-                url="/api/document/download"
-                method="POST"
-                payload={ prepareDownloadData }
-            />
+            {repetitionModel.audioSource ?
+                <DownloadDialog
+                    operation=""
+                    open={openDownLoad}
+                    onClose={handleDownloadClose}
+                    url="/api/document/download"
+                    method="POST"
+                    payload={prepareDownloadData}
+                    fileName={parseAudioName(repetitionModel.audioSource)}
+                /> : null
+            }
             <UploadDialog
                 operation=""
                 open={openUpLoad}

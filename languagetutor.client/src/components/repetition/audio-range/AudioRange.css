@@ -1,0 +1,11 @@
+.audio-range__minus, .audio-range__plus {
+    cursor: pointer;
+}
+
+.audio-range__minus {
+    color: blue;
+}
+
+.audio-range__plus {
+    color: green;
+}

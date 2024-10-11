@@ -107,6 +107,7 @@ export interface RepetitionProps {
     saveAudioPositions?: (pos: number[]) => void;
     startTab?: number;
     initVerse?: number;
+    baseName?: string;
 };
 export const getInitialRepetitionModel = (params: Partial<RepetitionModel>): RepetitionModel => {
     const options: RepetitionOptions = generateGeneralFormDefaults({}, RepetitionOptionDefinition);

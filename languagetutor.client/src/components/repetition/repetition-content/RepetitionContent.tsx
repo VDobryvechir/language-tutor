@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { RepetitionModel } from '../../../models/RepetitionModel.ts';
 import translate from '../../../i18n/translate.tsx';
 import Box from '@mui/material/Box';
@@ -16,8 +17,13 @@ interface Props {
     saveAudioPositions?: (pos: number[]) => void;
     startTab: number;
     initVerse: number;
+    baseName: string;
 };
-const RepetitionContent = ({ iniModel, saveAudioPositions, startTab, initVerse }: Props) => {
+const RepetitionContent = ({ iniModel, saveAudioPositions, startTab, initVerse, baseName }: Props) => {
+    const { verse } = useParams();
+    if (initVerse < 0 && verse) {
+        initVerse = parseInt(verse);
+    }
     const [value, setValue] = React.useState('' + (initVerse > 0 ? 4 : startTab+1));
     const [repetitionModel, setRepetitionModel] = React.useState(getInitialRepetitionModel(iniModel));
 
@@ -51,7 +57,7 @@ const RepetitionContent = ({ iniModel, saveAudioPositions, startTab, initVerse }
                 </TabPanel>
                 <TabPanel value="2">
                     <RepetitionAudio repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel}
-                        saveAudioPositions={saveAudioPositions} startTab={startTab} fireAction={fireAction} />
+                        saveAudioPositions={saveAudioPositions} baseName={baseName} fireAction={fireAction} />
                 </TabPanel>
                 <TabPanel value="3">
                     <RepetitionOptions repetitionModel={repetitionModel} setRepetitionModel={setRepetitionModel} />

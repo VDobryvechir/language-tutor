@@ -35,7 +35,11 @@ const routerPaths = createBrowserRouter([
         },
         {
             path: "repetition",
-            element: <RepetitionContent startTab={0} iniModel={{}} initVerse={0 } />,
+            element: <RepetitionContent startTab={0} iniModel={{}} initVerse={0} baseName="repetition" />,
+        },
+        {
+            path: "repetition/:verse",
+            element: <RepetitionContent startTab={0} iniModel={{}} initVerse={-1} baseName="repetition" />,
         },
         {
             path: "settings",
