@@ -26,4 +26,5 @@ export interface RepetitionModel {
     longLines: PerWordInfo[][];
     longSource: PerWordInfo[];
     options: RepetitionOptions;
+    monoSourceLines?: string[];
 };

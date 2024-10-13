@@ -37,6 +37,12 @@ namespace LanguageTutor.Server.Services.Translators
             RegisterNewWord(word, srcLang + "_" + dstLang);
         }
 
+        public static void RegisterNewMonoWord(string word, string srcLang)
+        {
+            RegisterNewWord(word,  "mono_" + srcLang);
+        }
+
+
         private static void UpdateHashSet(HashSet<string> dataSet, string src)
         {
             string filePath = missPath + "/miss_" + src + ".json";

@@ -211,11 +211,12 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse, setRepetitionM
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data);
         const dictLink = dictionary && !showWordTranslation ? getDictionaryLinks(lang, data) : "";
-
+        const monoShow = showWordTranslation && lang === repetitionModel.sourceLanguage;
         return (
             <div>
-                <div dangerouslySetInnerHTML={{ __html: transLink }} >
-                </div>
+                {monoShow ? <InlineTranslation text={repetitionModel.sourceLines[verse - 1] || ""} lang={lang} srcLang={repetitionModel.sourceLanguage} dstLang={repetitionModel.targetLanguages} langFilter={repetitionModel.activeLanguages} mode={1} />
+                   : <div dangerouslySetInnerHTML={{ __html: transLink }} ></div>
+                }
                 {showWordTranslation ? <InlineTranslation text={repetitionModel.sourceLines[verse - 1] || ""} lang={lang} srcLang={repetitionModel.sourceLanguage} dstLang={repetitionModel.targetLanguages} langFilter={repetitionModel.activeLanguages} />   
                     : <div dangerouslySetInnerHTML={{ __html: dictLink }} className="repetition-play__dict-link"></div>
                 }

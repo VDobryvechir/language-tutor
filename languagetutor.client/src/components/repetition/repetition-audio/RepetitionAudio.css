@@ -40,3 +40,6 @@
     padding-left: 7px;
     cursor: pointer;
 }
+.repetition-audio__position-grid-text .pair-total {
+    display: none;
+}

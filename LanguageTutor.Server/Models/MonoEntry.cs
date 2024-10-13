@@ -1,6 +1,6 @@
 ﻿namespace LanguageTutor.Server.Models
 {
-    public class NoWordFile
+    public class MonoEntry
     {
         public string Gender { get; set; }
         public string Declination { get; set; }

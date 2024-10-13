@@ -71,3 +71,48 @@ button:focus-visible {
 .pair-orig {
     color: white;
 }
+.pair-gender {
+    color: yellow;
+}
+.pair-deep {
+    color: white;
+}
+.pair-description {
+    color: orange;
+}
+.pair-declination {
+    color: brown;
+}
+.pair-link {
+    color: black;
+}
+.pair-link.nm {
+    color: blue;
+}
+.pair-link.nf {
+    color: red;
+}
+.pair-link.nn {
+   color: green;
+}
+.pair-link.nm.nf {
+        color: red;
+}
+.pair-link.nm.nn {
+   background: linear-gradient(to left, blue, green);
+   -webkit-background-clip: text;
+   color: transparent;
+   display: inline-block;
+}
+.pair-link.nf.nn {
+        background: linear-gradient(to left, red, green);
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+}
+.pair-link.nm.nf.nn {
+        background: linear-gradient(to left, blue, red, green);
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+}

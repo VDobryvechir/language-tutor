@@ -36,3 +36,6 @@ export const executeCachedTranslation = (srcLang: string, dstLang: string[], tex
     return translationBlock[text] as Promise<TranslationResponse[]>;
 };
 
+export const executeTranslationsForSingleLanguage = (srcLang: string, dstLang: string, text: string[]): Promise<string[]> => {
+    return executeTranslations(srcLang, [dstLang], text).then((res: TranslationResponse[]) => res[0].text);
+}

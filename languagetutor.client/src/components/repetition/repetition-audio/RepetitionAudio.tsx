@@ -22,6 +22,7 @@ import WordPresenter from '../../common/word-presenter/WordPresenter';
 import { useParams, useNavigate } from 'react-router-dom';
 import { convertToAudioTextBlocks, extractAudioTextData } from '../../../providers/DownloadUtils';
 import InlineTranslation from '../inline-translation/InlineTranslation';
+import { executeTranslationsForSingleLanguage } from '../../../providers/TranslationApi';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
@@ -290,6 +291,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             fireAction!("tab4");
         }
     };
+
     
     const showHideWordTranslation = (): void => {
         saveBooleanLocal(storageShowWordTranslationKey, !showWordTranslation);
@@ -316,6 +318,24 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
         }
         return name || "doc";
     };
+    useEffect(() => {
+        let mounted = true;
+        let lang = repetitionModel.sourceLanguage;
+        if (!repetitionModel.monoSourceLines?.length && showWordTranslation && repetitionModel.sourceLines?.length && lang) {
+            executeTranslationsForSingleLanguage(lang, lang, repetitionModel.sourceLines)
+                .then((items: string[]) => {
+                    if (mounted) {
+                        const model = {
+                            ...repetitionModel,
+                            monoSourceLines: items,
+                        }
+                        setRepetitionModel(model);
+                    }
+                })
+
+        }
+        return () => { mounted = false; }
+    }, [repetitionModel, showWordTranslation]);
 
     return (
         <>
@@ -427,8 +447,11 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                                 <ArrowCircleRightIcon />
                             </IconButton>
                         </div>
-                       <div className="repetition-audio__position-grid-text" onClick={() => audioVerse(index) } style={{ backgroundColor: step === index ? 'white' : 'inherit' }}>
-                            {index+1}. {line}
+                        <div className="repetition-audio__position-grid-text" onClick={() => audioVerse(index)} style={{ backgroundColor: step === index ? 'white' : 'inherit' }}>
+                            {index + 1}. {repetitionModel.monoSourceLines && repetitionModel.monoSourceLines[index] ?
+                                <span dangerouslySetInnerHTML={{ __html: repetitionModel.monoSourceLines[index] }}></span>
+                                 : line
+                                }
                        </div>
                     </React.Fragment>
                 ))}        

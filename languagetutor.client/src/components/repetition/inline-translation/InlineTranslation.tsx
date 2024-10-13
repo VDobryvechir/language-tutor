@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import "./InlineTranslation.css";
 import { executeCachedTranslation } from '../../../providers/TranslationApi';
 import { TranslationResponse } from '../../../models/TranslationResponse';
@@ -9,12 +9,14 @@ export interface Props {
     srcLang: string;
     dstLang: string[];
     langFilter?: { [key: string]: boolean; }
+    mode?: number;
+    prefix?: string; 
 };
 
 
-const InlineTranslation = ({ text, lang, srcLang, dstLang, langFilter }: Props) => {
+const InlineTranslation = ({ text, lang, srcLang, dstLang, langFilter, mode, prefix }: Props) => {
     const [htmlBlock, setHtmlBlock] = useState("");
-
+    const id = useId().replace(':', '_').replace(':','_');
     useEffect(() => {
         let mounted = true;
         setHtmlBlock(lang);
@@ -28,16 +30,19 @@ const InlineTranslation = ({ text, lang, srcLang, dstLang, langFilter }: Props) 
         executeCachedTranslation(srcLang, dst, text)
             .then((items: TranslationResponse[]) => {
                 if (mounted) {
-                    const item = (items || []).find((it: TranslationResponse) => it.language === lang) || {text:""};
+                    const item = (items || []).find((it: TranslationResponse) => it.language === lang) || { text: "" };
                     setHtmlBlock(item.text && item.text[0] || "");
                 }
             })
         return () => { mounted = false; }
-    }, [text, lang, srcLang])
+    }, [text, lang, srcLang]);
+    const styleContent = mode === 1 ? "#"+id+ " .pair-total{display:none}" : "";
     return (
-        <>
-            <div dangerouslySetInnerHTML={{ __html: htmlBlock }}></div>
-        </>
+        <div id={id}>
+            <style> {styleContent} </style> 
+            { prefix ?  <span>{ prefix } </span> : null }
+            <span dangerouslySetInnerHTML={{ __html: htmlBlock }}></span>
+        </div>
     );
 }
 
