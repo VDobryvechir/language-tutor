@@ -5,26 +5,22 @@ namespace LanguageTutor.Server.Services
 {
     public class TranslationService
     {
-        private readonly string dictionaryFile, wordBookPath;
+        private readonly IConfiguration _configuration;
+        private string dictionaryFile;
 
         public TranslationService(IConfiguration configuration) { 
-             dictionaryFile = configuration["Translation:DictionaryFile"]!;
-             wordBookPath = configuration["Translation:WordBookPath"]!;
-             DictionaryFixer.SetDictionaryPath(wordBookPath);
+             _configuration = configuration;
+             dictionaryFile = configuration[""];
         }
 
         public List<string> TranslateToLanguage(string sourceLanguage, string destLanguage, List<string> text, out Dictionary<string,string> wordBook) 
         {
-            ITranslator translator = TranslatorFactory.GetTranslatorInstance(sourceLanguage, destLanguage, dictionaryFile, wordBookPath);
-            wordBook = [];
-            List<string> result = [];
-            StringBuilder res = new("", 4000);
-            StringBuilder word = new("", 128);
+            Translator translator = TranslatorFactory.GetTranslatorInstance(destLanguage, sourceLanguage, "");
+            wordBook = new Dictionary<string, string>();
+            List<string> result = new List<string>();
+            StringBuilder res = new StringBuilder("", 4000);
+            StringBuilder word = new StringBuilder("", 128);
             foreach (string s in text) {
-                if (s == null)
-                {
-                    continue;
-                }
                 int n = s.Length;
                 for (int i = 0; i < n; i++)
                 {
@@ -54,7 +50,7 @@ namespace LanguageTutor.Server.Services
             return result;
         }
 
-        private static void ProcessWordTranslation(string word, StringBuilder res, ITranslator translator, Dictionary<string, string> wordBook)
+        private void ProcessWordTranslation(string word, StringBuilder res, Translator translator, Dictionary<string, string> wordBook)
         {
             translator.ProcessWord(word, res, wordBook);            
         }

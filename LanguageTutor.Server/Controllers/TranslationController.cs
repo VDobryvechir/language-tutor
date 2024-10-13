@@ -7,29 +7,25 @@ namespace LanguageTutor.Server.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class TranslationController : ControllerBase
+    public class TranslationController(TranslationService translationService) : ControllerBase
     {
-        private readonly TranslationService _translationService;    
-        public TranslationController(TranslationService translationService)
-        {
-            _translationService = translationService;   
-        }
+        private readonly TranslationService _translationService = translationService;
 
         [HttpPost]
-        public async Task<List<TranslationResponse>> Post(TranslationRequest translationRequest)
+        public List<TranslationResponse> Post(TranslationRequest translationRequest)
         {
             ControllerUtils.AddCommonHeaders(Request, Response);
-            List<TranslationResponse> response = new List<TranslationResponse>();   
+            List<TranslationResponse> response = [];
             if (translationRequest == null || translationRequest.OriginalLanguage==null || translationRequest.OriginalLanguage.Length==0 || translationRequest.Languages == null || translationRequest.Languages.Length == 0) {
                 return response;
             }
-            List<string> text = translationRequest.Text == null ? new List<string>() : translationRequest.Text ;
+            List<string> text = translationRequest.Text ?? ([]);
             string origLang = translationRequest.OriginalLanguage; 
             for (int i = 0; i < translationRequest.Languages.Length; i++)
             {
                 string lang = translationRequest.Languages[i];
-                List<string> block = _translationService.TranslateToLanguage(origLang, lang, text);
-                TranslationResponse item = new TranslationResponse() { Text = block, Language = lang};
+                List<string> block = _translationService.TranslateToLanguage(origLang, lang, text, out var wordBook);
+                TranslationResponse item = new () { Text = block, Language = lang, WordBook = wordBook};
                 response.Add(item);
             }
             return response;

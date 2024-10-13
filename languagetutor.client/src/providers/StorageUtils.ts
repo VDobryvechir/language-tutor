@@ -58,3 +58,10 @@ export const convertChapterModelToRepetitionModel = (chapterModel: ChapterModel,
     };
     return model;
 };
+
+export const getFilteredStringList = (list: string[], filter?: { [key: string]: boolean }): string[] => {
+    if (!filter) {
+        return list;
+    }
+    return list.filter((item) => filter[item]);
+}

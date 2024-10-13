@@ -4,21 +4,24 @@ namespace LanguageTutor.Server.Controllers
 {
     public class ControllerUtils
     {
+        private readonly static string[] maxAge = ["60"];
+        private readonly static string[] allowCredentials = [ "true" ];
+        private readonly static string[] allowHeaders = ["*"];
+        private readonly static string[] allowMethods = [ "GET, POST, PUT, DELETE, OPTIONS" ];
+
         static public void AddCommonHeaders(HttpRequest request, HttpResponse response)
         {
-            response.Headers.Add("Access-Control-Allow-Origin", new[] { (string)request.Headers["Origin"] });
-            response.Headers.Add("Access-Control-Allow-Credentials", new[] { "true" });
-            response.Headers.Add("Access-Control-Max-Age", new[] { "60" });
-            response.Headers.Add("Access-Control-Allow-Headers", new[] { "*" });
+            string? origin = (string) request.Headers["Origin"];
+            response.Headers.Add("Access-Control-Allow-Origin", new[] { origin ?? "*" });
+            response.Headers.Add("Access-Control-Allow-Credentials", allowCredentials);
+            response.Headers.Add("Access-Control-Max-Age", maxAge);
+            response.Headers.Add("Access-Control-Allow-Headers", allowHeaders);
         }
 
         static public void AddCommonOptionHeaders(HttpRequest request, HttpResponse response)
         {
-            response.Headers.Add("Access-Control-Allow-Origin", new[] { (string)request.Headers["Origin"] });
-            response.Headers.Add("Access-Control-Allow-Headers", new[] { "*" });
-            response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, PUT, DELETE, OPTIONS" });
-            response.Headers.Add("Access-Control-Allow-Credentials", new[] { "true" });
-            response.Headers.Add("Access-Control-Max-Age", new[] { "60" });
+            AddCommonHeaders(request, response);
+            response.Headers.Add("Access-Control-Allow-Methods", allowMethods);
         }
     }
 }

@@ -79,7 +79,7 @@ namespace LanguageTutor.Server.Controllers
 
         }
 
-        private static string showTime(int n)
+        private static string ShowTime(int n)
         {
             if (n<0)
             {
@@ -89,7 +89,7 @@ namespace LanguageTutor.Server.Controllers
             n /= 1000;
             int s = n % 60;
             n /= 60;
-            StringBuilder show = new StringBuilder();
+            StringBuilder show = new();
             show.Append(n);
             show.Append(':');
             if (s<10)
@@ -102,7 +102,7 @@ namespace LanguageTutor.Server.Controllers
                 show.Append(s);
             }
             show.Append('.');
-            ms = ms / 10;
+            ms /= 10;
             if (ms < 10)
             {
                 show.Append('0');
@@ -116,8 +116,11 @@ namespace LanguageTutor.Server.Controllers
         }
         private static DataTable GetTableData(AudioTextData data)
         {
-            DataTable table = new DataTable("Table");
-
+            DataTable table = new("Table");
+            if (data == null || data.Data == null || data.Data.Length == 0)
+            {
+                return table;
+            }
             table.Columns.Add("Time", typeof(string));
             int cols = data.Data.Length;
             int rows = data.Data[0].Text.Length;
@@ -134,7 +137,7 @@ namespace LanguageTutor.Server.Controllers
             for (int j=0;j<rows; j++)
             {
                 object[] row = new object[cols + 1];
-                row[0] = showTime(j < posAmnt ? data.Positions[j] : -1);
+                row[0] = ShowTime(j < posAmnt ? data.Positions[j] : -1);
                 for (int i = 0; i < cols; i++)
                 {
                     string[] blk = data.Data[i].Text;
@@ -149,7 +152,7 @@ namespace LanguageTutor.Server.Controllers
         private static AudioTextData ExtractAudioTextData(string fileName)
         {
             using var odtDocument = new OdtDocument(fileName, true);
-            AudioTextData audioTextData = new AudioTextData();
+            AudioTextData audioTextData = new();
             DataTable table = odtDocument.GetDataTable(0, 0);
             audioTextData.Audio = GetAudioName(odtDocument);
             audioTextData.Positions = GetAudioPositions(table);
@@ -168,11 +171,11 @@ namespace LanguageTutor.Server.Controllers
             if (pos<0) {
                 return "";
             }
-            return s.Substring(pos+6).Trim();
+            return s[(pos + 6)..].Trim();
         }
 
-        private static string[] defLangs = ["nb", "uk", "en", "de", "fr", "nn", "gr", "da", "ru", "es", "sv", "pl", "bg", "cz"];
-        private static HashSet<string> defLangSet = new HashSet<string>(defLangs);
+        private static readonly string[] defLangs = ["nb", "uk", "en", "de", "fr", "nn", "gr", "da", "ru", "es", "sv", "pl", "bg", "cz"];
+        private static readonly HashSet<string> defLangSet = new(defLangs);
 
         private static AudioTextBlock[] GetAudioTextBlocks(DataTable table, int startColumn)
         {
@@ -187,9 +190,9 @@ namespace LanguageTutor.Server.Controllers
             }
             for(int column = startColumn; column < blockAmount; column++)
             {
-                AudioTextBlock block = new AudioTextBlock();
+                AudioTextBlock block = new();
                 blocks[column - startColumn] = block;
-                String lang = table.Rows[0].ItemArray[column].ToString();
+                String lang = table.Rows[0].ItemArray[column].ToString() ?? "";
                 if (defLangSet.Contains(lang))
                 {
                     block.Language = lang;
@@ -221,7 +224,9 @@ namespace LanguageTutor.Server.Controllers
             int[] positions = new int[amount];
             for (int i = 0; i < amount; i++)
             {
-                string s = table.Rows[i + 1].ItemArray[0].ToString();
+                string s = table.Rows[i + 1]
+                                .ItemArray[0]
+                                .ToString();
                 int pos = ConvertTimeValue(s);
                 if (pos < 0)
                 {

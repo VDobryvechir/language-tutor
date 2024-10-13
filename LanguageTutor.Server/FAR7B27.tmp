@@ -12,8 +12,7 @@
   "AllowedHosts": "*",
   "webroot": "C:\\wp\\pool\\webroot",
   "Translation": { 
-      "DictionaryFile": "C:\\Volodymyrvd\\python\\polyglot\\dictionary\\s_[lang].json",
-      "WordBookPath": "C:\\Volodymyrvd\\python\\polyglot\\dictionary\\"
+      "DictionaryFile": "C:\\Volodymyrvd\\python\\polyglot\\dictionary\\s_[lang].json"
   }, 
   "Verses": {
     "TextWebRootPath": "C:\\wp\\pool\\webroot\\tutor\\bible\\[book]\\[chapter].json"

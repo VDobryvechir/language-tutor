@@ -6,7 +6,7 @@ import './WordPresenter.css';
 interface Props {
     language: string;
     shortList: PerWordInfo;
-    longList: PerWordInfo;
+    longList?: PerWordInfo | null;
 };
 
 interface Position {
@@ -18,6 +18,7 @@ const WordPresenter = ({ language, shortList, longList }: Props) => {
     if (shortList == null) {
         return <></>;
     }
+    console.log(language, longList);
     const activeLangs = getActiveLanguagesAsArray();
     const words: Position[][] = [];
     const wordIndex: {[key:string]: number} = {};

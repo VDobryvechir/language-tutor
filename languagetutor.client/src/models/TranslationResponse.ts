@@ -1,4 +1,4 @@
 export interface TranslationResponse {
-    text: string;
-    language: string[];
+    text: string[];
+    language: string;
 };

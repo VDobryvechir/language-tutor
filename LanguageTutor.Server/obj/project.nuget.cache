@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "S+EiTEYOwwo=",
+  "dgSpecHash": "igFq4L5kHGs=",
   "success": true,
   "projectFilePath": "C:\\Volodymyrvd\\react\\LanguageTutor\\LanguageTutor.Server\\LanguageTutor.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KaloA\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
-    "C:\\Users\\KaloA\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\8.0.8\\microsoft.aspnetcore.spaproxy.8.0.8.nupkg.sha512",
+    "C:\\Users\\KaloA\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\8.0.10\\microsoft.aspnetcore.spaproxy.8.0.10.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
@@ -17,6 +17,7 @@
     "C:\\Users\\KaloA\\.nuget\\packages\\mongodb.driver\\2.27.0\\mongodb.driver.2.27.0.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\mongodb.driver.core\\2.27.0\\mongodb.driver.core.2.27.0.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\mongodb.libmongocrypt\\1.10.0\\mongodb.libmongocrypt.1.10.0.nupkg.sha512",
+    "C:\\Users\\KaloA\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\snappier\\1.0.0\\snappier.1.0.0.nupkg.sha512",
     "C:\\Users\\KaloA\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",

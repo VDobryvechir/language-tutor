@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { RepetitionProps, clearAudioPositions, extractSaveablePayload } from '../../../providers/RepititionContext';
+import { RepetitionProps, extractSaveablePayload } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
 import {milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { AudioTextData } from '../../../models/AudioTextData';
 
 import './RepetitionAudio.css';
 import SaveOpenDialog from '../../common/save-open-dialog/SaveOpenDialog';
@@ -20,6 +21,7 @@ import { RepetitionModel } from '../../../models/RepetitionModel';
 import WordPresenter from '../../common/word-presenter/WordPresenter';
 import { useParams, useNavigate } from 'react-router-dom';
 import { convertToAudioTextBlocks, extractAudioTextData } from '../../../providers/DownloadUtils';
+import InlineTranslation from '../inline-translation/InlineTranslation';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
@@ -288,13 +290,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
             fireAction!("tab4");
         }
     };
-    const clearProcedure = () => {
-        if (!isFullSave) {
-            showError("Here function is not defined");
-            return;
-        }
-        setRepetitionModel(clearAudioPositions(repetitionModel));
-    };
+    
     const showHideWordTranslation = (): void => {
         saveBooleanLocal(storageShowWordTranslationKey, !showWordTranslation);
         setShowWordTranslation(!showWordTranslation);
@@ -365,9 +361,13 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                     >{translate("Download as file")}</Button>
                     : null
                 }
-                {showWordTranslation ?
-                    <WordPresenter language={repetitionModel.sourceLanguage} shortList={repetitionModel.shortSource[calculateCurrentVerse()]} longList={repetitionModel.longSource[calculateCurrentVerse()]} />
-                    : null
+                {showWordTranslation ? (
+                    repetitionModel.shortSource?.length ?
+                        <WordPresenter language={repetitionModel.sourceLanguage} shortList={repetitionModel.shortSource[calculateCurrentVerse()]} longList={repetitionModel.longSource[calculateCurrentVerse()]} />
+                        : <InlineTranslation text={repetitionModel.sourceLines[calculateCurrentVerse()]} lang={repetitionModel.options.primaryLanguage}
+                            srcLang={repetitionModel.sourceLanguage} dstLang={[repetitionModel.options.primaryLanguage] }
+                        /> 
+                ) : null
                 }
             </div>
             <div className="repetition-audio__position-bar">

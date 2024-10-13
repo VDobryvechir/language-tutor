@@ -3,14 +3,9 @@ using System.Web;
 
 namespace LanguageTutor.Server.Services.Translators
 {
-    public class WordBookNo: WordBook 
+    public class WordBookNo(string language, string wordBookPath) : WordBook(language, "https://ordbokene.no/ukr/" + (language == "nb" ? "bm" : "nn") + "/", wordBookPath) 
     {
-        private string _ordUrl;
-        public WordBookNo(string language):base(language)  
-        {
-            _ordUrl = "https://ordbokene.no/ukr/" + (language == "nb"? "bm": "nn") + "/";
-        }
-        public override void ProcessWord(string word, StringBuilder res)
+        public override void ProcessWord(string word, StringBuilder res, Dictionary<string, string> wordBook)
         {
             res.Append("<a target='_blank' href='");
             res.Append(_ordUrl);

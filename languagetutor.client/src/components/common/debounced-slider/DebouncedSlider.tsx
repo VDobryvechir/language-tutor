@@ -5,7 +5,7 @@ import "./DebouncedSlider.css";
 
  
 export interface Props {
-    size: string;
+    size: 'small' | 'medium' | undefined;
     value: number
     ariaLabel: string;
     valueLabelDisplay: 'on' | 'off' | 'auto' | undefined;

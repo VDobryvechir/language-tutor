@@ -40,7 +40,7 @@ const UploadDialog = ({ onClose, operation, open, url, method }: Props) => {
                     onChange={handleFile}
                 />
                 <label htmlFor="raised-button-file">
-                    <Button variant="raised" component="span" className="upload-dialog__button">
+                    <Button variant="outlined" component="span" className="upload-dialog__button">
                         { translate("Upload") }
                     </Button>
                 </label> 

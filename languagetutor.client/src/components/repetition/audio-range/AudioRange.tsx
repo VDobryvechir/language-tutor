@@ -7,7 +7,7 @@ export interface Props {
     audioPositions: number[];
     verse: number;
     onChange: (values: number[]) => void;
-}
+};
 
 const audioRangeStep = 50;
 
@@ -15,7 +15,7 @@ const AudioRange = ({ audioPositions, onChange, verse }: Props) => {
     if (verse <= 0 || verse > (audioPositions?.length || 0)) {
         return (<></>);
     }
-    const startValue = milisecondsToTime(verse>1?audioPositions[verse-2]: 0);
+    const startValue = milisecondsToTime(verse > 1 ? audioPositions[verse-2] : 0);
     const endValue = milisecondsToTime(audioPositions[verse-1]);
 
     const checkValue = (val: number, index: number): boolean => {

@@ -6,6 +6,8 @@ import WordPresenter from '../../common/word-presenter/WordPresenter';
 import AudioRange from '../audio-range/AudioRange';
 import './RepetitionPlay.css';
 import DebouncedSlider from '../../common/debounced-slider/DebouncedSlider';
+import { PerWordInfo } from '../../../models/RepetitionModel';
+import InlineTranslation from '../inline-translation/InlineTranslation';
 
 const pageKey = "repetitionPlay_";
 const storageDictionaryKey = pageKey + "dictionary";
@@ -208,14 +210,15 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse, setRepetitionM
     const presentLinkedContent = (lang: string, data: string): JSX.Element => {
         const transLink = getTranslationLink("", lang, repetitionModel.options.primaryLanguage,
             repetitionModel.options.secondaryLanguage, data);
-        const dictLink = dictionary ? getDictionaryLinks(lang, data) : "";
+        const dictLink = dictionary && !showWordTranslation ? getDictionaryLinks(lang, data) : "";
 
         return (
             <div>
                 <div dangerouslySetInnerHTML={{ __html: transLink }} >
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: dictLink }} className="repetition-play__dict-link">
-                </div>
+                {showWordTranslation ? <InlineTranslation text={repetitionModel.sourceLines[verse - 1] || ""} lang={lang} srcLang={repetitionModel.sourceLanguage} dstLang={repetitionModel.targetLanguages} langFilter={repetitionModel.activeLanguages} />   
+                    : <div dangerouslySetInnerHTML={{ __html: dictLink }} className="repetition-play__dict-link"></div>
+                }
             </div>
         );
     };
@@ -274,7 +277,7 @@ const RepetitionPlay = ({ repetitionModel, fireAction, initVerse, setRepetitionM
                             {repetitionModel.sourceLines?.length && verse ? <DebouncedSlider
                                 size="small"
                                 value={verse}
-                                aria-label="Small"
+                                ariaLabel="Small"
                                 valueLabelDisplay="auto"
                                 min={1}
                                 max={repetitionModel.sourceLines.length}

@@ -22,7 +22,7 @@ const consumeUntilNextDigitLine = (data: string, pos: number, num: number): numb
     const numStr = "" + num;
     const first = numStr[0];
     for (; i < n; i++) {
-        if (data[i] === first && data.substr(i, numStr.length) === numStr) {
+        if (data[i] === first && data.substring(i, i + numStr.length) === numStr) {
             break;
         }
     }

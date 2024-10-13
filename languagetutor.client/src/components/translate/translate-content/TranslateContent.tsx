@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import translate from '../../../i18n/translate.tsx';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import TranslationSource from '../../common/translation-source/TranslationSource.tsx';
 import { getLanguageOfStudy, getActiveLanguagesAsArray } from '../../../providers/StorageUtils';
@@ -62,7 +61,7 @@ const TranslateContent = () => {
                                 { translate(item.language) }
                             </div>
                             <div> 
-                            {item.text.map((line) => (
+                            {item.text.map((line: string) => (
                                 <div dangerouslySetInnerHTML={{ __html: line }}></div>
                             ))}
                             </div>
