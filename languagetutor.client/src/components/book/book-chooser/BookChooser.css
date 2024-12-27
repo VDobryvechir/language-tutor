@@ -4,8 +4,9 @@
 }
 
 .book-chooser__title {
-    color: brown;
+    color: #303030;
     font-size: 140%;
+    text-align: center;
 }
 
 .book-chooser__pool {
@@ -15,14 +16,50 @@
 }
 
 .book-chooser__item {
-    background-color: green;
-    color: white!important;
-    padding: 7px;
+    border: none;
+    font-family: 'Lato';
+    font-size: inherit;
+    cursor: pointer;
+    padding: 0;
     display: flex;
-    width: 200px;
-    overflow: hidden;
-    border: 1px solid #eee;
+    margin: 15px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     border-radius: 7px;
+    width: 250px;
+    background: #f0f0f0;
+    color: #555;
     justify-content: space-between;
-    margin: 5px;
+    align-items: stretch;
+}
+    .book-chooser__item:hover {
+        background: #fff;
+        color: #333;
+    }
+
+    .book-chooser__item:active {
+        background: #d0d0d0;
+        top: 2px;
+    }
+
+.book-chooser__item-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 auto;
+    max-width: 190px;
+}
+.book-chooser__item-info {
+    line-height: 3;
+    font-size: 120%;
+    width: 60px;
+    background: rgba(0,0,0,0.15);
+    height: 100%;
+    border-radius: 0 7px 7px 0;
 }

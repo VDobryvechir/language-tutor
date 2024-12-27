@@ -3,7 +3,7 @@ using LanguageTutor.Server.Models;
 
 namespace LanguageTutor.Server.Services.Translators
 {
-	public class DictionaryReader {
+    public class DictionaryReader {
 
         private static readonly Dictionary<string, Dictionary<string, DictionaryEntry>> dictionaryCache = [];
         private static readonly Dictionary<string, Dictionary<string, MonoEntry>> dictionaryMonoCache = [];

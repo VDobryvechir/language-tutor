@@ -1,0 +1,137 @@
+.dictionary-dialog__content {
+    padding: 10px;
+    background-color: #eeeeee;
+}
+.dictionary-dialog__language {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffc0;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 10px;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+.dictionary-dialog__language-name {
+    color: green;
+    width: 100px;
+}
+.dictionary-dialog__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dictionary-dialog__title-control {
+    height: 40px;
+    width: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+.dictionary-dialog__gender {
+    color: brown;
+}
+.dictionary-dialog__declination {
+    background-color: white;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 10px;
+}
+.dictionary-dialog__declination-header {
+    cursor: pointer;
+    font-size: 140%;
+    padding: 2px 0px;
+}
+.dictionary-dialog__declination-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+.dictionary-dialog__declination-key {
+    color: blue;
+    font-style: italic;
+    width: 150px;
+}
+.dictionary-dialog__declination-value {
+    color: green;
+    font-size: 120%;
+}
+.dictionary-dialog__entries {
+    background-color: white;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 10px;
+}
+.dictionary-dialog__entries-table {
+    background-color: white;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 10px;
+    display: grid;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: calc(100% - 20px);
+}
+.dictionary-dialog__entries-header {
+    font-style: italic;
+}
+.dictionary-dialog__entries-header._main {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dictionary-dialog__expression {
+    font-size: 140%;
+    padding: 3px 0;
+}
+
+.dictionary-dialog__lang_en {
+    color: blueviolet;
+}
+
+.dictionary-dialog__lang_uk {
+    color: blue;
+}
+
+.dictionary-dialog__lang_nb {
+    color: brown;
+}
+.dictionary-dialog__lang_nn {
+    color: brown;
+}
+.dictionary-dialog__lang_pl {
+    color: forestgreen;
+}
+.dictionary-dialog__lang_de {
+    color: dimgrey;
+}
+.dictionary-dialog__lang_fr {
+    color: red;
+}
+.dictionary-dialog__lang_it {
+    color: rebeccapurple;
+}
+.dictionary-dialog__lang_es {
+    color: darkblue;
+}
+.dictionary-dialog__lang_da {
+    color: darkgreen;
+}
+.dictionary-dialog__lang_sv {
+    color: darkmagenta;
+}
+.dictionary-dialog__lang_cz {
+    color: darkorchid;
+}
+.dictionary-dialog__lang_bg {
+    color: darkturquoise;
+}
+.dictionary-dialog__lang_ru {
+    color: red;
+}
+.dictionary-dialog__lang_gr {
+    color: olive;
+}
+.dictionary-dialog__lang_pt {
+    color: blueviolet;
+}
+

@@ -24,5 +24,16 @@ namespace LanguageTutor.Server.Services.Translators
             }
             return new WordBook(dstLang, "", wordBookPath, monoDictionary);
         }
+
+        public static ITranslator GetComprehensiveInstance(string srcLang, string dstLang, string path, Dictionary<string, DictionaryEntry> dictionary)
+        {
+            if (dstLang != srcLang)
+            {
+                return new PairTranslator(srcLang, dstLang, dictionary);
+            }
+
+            return new OrdBook(dstLang, "", path, dictionary);
+        }
+
     }
 }

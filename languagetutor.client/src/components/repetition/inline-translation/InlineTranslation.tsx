@@ -3,6 +3,9 @@ import "./InlineTranslation.css";
 import { executeCachedTranslation } from '../../../providers/TranslationApi';
 import { TranslationResponse } from '../../../models/TranslationResponse';
 import { getFilteredStringList } from '../../../providers/StorageUtils';
+import { ComprehensiveResponse } from '../../../models/ComprehensiveResponse';
+import DictionaryDialog from '../../common/dictionary-dialog/DictionaryDialog';
+import { WordDictionary } from '../../../models/WordDictionary';
 export interface Props {
     text: string;
     lang: string; 
@@ -16,6 +19,8 @@ export interface Props {
 
 const InlineTranslation = ({ text, lang, srcLang, dstLang, langFilter, mode, prefix }: Props) => {
     const [htmlBlock, setHtmlBlock] = useState("");
+    const [dictionary, setDictionary] = useState({} as WordDictionary);
+    const [word, setWord] = useState("");
     const id = useId().replace(':', '_').replace(':','_');
     useEffect(() => {
         let mounted = true;
@@ -28,20 +33,33 @@ const InlineTranslation = ({ text, lang, srcLang, dstLang, langFilter, mode, pre
             }
         }
         executeCachedTranslation(srcLang, dst, text)
-            .then((items: TranslationResponse[]) => {
+            .then((data: ComprehensiveResponse) => {
                 if (mounted) {
-                    const item = (items || []).find((it: TranslationResponse) => it.language === lang) || { text: "" };
+                    const item = (data?.lines || []).find((it: TranslationResponse) => it.language === lang) || { text: "" };
                     setHtmlBlock(item.text && item.text[0] || "");
+                }
+                if (data?.words) {
+                    setDictionary(data.words);
                 }
             })
         return () => { mounted = false; }
     }, [text, lang, srcLang]);
-    const styleContent = mode === 1 ? "#"+id+ " .pair-total{display:none}" : "";
+    const styleContent = (mode === 1 ? "#" + id + " .pair-total{display:none}" : "") + ".inline-translation__slot{cursor:pointer;}";
+    const showDialog = (ev: any) => {
+        const ord = (ev?.target ? ev.target.innerText : "").trim();
+        if (ord && dictionary) {
+            setWord(ord);
+        }
+        console.log(ord);
+    };
     return (
-        <div id={id}>
-            <style> {styleContent} </style> 
-            { prefix ?  <span>{ prefix } </span> : null }
-            <span dangerouslySetInnerHTML={{ __html: htmlBlock }}></span>
+        <div>
+            <div id={id}>
+                <style> {styleContent} </style>
+                {prefix ? <span>{prefix} </span> : null}
+                <span className="inline-translation__slot" onClick={showDialog} dangerouslySetInnerHTML={{ __html: htmlBlock }}></span>
+            </div>
+            <DictionaryDialog lang={srcLang} open={!!word} word={word} entry={word && dictionary && dictionary[word.toLowerCase()] || {}} langFilter={langFilter} onClose={() => setWord("")}></DictionaryDialog>
         </div>
     );
 }

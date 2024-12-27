@@ -8,26 +8,43 @@ import LanguageMultiset from '../../common/language-multiset/LanguageMultiset.ts
 import { executeTranslations } from '../../../providers/TranslationApi.ts';
 import { TranslationResponse } from '../../../models/TranslationResponse.ts';
 import './TranslateContent.css';
+import { ComprehensiveResponse } from '../../../models/ComprehensiveResponse.ts';
+import DictionaryDialog from '../../common/dictionary-dialog/DictionaryDialog';
+import { WordDictionary } from '../../../models/WordDictionary';
+import { convertToLangFilter } from '../../../providers/LanguageUtils.ts';
 
 const TranslateContent = () => {
     const [origin, setOrigin] = React.useState(getLanguageOfStudy());
     const [lines, setLines] = React.useState(['']);
     const [destLanguages, setDestLanguages] = React.useState(getActiveLanguagesAsArray());
     const [product, setProduct] = React.useState([] as TranslationResponse[]);
+    const [dictionary, setDictionary] = React.useState({} as WordDictionary);
+    const [word, setWord] = React.useState("");
 
     const makeTranslation = () => {
         if (!destLanguages || !destLanguages.length || !lines || !lines.length || !origin) {
             console.log("No data to proceed");
         }
-        executeTranslations(origin, destLanguages, lines).then((data: TranslationResponse[]) => {
-            console.log(data);
-            if (data && data.length) {
-                setProduct(data);
+        executeTranslations(origin, destLanguages, lines).then((entry: ComprehensiveResponse) => {
+            if (entry?.lines?.length) {
+                setProduct(entry.lines);
             } else {
                 setProduct([]);
             }
+            if (entry?.words) {
+                setDictionary(entry.words);
+            }
         });
     }; 
+    const showDialog = (ev: any) => {
+        const ord = (ev?.target ? ev.target.innerText : "").trim();
+        if (ord && dictionary) {
+            setWord(ord);
+        }
+        console.log(ord);
+    };
+    const voidCall = () => { };
+    const langFilter = convertToLangFilter(destLanguages);
     return (
         <div className="translate-content">
             <Box
@@ -61,12 +78,13 @@ const TranslateContent = () => {
                                 { translate(item.language) }
                             </div>
                             <div> 
-                            {item.text.map((line: string) => (
-                                <div dangerouslySetInnerHTML={{ __html: line }}></div>
+                                {item.text.map((line: string, index: number) => (
+                                    <div onClick={item.language===origin ? showDialog : voidCall} dangerouslySetInnerHTML={{ __html: line }} key={item.language + index}></div>
                             ))}
                             </div>
                         </div>
                     ))}
+                    <DictionaryDialog lang={origin} open={!!word} word={word} entry={word && dictionary && dictionary[word.toLowerCase()] || {}} langFilter={langFilter} onClose={() => setWord("")}></DictionaryDialog>
                 </div>
             </Box>
         </div>

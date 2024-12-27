@@ -1,4 +1,5 @@
 import { RepetitionModel } from "../models/RepetitionModel";
+import { showError, showInfo } from './Notifier';
 
 const findPreEntrance = (s: string, pos: number[]): string => {
     const startPos = pos[0];
@@ -142,4 +143,135 @@ export const cleanRepetitionModelByTimeRemoving = (model: RepetitionModel): Repe
         targetLines: cleanTargetLinesByTimeRemoving(model.targetLines || []),
         audioPositions: timeTable ? timeTable : model.audioPositions,
     };
-}  
+};
+
+export const copyFirstPortion = (data: string[], startIndex: number, maxChars: number): void => {
+    let rest = maxChars;
+    let count = 0;
+    const n = data.length;
+    let res = '';
+    for (let i = startIndex; rest >= 0 && i < n; i++) {
+        let item = data[i] + "\n";
+        rest -= item.length;
+        if (rest >= 0) {
+            res += item;
+            count++;
+        }
+    }
+    if (!count) {
+        if (startIndex >= n) {
+            showError("The end has been reached")
+        } else {
+            showError("Too big line at " + startIndex);
+        }
+        return;
+    }
+    copyToClipboard(res);
+    showInfo("Copied " + count + " lines");
+};
+
+export const copyToClipboard = (text: string): void => {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () {
+            console.log('Text copied to clipboard');
+        }).catch(function (err) {
+            console.error('Could not copy text: ', err);
+        });
+    } else {
+        // Fallback for browsers that don't support the Clipboard API
+        let textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            console.log('Text copied to clipboard');
+        } catch (err) {
+            console.error('Could not copy text: ', err);
+        }
+        document.body.removeChild(textArea);
+    }
+};
+
+export const pasteTextFromClipboard = (callback: (t: string) => void) => {
+    // Check if the Clipboard API is available
+    if (navigator.clipboard) {
+        navigator.clipboard.readText().then(function (text) {
+            console.log('Text from clipboard:', text);
+            callback(text);
+        }).catch(function (err) {
+            console.error('Failed to read clipboard contents: ', err);
+        });
+    } else {
+        console.error('Clipboard API not supported');
+    }
+};
+
+const countDigits = (s: string, pos: number, n: number): number => {
+    let res = 0;
+    for (; pos < n && s[pos] >= '0' && s[pos] <= '9'; pos++) {
+        res++;
+    }
+    return res;
+};
+
+const consumeUntilNextDigitLine = (data: string, pos: number, num: number): number => {
+    const n = data.length;
+    let i = pos + 1;
+    const numStr = "" + num;
+    const first = numStr[0];
+    for (; i < n; i++) {
+        if (data[i] === first && data.substring(i, i + numStr.length) === numStr) {
+            break;
+        }
+    }
+    return i - pos;
+}
+
+export const separateTextToLines = (data: string): string[] => {
+    const res: string[] = [];
+    const n = data.length;
+    let num = 0, pos = 0, omit = 0, pattern = 0;
+    for (let i = 0; i < n; i++) {
+        const c = data[i];
+        if (c == '\n') {
+            if (pattern >= 2) {
+                omit = consumeUntilNextDigitLine(data, i, num);
+            } else {
+                if (pattern === 0) {
+                    pattern = -1;
+                }
+                omit = 1;
+            }
+        } else if (pattern >= 0 && c >= '0' && c <= '9') {
+            let cnt = countDigits(data, i, n);
+            let dig = data.substring(i, i + cnt);
+            let curDig = "" + num;
+            if (i + cnt < n && data[i + cnt] >= 'A' && (dig === curDig || num === 0)) {
+                omit = cnt;
+                pattern++;
+                if (num === 0) {
+                    num = +dig + 1;
+                } else {
+                    num++;
+                }
+            } else {
+                i += cnt - 1;
+            }
+        }
+        if (omit > 0) {
+            if (i > pos) {
+                res.push(data.substring(pos, i));
+            }
+            pos = i + omit;
+            i = pos - 1;
+            omit = 0;
+        }
+    }
+    if (pos < n) {
+        res.push(data.substring(pos));
+    }
+    console.log(data, res);
+    return res;
+};
+

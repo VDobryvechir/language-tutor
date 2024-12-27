@@ -21,7 +21,7 @@
 .repetition-audio__position-grid {
     padding: 3px;
     display: grid;
-    grid-template-columns: 80px 130px 7fr;
+    grid-template-columns: 80px 290px 7fr;
     height: 50vh;
     overflow-y: scroll;
 }

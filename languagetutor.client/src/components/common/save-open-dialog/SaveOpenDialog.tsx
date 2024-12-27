@@ -21,6 +21,9 @@ export interface Props {
     onClose: (value: string) => void;
 }
 const SaveOpenDialog = ({ onClose, operation, dbparams, open }: Props) => {
+    if (!open) {
+        return <></>;
+    }
     const [items, setItems] = useState([]);
     const [filter, setFilter] = useState("");
 

@@ -24,10 +24,10 @@ const BookChooser = ({ }: Props) => {
             <div className="book-chooser__pool">
                 {books.map((b: Book) => (
                     <Link to={b.code} key={b.code }>
-                        <div className="book-chooser__item">
-                            <span>{b.translate[locale] || b.name}</span>
-                            <span>{b.chapters}</span>
-                        </div>
+                        <button className="book-chooser__item">
+                            <div className="book-chooser__item-title"><span>{b.translate[locale] || b.name}</span></div>
+                            <span className="book-chooser__item-info">{b.chapters}</span>
+                        </button>
                     </Link>
                 ))}
             </div>

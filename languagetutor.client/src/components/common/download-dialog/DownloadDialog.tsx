@@ -22,6 +22,9 @@ export interface Props {
     onClose: (value: string) => void;
 }
 const DownloadDialog = ({ onClose, operation, open, url, method, payload, fileName }: Props) => {
+    if (!open) {
+        return <></>;
+    }
     const [name, setName] = useState(fileName);
 
     const handleClose = () => {

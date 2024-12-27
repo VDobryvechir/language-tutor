@@ -1,3 +1,5 @@
+import { RepetitionModel } from "../models/RepetitionModel";
+
 export const milisecondsToTime = (amount: number): string => {
     if (!amount) {
         return "0";
@@ -55,3 +57,95 @@ export const timeToMiliseconds = (time: string): number => {
     amount += multiplyByFractionOf60(3600000, data[2]);
     return amount;
 }
+
+export const clueLinesByIndex = (index: number, data: string[]): string[] => {
+    const ndata = data.slice();
+    if (index < ndata.length - 1) {
+        ndata[index] = ndata[index].trim() + " " + ndata[index + 1];
+        ndata.splice(index + 1, 1);
+    }
+    return ndata;
+};
+
+export const clueNumbersByIndex = (index: number, data: number[]): number[] => {
+    const ndata = data.slice();
+    if (index < ndata.length - 1) {
+        ndata.splice(index + 1, 1);
+    }
+    return ndata;
+};
+
+export const clueLinesInAllSrcAndTargets = (index: number, model: RepetitionModel): RepetitionModel | null => {
+    const len = model.sourceLines.length;
+    if (index < len - 1) {
+        const targetLines = (model.targetLines || []).map((data) => clueLinesByIndex(index, data));
+        return {
+            ...model,
+            targetLines: targetLines,
+            sourceLines: clueLinesByIndex(index, model.sourceLines),
+            audioPositions: clueNumbersByIndex(index, model.audioPositions),
+        }
+    }
+    return null;
+}; 
+
+
+export const splitLineByIndex = (index: number, data: string[]): string[] => {
+    let ndata = data;
+    if (index < data.length) {
+        let nxt = data[index].trim();
+        const pos = nxt.lastIndexOf(' ');
+        if (pos > 0) {
+            data[index] = nxt.substring(0, pos);
+            nxt = nxt.substring(pos + 1);
+        }
+        ndata = data.slice(0, index).concat([nxt], data.slice(index));
+    }
+    return ndata; 
+};
+
+export const splitNumberByIndex = (index: number, data: number[]): number[] => {
+    let ndata = data;
+    if (index < data.length) {
+        const aver = (data[index] + (data[index - 1] || 0)) >> 1;
+        ndata = data.slice(0, index).concat([aver], data.slice(index));
+    }
+    return ndata; 
+};
+
+export const splitLineInAllSrcAndTargets = (index: number, model: RepetitionModel): RepetitionModel | null => {
+    const len = model.sourceLines.length;
+    if (index < len) {
+        const targetLines = (model.targetLines || []).map((data) => splitLineByIndex(index, data));
+        return {
+            ...model,
+            targetLines: targetLines,
+            sourceLines: splitLineByIndex(index, model.sourceLines),
+            audioPositions: splitNumberByIndex(index, model.audioPositions),
+        }
+    }
+    return null;
+};
+
+export const moveWordInStringArray = (lines: string[], srcIndex: number, dstIndex: number, srcFirstWord: boolean): string[] | null => {
+    const n = lines?.length | 0;
+    if (srcIndex < n && srcIndex >= 0 && dstIndex >= 0 && dstIndex < n) {
+        const src = lines[srcIndex].trim();
+        const dst = lines[dstIndex];
+        const pos = srcFirstWord ? src.indexOf(' ') : src.lastIndexOf(' ');
+        if (pos > 0) {
+            const src1 = src.substring(0, pos);
+            const src2 = src.substring(pos + 1);
+            const nlines = lines.slice();
+            if (srcFirstWord) {
+                nlines[srcIndex] = src2;
+                nlines[dstIndex] += ' ' + src1;
+            } else {
+                nlines[srcIndex] = src1;
+                nlines[dstIndex] = src2 + " " + dst;
+            }
+            return nlines;
+        }
+    }
+    return null;
+};

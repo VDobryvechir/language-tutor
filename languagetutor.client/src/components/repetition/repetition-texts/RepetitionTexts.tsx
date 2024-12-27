@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import translate from '../../../i18n/translate';
 import './RepititionTexts.css';
 import { RepetitionModel } from '../../../models/RepetitionModel';
-import { cleanRepetitionModelByTimeRemoving } from '../../../providers/TextProcessing';
+import { cleanRepetitionModelByTimeRemoving, copyFirstPortion, pasteTextFromClipboard, separateTextToLines } from '../../../providers/TextProcessing';
+import { showInfo, showError } from '../../../providers/Notifier';
 
 const RepetitionTexts = ({ repetitionModel, setRepetitionModel }: RepetitionProps) => {
     const refineText = (model: RepetitionModel): RepetitionModel => {
@@ -42,6 +43,33 @@ const RepetitionTexts = ({ repetitionModel, setRepetitionModel }: RepetitionProp
             });
         };
     };
+    const pasteToLastLanguage = () => {
+        pasteTextFromClipboard((t: string) => {
+            const n = repetitionModel.targetLines?.length - 1;
+            if (t && n>=0) {
+                const newPortion = separateTextToLines(t);
+                const newLen = newPortion.length;
+                if (newLen > 0) {
+                    const targetLines = (repetitionModel.targetLines || []).slice();
+                    targetLines[n] = (targetLines[n] || []).concat(newPortion);
+                    const targLen = targetLines[n].length;
+                    const srcLen = repetitionModel.sourceLines?.length || 0;
+                    const diff = srcLen - targLen;
+                    setRepetitionModel({
+                        ...repetitionModel,
+                        targetLines: targetLines,
+                    });
+                    if (diff === 0) {
+                        showInfo(`Added ${newLen} lines. Done with total of ${srcLen}`);
+                    } else if (diff > 0) {
+                        showInfo(`Added ${newLen} lines. ${diff} left`);
+                    } else {
+                        showError(`Added ${newLen} but overhead is ${-diff}`);
+                    }
+                }
+            }
+        });
+    };
     return (
         <>
             <TranslationSource
@@ -62,7 +90,14 @@ const RepetitionTexts = ({ repetitionModel, setRepetitionModel }: RepetitionProp
                     variant="outlined"
                     onClick={() => setRepetitionModel(refineText(repetitionModel))}
                 >{translate("Refine text")}</Button>
-
+                <Button
+                    variant="outlined"
+                    onClick={() => copyFirstPortion(repetitionModel.sourceLines, repetitionModel.targetLines[repetitionModel.targetLines.length-1].length, 5000)}
+                >{translate("Copy")} &lt;5000</Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => pasteToLastLanguage()}
+                >{translate("Paste")}</Button>
             </div>
             {
                 repetitionModel.targetLanguages.map((lng, index) => (

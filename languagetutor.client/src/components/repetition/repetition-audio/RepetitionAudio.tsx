@@ -1,13 +1,18 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { RepetitionProps, extractSaveablePayload } from '../../../providers/RepititionContext';
 import translate from '../../../i18n/translate';
-import {milisecondsToTime, timeToMiliseconds } from '../../../providers/AudioTextUtilities';
+import { milisecondsToTime, timeToMiliseconds, clueLinesInAllSrcAndTargets, splitLineInAllSrcAndTargets, moveWordInStringArray } from '../../../providers/AudioTextUtilities';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import JoinRightIcon from '@mui/icons-material/JoinRight';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
+import AddRoadIcon from '@mui/icons-material/AddRoad';
+import RemoveRoadIcon from '@mui/icons-material/RemoveRoad';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import { AudioTextData } from '../../../models/AudioTextData';
 
 import './RepetitionAudio.css';
@@ -23,6 +28,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { convertToAudioTextBlocks, extractAudioTextData } from '../../../providers/DownloadUtils';
 import InlineTranslation from '../inline-translation/InlineTranslation';
 import { executeTranslationsForSingleLanguage } from '../../../providers/TranslationApi';
+import EditLineDialog from '../../common/edit-line-dialog/EditLineDialog';
 
 const repetitionAudioDbParams = "repetition.chapter.name";
 interface PositionTime {
@@ -74,6 +80,7 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
     const [finishTime, setFinishTime] = useState(-1);
     const [timerCounter, setTimerCounter] = useState(0);
     const [positionTime, dispatchPositionTime] = useReducer(reducePositionTime, repetitionModel, repetitionPositionInit);
+    const [editCurrentLine, saveEditCurrentLine] = useState(-1);
     const initParams = useParams();
     const navigate = useNavigate();
 
@@ -318,6 +325,44 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
         }
         return name || "doc";
     };
+    const clueLines = (index: number) => {
+        const model = clueLinesInAllSrcAndTargets(index, repetitionModel);
+        setRepetitionModelTextReload(model);
+    };
+    const splitLine = (index: number) => {
+        const model = splitLineInAllSrcAndTargets(index, repetitionModel);
+        setRepetitionModelTextReload(model);
+    };
+    const sendWordUp = (index: number) => {
+        const lines = moveWordInStringArray(repetitionModel.sourceLines, index, index - 1, true);
+        if (lines) {
+            setRepetitionModelTextReload({
+                ...repetitionModel,
+                sourceLines: lines,
+            });
+        }
+    };
+    const sendWordDown = (index: number) => {
+        const lines = moveWordInStringArray(repetitionModel.sourceLines, index, index + 1, false);
+        if (lines) {
+            setRepetitionModelTextReload({
+                ...repetitionModel,
+                sourceLines: lines,
+            });
+        }
+    };
+    const setRepetitionModelTextReload = (model?: RepetitionModel | null) => {
+        if (model) {
+            model.monoSourceLines = undefined;
+            setRepetitionModel(model);
+        }
+    };
+    const handleEditCurrentLineClose = (model?: RepetitionModel) => {
+        if (model) {
+            setRepetitionModelTextReload(model);
+        }
+        saveEditCurrentLine(-1);
+    }; 
     useEffect(() => {
         let mounted = true;
         let lang = repetitionModel.sourceLanguage;
@@ -446,6 +491,52 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                             >
                                 <ArrowCircleRightIcon />
                             </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="clue lines"
+                                edge="start"
+                                onClick={() => clueLines(index)}
+                                sx={{ mr: 0 }}
+                            >
+                                <JoinRightIcon />
+                            </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="split line"
+                                edge="start"
+                                onClick={() => splitLine(index)}
+                                sx={{ mr: 0 }}
+                            >
+                                <AirlineStopsIcon />
+                            </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="word up"
+                                edge="start"
+                                onClick={() => sendWordUp(index)}
+                                sx={{ mr: 0 }}
+                            >
+                                <AddRoadIcon />
+                            </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="word down"
+                                edge="start"
+                                onClick={() => sendWordDown(index)}
+                                sx={{ mr: 0 }}
+                            >
+                                <RemoveRoadIcon />
+                            </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="edit line"
+                                edge="start"
+                                onClick={() => saveEditCurrentLine(index)}
+                                sx={{ mr: 0 }}
+                            >
+                                <EditNoteIcon />
+                            </IconButton>
+
                         </div>
                         <div className="repetition-audio__position-grid-text" onClick={() => audioVerse(index)} style={{ backgroundColor: step === index ? 'white' : 'inherit' }}>
                             {index + 1}. {repetitionModel.monoSourceLines && repetitionModel.monoSourceLines[index] ?
@@ -486,7 +577,12 @@ const RepetitionAudio = ({ repetitionModel, setRepetitionModel, saveAudioPositio
                 url="/api/document/upload"
                 method="POST"
             />
-            
+            <EditLineDialog
+                open={editCurrentLine >= 0}
+                onClose={handleEditCurrentLineClose}
+                index={editCurrentLine}
+                model={repetitionModel }
+            />
         </>
     );
 };

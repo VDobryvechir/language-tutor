@@ -3,14 +3,13 @@ import { createContext, useState } from 'react';
 export const UserContext = createContext<any>(null);
 interface Props {
     children: any;
-    locale: string;
-    setLocale: (loc: string) => void;
+    defaultLocale: string;
 };
 
-export const UserContextProvider = ({ children, locale, setLocale }: Props) => {
+export const UserContextProvider = ({ children, defaultLocale }: Props) => {
    const [userInfo, setUserInfo] = useState(null);
    const [isAuth, setIsAuth] = useState(false);
-
+   const [locale, setLocale] = useState(defaultLocale); 
    const login = (name:string, pass: string) => {
        fetch("/api/login", {
            method: "POST",

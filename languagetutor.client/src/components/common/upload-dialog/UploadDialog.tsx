@@ -12,7 +12,9 @@ export interface Props {
     onClose: (value: string) => void;
 }
 const UploadDialog = ({ onClose, operation, open, url, method }: Props) => {
-
+    if (!open) {
+        return <></>;
+    }
     const handleClose = () => {
         onClose("");
     };

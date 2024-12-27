@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using LanguageTutor.Server.Models;
+using Microsoft.Extensions.Primitives;
 using System.Text;
 using System.Web;
 
@@ -15,7 +16,7 @@ namespace LanguageTutor.Server.Services.Translators
         {
             return lng == "nb" || lng == "nn" ? "no" : lng;
         }
-        public void ProcessWord(string word, StringBuilder res, Dictionary<string, string> wordBook)
+        public void ProcessWord(string word, StringBuilder res)
         {
             string lowerCase = word.ToLower();
             res.Append("<a target='_blank' href='");
@@ -28,7 +29,6 @@ namespace LanguageTutor.Server.Services.Translators
             if (_dictionary.TryGetValue(lowerCase, out var entry)) {
                 if (entry.Tr != null && entry.Tr.TryGetValue(_dstLanguage, out string? value))
                 {
-                    wordBook[word] = value;
                     res.Append("<span class='pair-trans'> ");
                     res.Append(value);
                     res.Append("</span>");
